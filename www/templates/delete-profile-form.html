@@ -1,0 +1,22 @@
+<form name="DeleteProfileForm" class="list">
+  <h1>We are sorry that you are leaving!</h1>
+  <br>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email</span>
+    <input placeholder="Email" name="mail" ng-model="mail" type="email" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Password</span>
+    <input placeholder="Password" name="password" ng-model="password" type="password" required>
+  </label>
+  <br>
+
+  <div id="error">
+    <p ng-show="DeleteProfileForm.mail.$error.required">* Email is required!</p>
+    <p ng-show="DeleteProfileForm.password.$error.required">* Password is required!</p>
+    <p ng-show="DeleteProfileForm.mail.$invalid && !DeleteProfileForm.mail.$pristine">* Invalid Email!</p>
+  </div>
+
+  <button class="button button-positive  button-block button-clear"
+          ng-hide="DeleteProfileForm.$invalid" ng-click="goodbye(mail, password)">Delete Profile!</button>
+</form>

@@ -1,0 +1,18 @@
+<ion-view title="Home">
+  <ion-content padding="true">
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input placeholder="Search" type="search">
+    </label>
+    <br>
+    <ion-list>
+      <ion-item ui-sref="provider">Provider 1</ion-item>
+      <ion-item ui-sref="provider">Provider 2</ion-item>
+      <ion-item ui-sref="provider">Provider 3</ion-item>
+    </ion-list>
+
+    <nav mfb-menu position="br" effect="zoomin" active-icon="ion-edit" resting-icon="ion-edit"
+         toggling-method="click" menu-state="status" on-tap="createAnnouncement()">
+    </nav>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,57 @@
+<h1>Sign Up</h1>
+<div id="signup-text">
+  <p>...and start using
+    <strong>FarmIt</strong> instantly!
+  </p>
+</div>
+<form name="signUpForm" class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Name</span>
+    <input placeholder="Name" name="name" ng-model="name" ng-maxlength="50" type="text" required/>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Surname</span>
+    <input placeholder="Surname" name="surname" ng-model="surname" ng-maxlength="50" type="text" required/>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email</span>
+    <input placeholder="Email" name="mail" ng-model="mail" ng-maxlength="50" type="email" required/>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Password</span>
+    <input placeholder="Password" name="password" ng-model="password" type="password" ng-minlength="5" required/>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Telephone Number</span>
+    <input placeholder="Telephone Number" name="tel" ng-model="tel" type="tel" ng-minlength="10" ng-maxlength="15"
+           required/>
+  </label>
+  <br>
+  <ion-checkbox class="checkbox-positive" ng-model="isChecked"
+                ng-change="updateLocalStorage(isChecked)">Remember me
+  </ion-checkbox>
+
+  <div id="error">
+    <p ng-show="signUpForm.name.$error.required">* Name is required!</p>
+    <p ng-show="signUpForm.surname.$error.required">* Surname is required!</p>
+    <p ng-show="signUpForm.mail.$error.required">* Email is required!</p>
+    <p ng-show="signUpForm.password.$error.required">* Password is required!</p>
+    <p ng-show="signUpForm.tel.$error.required">* Telephone Number is required!</p>
+    <p ng-show="signUpForm.mail.$invalid && !signUpForm.mail.$pristine">* Invalid Email!</p>
+    <p ng-show="signUpForm.tel.$invalid && !signUpForm.tel.$pristine">* Invalid Telephone Number!</p>
+    <p ng-show="signUpForm.password.$error.minlength">* Password must be at least 5 characters!</p>
+    <p ng-show="signUpForm.tel.$error.minlength">* Telephone Number must be at least 10 digits!</p>
+    <p ng-show="signUpForm.name.$error.maxlength">* Name can't be more than 50 characters!</p>
+    <p ng-show="signUpForm.surname.$error.maxlength">* Surname can't be more than 50 characters!</p>
+    <p ng-show="signUpForm.mail.$error.maxlength">* Email can't be more than 50 characters!</p>
+    <p ng-show="signUpForm.tel.$error.maxlength">* Telephone Number can't be more than 15 digits!</p>
+  </div>
+
+  <button class="button button-positive button-block button-clear"
+          ng-hide="signUpForm.$invalid || isSpinning" ng-click="farmIn(name, surname, mail, password, tel)">Farm In!
+  </button>
+
+  <div id="progress-ring">
+    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+  </div>
+</form>

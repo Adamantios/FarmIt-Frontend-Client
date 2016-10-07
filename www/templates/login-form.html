@@ -1,0 +1,32 @@
+<h1>Welcome Back!</h1>
+<br>
+<form name="logInForm" class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email</span>
+    <input placeholder="Email" name="mail" ng-model="mail" ng-maxlength="50" type="email" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Password</span>
+    <input placeholder="Password" name="password" ng-model="password" type="password" ng-minlength="5" required>
+  </label>
+  <br>
+  <ion-checkbox class="checkbox-positive" ng-model="isChecked"
+                ng-change="updateLocalStorage(isChecked)">Remember me
+  </ion-checkbox>
+
+  <div id="error">
+    <p ng-show="logInForm.mail.$error.required">* Email is required!</p>
+    <p ng-show="logInForm.password.$error.required">* Password is required!</p>
+    <p ng-show="logInForm.mail.$invalid && !logInForm.mail.$pristine">* Invalid Email!</p>
+    <p ng-show="logInForm.password.$error.minlength">* Password must be at least 5 characters!</p>
+    <p ng-show="logInForm.mail.$error.maxlength">* Email can't be more than 50 characters!</p>
+  </div>
+
+  <button class="button button-positive  button-block button-clear"
+          ng-hide="logInForm.$invalid || isSpinning" ng-click="farmIn(mail, password)">Farm In!
+  </button>
+
+  <div id="progress-ring">
+    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+  </div>
+</form>

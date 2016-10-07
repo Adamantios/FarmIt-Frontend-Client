@@ -1,0 +1,47 @@
+<form class="list" name="addressForm">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Street</span>
+    <input placeholder="Street" name="street" ng-model="street" ng-maxlength="100" type="text" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Number</span>
+    <input placeholder="Number" name="number" ng-model="number" ng-maxlength="45" type="text" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Area</span>
+    <input placeholder="Area" name="area" ng-model="area" ng-maxlength="45" type="text" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Zip Code</span>
+    <input placeholder="Zip Code" name="zip" ng-model="zip" ng-maxlength="10" type="number" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Associated Telephone Number</span>
+    <input placeholder="Associated Telephone Number" name="tel" ng-model="tel" type="tel"
+           ng-minlength="10" ng-maxlength="15" required/>
+  </label>
+
+  <div id="error">
+    <p ng-show="addressForm.street.$error.required">* Street is required!</p>
+    <p ng-show="addressForm.number.$error.required">* Number is required!</p>
+    <p ng-show="addressForm.area.$error.required">* Area is required!</p>
+    <p ng-show="addressForm.zip.$error.required">* Zip Code is required!</p>
+    <p ng-show="addressForm.tel.$error.required">* Telephone Number is required!</p>
+    <p ng-show="addressForm.zip.$invalid && !addressForm.zip.$pristine">* Invalid Zip Code!</p>
+    <p ng-show="addressForm.tel.$invalid && !addressForm.tel.$pristine">* Invalid Telephone Number!</p>
+    <p ng-show="addressForm.tel.$error.minlength">* Telephone Number must be at least 10 digits!</p>
+    <p ng-show="addressForm.street.$error.maxlength">* Street can't be more than 100 characters!</p>
+    <p ng-show="addressForm.number.$error.maxlength">* Number can't be more than 45 characters!</p>
+    <p ng-show="addressForm.area.$error.maxlength">* Area can't be more than 45 characters!</p>
+    <p ng-show="addressForm.zip.$error.maxlength">* Zip can't be more than 10 characters!</p>
+    <p ng-show="addressForm.tel.$error.maxlength">* Telephone Number can't be more than 15 digits!</p>
+  </div>
+
+  <button class="button button-positive button-block button-clear"
+          ng-hide="addressForm.$invalid || isSpinning" ng-click="newAddress(street, number, area, zip, tel)">Ready to go!
+  </button>
+
+  <div id="progress-ring">
+    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+  </div>
+</form>

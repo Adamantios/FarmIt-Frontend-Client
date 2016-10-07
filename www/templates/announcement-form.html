@@ -1,0 +1,42 @@
+<form name="AnnouncementForm" class="list">
+  <div>
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Category
+      </div>
+      <select>
+        <option>Blue</option>
+        <option selected>Green</option>
+        <option>Red</option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Subcategory
+      </div>
+      <select>
+        <option>Blue</option>
+        <option selected>Green</option>
+        <option>Red</option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label class="item item-input item-floating-label">
+      <input placeholder="Amount (kg)" name="amount" ng-model="amount" type="number" required>
+    </label>
+  </div>
+
+  <div id="error">
+    <p ng-show="AnnouncementForm.amount.$error.required">* Amount is required!</p>
+    <p ng-show="AnnouncementForm.amount.$invalid && !AnnouncementForm.amount.$pristine">* Invalid Amount!</p>
+  </div>
+
+  <button class="button button-positive  button-block button-clear"
+          ng-hide="AnnouncementForm.$invalid" ng-click="uploadAnnouncement(????)">Upload
+  </button>
+</form>
