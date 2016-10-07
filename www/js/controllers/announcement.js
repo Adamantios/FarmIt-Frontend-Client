@@ -14,26 +14,12 @@
       $scope.subcategories = [];
 
       CategoriesService.get_categories().then(function ($success) {
-          $scope.categories = $success.data.categories;
-        },
-        function ($error) {
-          // Alert dialog
-          $ionicPopup.alert({
-            title: 'Error!',
-            template: $error.data.message
-          });
-        });
+        $scope.categories = $success.data.categories;
+      });
 
       SubcategoriesService.get_subcategories($scope.selectedCategory).then(function ($success) {
-          $scope.subcategories = $success.data.subcategories;
-        },
-        function ($error) {
-          // Alert dialog
-          $ionicPopup.alert({
-            title: 'Error!',
-            template: $error.data.message
-          });
-        });
+        $scope.subcategories = $success.data.subcategories;
+      });
 
       $scope.uploadAnnouncement = function () {
         if (!NetworkHelperService.isConnected()) {
