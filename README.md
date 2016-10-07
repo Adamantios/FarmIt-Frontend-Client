@@ -1,6 +1,6 @@
 # FarmIt Frontend
-Mobile app for farmers, to sell their products to the final consumers directly.
+Mobile app for farmers, made with ionic framework, in order to sell their products to the final consumers directly.
 
-##Requirements
+## Requirements
 Ionic Framework  
 ng material floating button
