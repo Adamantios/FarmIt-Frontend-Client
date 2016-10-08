@@ -5,27 +5,56 @@
 
   angular.module('app.controllers.announcement', [])
 
-    .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, CategoriesService, SubcategoriesService,
-                                              NetworkHelperService) {
+    .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, $interval, CategoriesService,
+                                              SubcategoriesService, NetworkHelperService) {
       $scope.isSpinning = false;
-      $scope.announcements = {};
-      $scope.announcements.category = null;
-      $scope.announcements.subcategory = null;
+      $scope.products = {};
+      $scope.products.categorySelected = null;
+      $scope.products.subcategorySelected = null;
+      $scope.products.amount = null;
       $scope.categories = {};
       $scope.subcategories = {};
+      $scope.successFlag = false;
+      $scope.product = null;
+      $scope.announcement = {};
 
       CategoriesService.get_categories().success(function ($data) {
         $scope.categories = $data['categories'];
       });
 
       $scope.get_subcategories = function () {
-        alert($scope.announcements.category);
-        SubcategoriesService.get_subcategories($scope.announcements.category).success(function ($data) {
+        SubcategoriesService.get_subcategories($scope.products.categorySelected).success(function ($data) {
           $scope.subcategories = $data['subcategories'];
         });
       };
 
-      $scope.uploadAnnouncement = function () {
+      $scope.addProduct = function () {
+        $scope.product = {
+          category: $scope.products.categorySelected,
+          subcategory: $scope.products.subcategorySelected,
+          amount: $scope.products.amount
+        };
+
+        $scope.announcement += $scope.product;
+
+        $scope.products.categorySelected = null;
+        $scope.products.subcategorySelected = null;
+        $scope.products.amount = null;
+
+        // Success message
+        $scope.successFlag = true;
+
+        // Erase message after 2 second
+        $interval(function () {
+          $scope.successFlag = false;
+        }, 2000);
+      };
+
+      $scope.showAnnouncement = function () {
+
+      };
+
+      $scope.createAnnouncement = function () {
         if (!NetworkHelperService.isConnected()) {
           $scope.isSpinning = true;
 

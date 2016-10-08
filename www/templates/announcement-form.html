@@ -4,7 +4,7 @@
       <div class="input-label">
         Category
       </div>
-      <select ng-model="announcements.category" ng-change="get_subcategories()">
+      <select ng-model="products.categorySelected" ng-change="get_subcategories()">
         <option disabled selected value>Select Category</option>
         <option ng-repeat="category in categories" value="{{category.id}}">
           {{category.name}}
@@ -16,26 +16,42 @@
       <div class="input-label">
         Subcategory
       </div>
-      <select ng-model="announcements.subcategory"
+      <select ng-model="products.subcategorySelected"
               ng-options="subcategory.name for subcategory in subcategories">
         <option disabled selected value>Select Subcategory</option>
       </select>
     </label>
-  </div>
 
-  <div>
     <label class="item item-input item-floating-label">
-      <input placeholder="Amount (kg)" name="amount" ng-model="amount" type="number" required>
+      <input placeholder="Amount (kg)" name="amount" ng-model="products.amount" type="number" required>
     </label>
   </div>
 
-  <div id="error">
-    <p ng-show="AnnouncementForm.amount.$error.required">* Amount is required!</p>
-    <p ng-show="AnnouncementForm.amount.$invalid && !AnnouncementForm.amount.$pristine">* Invalid Amount!</p>
+  <div>
+    <button type="button" class="button button-positive  button-block button-clear"
+            ng-show="!AnnouncementForm.$invalid && !isSpinning
+            && products.categorySelected && products.subcategorySelected && products.amount"
+            ng-click="addProduct()">
+      Add product to your announcement form.
+    </button>
+  </div>
+
+  <div id="success">
+    <p ng-show="successFlag">
+      Product has been added to your announcement form!
+    </p>
+  </div>
+
+  <div>
+    <p ng-show="AnnouncementForm.products.amount.$error.required">* Amount is required!</p>
+    <p ng-show="AnnouncementForm.products.amount.$invalid && !AnnouncementForm.products.amount.$pristine">
+      * Invalid Amount!
+    </p>
   </div>
 
   <button class="button button-positive  button-block button-clear"
-          ng-hide="AnnouncementForm.$invalid || isSpinning" ng-click="uploadAnnouncement()">Upload
+          ng-hide="isSpinning || !$scope.products" ng-click="showAnnouncement()">
+    My Announcement Form
   </button>
 
   <div id="progress-ring">
