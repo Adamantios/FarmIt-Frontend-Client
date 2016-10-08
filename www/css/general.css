@@ -13,7 +13,7 @@ p {
 }
 
 .ng-invalid {
-  color: #e42112;
+  color: red;
 }
 
 .ng-invalid p {
@@ -23,6 +23,10 @@ p {
 
 .button-clear {
   font-weight: 500;
+}
+
+#success {
+  color: green;
 }
 
 #progress-ring {
