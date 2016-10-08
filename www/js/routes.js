@@ -38,9 +38,9 @@
         .state('home.menu-content', {
           url: '/home-menu-content',
           views: {
-            'homeContent' :{
+            'homeContent': {
               templateUrl: 'templates/home-menu-content.html',
-              controller : 'HomeMenuCtrl'
+              controller: 'HomeMenuCtrl'
             }
           }
         })

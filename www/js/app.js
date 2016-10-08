@@ -17,10 +17,24 @@
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           cordova.plugins.Keyboard.disableScroll(true);
         }
+
         if (window.StatusBar) {
           // org.apache.cordova.statusbar required
           StatusBar.styleDefault();
         }
+
+        // If the user isn't connected to the internet, a popup will be shown.
+        document.addEventListener("offline", function () {
+          $ionicPopup.confirm({
+            title: 'No Internet Connection',
+            content: 'Sorry, no internet connectivity detected. Please connect and try again.'
+          })
+            .then(function (result) {
+
+              if (!result)
+                ionic.Platform.exitApp();
+            });
+        }, false);
       });
     });
 })();
