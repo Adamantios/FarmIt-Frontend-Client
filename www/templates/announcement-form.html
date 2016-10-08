@@ -35,7 +35,7 @@
   </div>
 
   <button class="button button-positive  button-block button-clear"
-          ng-hide="AnnouncementForm.$invalid" ng-click="uploadAnnouncement()">Upload
+          ng-hide="AnnouncementForm.$invalid || isSpinning" ng-click="uploadAnnouncement()">Upload
   </button>
 
   <div id="progress-ring">
