@@ -8,18 +8,22 @@
     .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, CategoriesService, SubcategoriesService,
                                               NetworkHelperService) {
       $scope.isSpinning = false;
-      $scope.selectedCategory = null;
-      $scope.selectedSubcategory = null;
-      $scope.categories = [];
-      $scope.subcategories = [];
+      $scope.announcements = {};
+      $scope.announcements.category = null;
+      $scope.announcements.subcategory = null;
+      $scope.categories = {};
+      $scope.subcategories = {};
 
-      CategoriesService.get_categories().then(function ($success) {
-        $scope.categories = $success.data.categories;
+      CategoriesService.get_categories().success(function ($data) {
+        $scope.categories = $data['categories'];
       });
 
-      SubcategoriesService.get_subcategories($scope.selectedCategory).then(function ($success) {
-        $scope.subcategories = $success.data.subcategories;
-      });
+      $scope.get_subcategories = function () {
+        alert($scope.announcements.category);
+        SubcategoriesService.get_subcategories($scope.announcements.category).success(function ($data) {
+          $scope.subcategories = $data['subcategories'];
+        });
+      };
 
       $scope.uploadAnnouncement = function () {
         if (!NetworkHelperService.isConnected()) {
