@@ -1,0 +1,32 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-balanced">
+    <h1 class="title">Your Announcement</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">Add More</button>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="list" ng-repeat="prod in announcement track by $index">
+        <label class="item item-input">
+          <span class="input-label">Category</span>
+          {{prod.category}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Subcategory</span>
+          {{prod.subcategory}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Amount</span>
+          {{prod.amount}}
+        </label>
+
+      <br>
+    </div>
+
+    <button class="button button-positive button-block button-clear"
+            ng-click="createAnnouncement()">Upload Your Announcement
+    </button>
+  </ion-content>
+
+  <div id="progress-ring">
+    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+  </div>
+</ion-modal-view>

@@ -5,7 +5,7 @@
 
   angular.module('app.controllers.announcement', [])
 
-    .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, $interval, CategoriesService,
+    .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, $interval, $ionicModal, CategoriesService,
                                               SubcategoriesService, NetworkHelperService) {
       $scope.isSpinning = false;
       $scope.products = {};
@@ -16,26 +16,26 @@
       $scope.subcategories = {};
       $scope.successFlag = false;
       $scope.product = null;
-      $scope.announcement = {};
+      $scope.announcement = [];
 
       CategoriesService.get_categories().success(function ($data) {
         $scope.categories = $data['categories'];
       });
 
       $scope.get_subcategories = function () {
-        SubcategoriesService.get_subcategories($scope.products.categorySelected).success(function ($data) {
+        SubcategoriesService.get_subcategories($scope.products.categorySelected.id).success(function ($data) {
           $scope.subcategories = $data['subcategories'];
         });
       };
 
       $scope.addProduct = function () {
         $scope.product = {
-          category: $scope.products.categorySelected,
-          subcategory: $scope.products.subcategorySelected,
+          category: $scope.products.categorySelected.name,
+          subcategory: $scope.products.subcategorySelected.name,
           amount: $scope.products.amount
         };
 
-        $scope.announcement += $scope.product;
+        $scope.announcement.push($scope.product);
 
         $scope.products.categorySelected = null;
         $scope.products.subcategorySelected = null;
@@ -50,14 +50,20 @@
         }, 2000);
       };
 
-      $scope.showAnnouncement = function () {
-
-      };
+      $ionicModal.fromTemplateUrl('templates/modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });
 
       $scope.createAnnouncement = function () {
         if (!NetworkHelperService.isConnected()) {
           $scope.isSpinning = true;
-
+          // TODO upload announcement
+          $scope.isSpinning = false;
+          $scope.modal.hide();
+          $state.go('farmit');
         }
 
         else {

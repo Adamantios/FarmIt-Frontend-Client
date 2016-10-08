@@ -4,11 +4,9 @@
       <div class="input-label">
         Category
       </div>
-      <select ng-model="products.categorySelected" ng-change="get_subcategories()">
+      <select ng-model="products.categorySelected" ng-change="get_subcategories()"
+              ng-options="category.name for category in categories">
         <option disabled selected value>Select Category</option>
-        <option ng-repeat="category in categories" value="{{category.id}}">
-          {{category.name}}
-        </option>
       </select>
     </label>
 
@@ -29,7 +27,7 @@
 
   <div>
     <button type="button" class="button button-positive  button-block button-clear"
-            ng-show="!AnnouncementForm.$invalid && !isSpinning
+            ng-show="!AnnouncementForm.$invalid
             && products.categorySelected && products.subcategorySelected && products.amount"
             ng-click="addProduct()">
       Add product to your announcement form.
@@ -50,11 +48,7 @@
   </div>
 
   <button class="button button-positive  button-block button-clear"
-          ng-hide="isSpinning || !$scope.products" ng-click="showAnnouncement()">
-    My Announcement Form
+          ng-hide="$scope.products" ng-click="modal.show()">
+    Show Your Announcement Form
   </button>
-
-  <div id="progress-ring">
-    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
-  </div>
 </form>
