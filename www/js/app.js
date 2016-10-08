@@ -9,8 +9,10 @@
 
   angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, $rootScope) {
       $ionicPlatform.ready(function () {
+        $rootScope.server = "http://localhost:8080/farmit/";
+
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

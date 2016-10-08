@@ -5,14 +5,12 @@
 
   angular.module('app.services.login', [])
 
-    .factory('LogInService', function ($http) {
-      var $connectionString = "http://localhost:8080/farmit/";
-
+    .factory('LogInService', function ($http, $rootScope) {
       /*Does not work!
        *
        return {
        logIn: function ($email, $password) {
-       $http.post($connectionString + 'api/users/login',
+       $http.post($rootScope.server + 'api/users/login',
        {
        'email': $email,
        'password': $password,
@@ -29,7 +27,7 @@
         logIn: function ($email, $password) {
           return $http({
             method: 'POST',
-            url: $connectionString + 'api/users/login',
+            url: $rootScope.server + 'api/users/login',
             data:
             "email=" + $email +
             "&password=" + $password,

@@ -5,14 +5,12 @@
 
   angular.module('app.services.address', [])
 
-    .factory('AddressService', function ($http, $window) {
-      var $connectionString = "http://localhost:8080/farmit/";
-
+    .factory('AddressService', function ($http, $window, $rootScope) {
       return {
         createAddress: function ($street, $number, $area, $zip, $tel) {
           return $http({
             method: 'POST',
-            url: $connectionString + 'api/addresses/insert',
+            url: $rootScope.server + 'api/addresses/insert',
             data: "email=" + $window.localStorage.getItem('email') +
             "&street=" + $street +
             "&number=" + $number +

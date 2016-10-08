@@ -5,14 +5,12 @@
 
   angular.module('app.services.profile', [])
 
-    .factory('DeleteProfileService', function ($http, $window) {
-      var $connectionString = "http://localhost:8080/farmit/";
-
+    .factory('DeleteProfileService', function ($http, $window, $rootScope) {
       return {
         deleteProfile: function ($email, $password) {
           return $http({
             method: 'POST',
-            url: $connectionString + 'api/users/delete',
+            url: $rootScope.server + 'api/users/delete',
             data:
             "email=" + $email +
             "&password=" + $password +

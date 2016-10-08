@@ -5,14 +5,12 @@
 
   angular.module('app.services.signup', [])
 
-    .factory('SignUpService', function ($http) {
-      var $connectionString = "http://localhost:8080/farmit/";
-
+    .factory('SignUpService', function ($http, $rootScope) {
       /*Does not work!
        *
        return {
-       signUp: function ($name, $surname, $email, $password, $tel) {
-       $http.post($connectionString + 'api/users/register',
+       signUp: function ($name, $surname, $email, $password, $tel, $rootScope) {
+       $http.post($rootScope.server + 'api/users/register',
        {
        'name': $name,
        'surname': $surname,
@@ -33,7 +31,7 @@
         signUp: function ($name, $surname, $email, $password, $tel) {
           return $http({
             method: 'POST',
-            url: $connectionString + 'api/users/register',
+            url: $rootScope.server + 'api/users/register',
             data:
             "name=" + $name +
             "&surname=" + $surname +
