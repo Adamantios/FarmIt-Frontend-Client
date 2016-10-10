@@ -26,10 +26,10 @@
     <input placeholder="Telephone Number" name="tel" ng-model="tel" type="tel" ng-minlength="10" ng-maxlength="15"
            required/>
   </label>
+
   <br>
-  <ion-checkbox class="checkbox-positive" ng-model="isChecked"
-                ng-change="updateLocalStorage(isChecked)">Remember me
-  </ion-checkbox>
+
+  <ion-checkbox class="checkbox-positive" ng-model="isChecked">Remember me</ion-checkbox>
 
   <div id="error">
     <p ng-show="signUpForm.name.$error.required">* Name is required!</p>

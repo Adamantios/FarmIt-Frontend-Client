@@ -6,20 +6,15 @@
   angular.module('app.controllers.login', [])
 
     .controller('LogInCtrl', function ($scope, $window, $ionicPopup, $state, LogInService, NetworkHelperService) {
-
       $scope.isSpinning = false;
-      var $remember_me = false;
-
-      $scope.updateLocalStorage = function ($option) {
-        $remember_me = $option;
-      };
+      $scope.isChecked = false;
 
       $scope.farmIn = function ($email, $password) {
-        if (NetworkHelperService.isConnected()) {
+        if (!NetworkHelperService.isConnected()) {
           $scope.isSpinning = true;
 
           LogInService.logIn($email, $password).then(function ($success) {
-            $window.localStorage.setItem('remember_me', $remember_me);
+            $window.localStorage.setItem('remember_me', $scope.isChecked);
             $window.localStorage.setItem('token', $success.data.token);
             $window.localStorage.setItem('email', $success.data.session.email);
             $scope.isSpinning = false;
