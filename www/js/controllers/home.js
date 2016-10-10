@@ -12,7 +12,7 @@
       };
     })
 
-    .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, GetProvidersService) {
+    .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, GetProvidersService) {
       $scope.start = 0;
       $scope.providers = [];
       $scope.moreDataCanBeLoaded = true;
@@ -27,6 +27,11 @@
             },
             function () {
               $scope.moreDataCanBeLoaded = false;
+
+              // Reset value after one minute.
+              $interval(function () {
+                $scope.moreDataCanBeLoaded = true;
+              }, 1000 * 60);
             });
 
         $scope.$broadcast('scroll.infiniteScrollComplete');
