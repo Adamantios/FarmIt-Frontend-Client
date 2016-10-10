@@ -22,7 +22,7 @@
 
     <label class="item item-input item-floating-label">
       <input placeholder="Amount (kg)" name="amount" ng-model="products.amount"
-             type="number" min="1" step="0.5" required>
+             type="number" min="1" step="0.5" ng-change="removePristine()" required>
     </label>
   </div>
 
@@ -43,7 +43,7 @@
 
   <div>
     <p ng-show="AnnouncementForm.amount.$error.required">* Amount is required!</p>
-    <p ng-show="AnnouncementForm.amount.$invalid && !AnnouncementForm.amount.$pristine">
+    <p ng-show="AnnouncementForm.amount.$invalid && !products.amountPristine">
       * Invalid Amount!
     </p>
   </div>

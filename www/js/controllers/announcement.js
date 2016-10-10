@@ -11,12 +11,17 @@
       $scope.products.categorySelected = null;
       $scope.products.subcategorySelected = null;
       $scope.products.amount = null;
+      $scope.products.amountPristine = true;
       $scope.categories = {};
       $scope.subcategories = {};
       $scope.successFlag = false;
       $scope.product = null;
       $scope.announcement = [];
       $scope.isSpinning = false;
+
+      $scope.removePristine = function () {
+        $scope.products.amountPristine = false;
+      };
 
       CategoriesService.get_categories().success(function ($data) {
         $scope.categories = $data['categories'];
@@ -39,6 +44,7 @@
 
         $scope.products.categorySelected = null;
         $scope.products.subcategorySelected = null;
+        $scope.products.amountPristine = true;
         $scope.products.amount = null;
 
         // Success message
