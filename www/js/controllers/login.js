@@ -7,14 +7,14 @@
 
     .controller('LogInCtrl', function ($scope, $window, $ionicPopup, $state, LogInService, NetworkHelperService) {
       $scope.isSpinning = false;
-      $scope.isChecked = false;
+      $scope.login = {'isChecked': false};
 
       $scope.farmIn = function ($email, $password) {
         if (!NetworkHelperService.isConnected()) {
           $scope.isSpinning = true;
 
           LogInService.logIn($email, $password).then(function ($success) {
-            $window.localStorage.setItem('remember_me', $scope.isChecked);
+            $window.localStorage.setItem('remember_me', $scope.login['isChecked']);
             $window.localStorage.setItem('token', $success.data.token);
             $window.localStorage.setItem('email', $success.data.session.email);
             $scope.isSpinning = false;
