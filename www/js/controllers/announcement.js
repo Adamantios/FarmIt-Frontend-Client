@@ -6,8 +6,7 @@
   angular.module('app.controllers.announcement', [])
 
     .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, $interval, $ionicModal, CategoriesService,
-                                              SubcategoriesService, NetworkHelperService) {
-      $scope.isSpinning = false;
+                                              SubcategoriesService, NetworkHelperService, AnnouncementService) {
       $scope.products = {};
       $scope.products.categorySelected = null;
       $scope.products.subcategorySelected = null;
@@ -17,6 +16,7 @@
       $scope.successFlag = false;
       $scope.product = null;
       $scope.announcement = [];
+      $scope.isSpinning = false;
 
       CategoriesService.get_categories().success(function ($data) {
         $scope.categories = $data['categories'];
@@ -30,8 +30,8 @@
 
       $scope.addProduct = function () {
         $scope.product = {
-          category: $scope.products.categorySelected.name,
-          subcategory: $scope.products.subcategorySelected.name,
+          category: $scope.products.categorySelected,
+          subcategory: $scope.products.subcategorySelected,
           amount: $scope.products.amount
         };
 
@@ -53,17 +53,43 @@
       $ionicModal.fromTemplateUrl('templates/modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
-      }).then(function(modal) {
+      }).then(function (modal) {
         $scope.modal = modal;
+        $scope.products.price = null;
+        $scope.products.duration = 1;
       });
 
-      $scope.createAnnouncement = function () {
-        if (!NetworkHelperService.isConnected()) {
-          $scope.isSpinning = true;
-          // TODO upload announcement
-          $scope.isSpinning = false;
+      $scope.DeleteProduct = function ($index) {
+        $scope.announcement.splice($index, 1);
+
+        if ($scope.announcement.length == 0) {
+          $scope.products.price = null;
+          $scope.products.duration = 1;
           $scope.modal.hide();
-          $state.go('farmit');
+        }
+      };
+
+      $scope.createAnnouncement = function () {
+        if (NetworkHelperService.isConnected()) {
+          $scope.isSpinning = true;
+
+          AnnouncementService.upload($scope.announcement, $scope.products.price, $scope.products.duration)
+            .then(function () {
+              $scope.announcement = [];
+              $scope.products.price = null;
+              $scope.products.duration = 1;
+              $scope.isSpinning = false;
+              $scope.modal.hide();
+              $state.go('home.menu-content');
+            }, function () {
+              $scope.isSpinning = false;
+
+              // Alert dialog
+              $ionicPopup.alert({
+                title: 'Error!',
+                template: 'Something went wrong while trying to upload your announcement! Please try again!'
+              });
+            });
         }
 
         else {

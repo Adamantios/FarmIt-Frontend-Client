@@ -4,27 +4,53 @@
     <button class="button button-clear button-primary" ng-click="modal.hide()">Add More</button>
   </ion-header-bar>
   <ion-content class="padding">
-    <div class="list" ng-repeat="prod in announcement track by $index">
+    <form name="ProductsForm" class="list">
+      <div class="list" ng-repeat="prod in announcement track by $index" ng-hide="">
         <label class="item item-input">
           <span class="input-label">Category</span>
-          {{prod.category}}
+          {{prod.category.name}}
         </label>
         <label class="item item-input">
           <span class="input-label">Subcategory</span>
-          {{prod.subcategory}}
+          {{prod.subcategory.name}}
         </label>
         <label class="item item-input">
           <span class="input-label">Amount (kg)</span>
           {{prod.amount}}
         </label>
-    </div>
 
-    <button class="button button-positive button-block button-clear"
-            ng-click="createAnnouncement()">Upload Your Announcement
-    </button>
+        <br>
+
+        <a class="deleteButton" ng-click="DeleteProduct($index)">
+          Remove Product
+        </a>
+      </div>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Highest Price &euro; (optional)</span>
+        <input placeholder="Highest Price (optional)" name="price" ng-model="products.price" type="number" min="1">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Duration (days)</span>
+        <input placeholder="Announcement Duration (days)" name="duration" ng-model="products.duration"
+               type="number" min=1 minlength="1" required>
+      </label>
+
+      <div>
+        <p ng-show="ProductsForm.duration.$error.required">* Announcement duration is required!</p>
+        <p ng-show="ProductsForm.duration.$error.minlength">* Announcement duration has to be one day or longer!</p>
+        <p ng-show="ProductsForm.duration.$invalid && !ProductsForm.duration.$pristine">* Invalid Duration!</p>
+        <p ng-show="ProductsForm.price.$invalid && !ProductsForm.price.$pristine">* Invalid Price!</p>
+      </div>
+
+      <button class="button button-positive button-block button-clear"
+              ng-click="createAnnouncement()" ng-hide="isSpinning">Upload Your Announcement
+      </button>
+
+      <div id="progress-ring">
+        <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+      </div>
+    </form>
   </ion-content>
-
-  <div id="progress-ring">
-    <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
-  </div>
 </ion-modal-view>
