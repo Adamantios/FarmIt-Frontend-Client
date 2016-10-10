@@ -8,15 +8,16 @@
     .factory('DeleteProfileService', function ($http, $window, $rootScope) {
       return {
         deleteProfile: function ($email, $password) {
-          return $http({
-            method: 'POST',
-            url: $rootScope.server + 'api/users/delete',
-            data:
-            "email=" + $email +
-            "&password=" + $password +
-            "&token=" + $window.localStorage.getItem('token'),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          })
+          var $url = $rootScope.server + 'api/users/delete';
+
+          var $parameters =
+          {
+            "email": $email,
+            "password": $password,
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
             .success(function ($returnedData) {
               return $returnedData;
             })

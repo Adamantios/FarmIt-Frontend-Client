@@ -8,18 +8,20 @@
     .factory('AddressService', function ($http, $window, $rootScope) {
       return {
         createAddress: function ($street, $number, $area, $zip, $tel) {
-          return $http({
-            method: 'POST',
-            url: $rootScope.server + 'api/addresses/insert',
-            data: "email=" + $window.localStorage.getItem('email') +
-            "&street=" + $street +
-            "&number=" + $number +
-            "&area=" + $area +
-            "&zip_code=" + $zip +
-            "&tel_num=" + $tel +
-            "&token=" + $window.localStorage.getItem('token'),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          })
+          var $url = $rootScope.server + 'api/addresses/insert';
+
+          var $parameters =
+          {
+            "email": $window.localStorage.getItem('email'),
+            "street": $street,
+            "number": $number,
+            "area": $area,
+            "zip_code": $zip,
+            "tel_num": $tel,
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
             .success(function ($returnedData) {
               return $returnedData;
             })
