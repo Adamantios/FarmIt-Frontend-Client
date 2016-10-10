@@ -24,13 +24,13 @@
             $window.localStorage.setItem('email', $success.data.session.email);
             $scope.isSpinning = false;
             $state.go('first-address');
-          }, function ($error) {
+          }, function () {
             $scope.isSpinning = false;
 
             // Alert dialog
             $ionicPopup.alert({
               title: 'Error!',
-              template: $error.data.message
+              template: 'Something went wrong while trying to signup! Please try again!'
             });
           });
         }

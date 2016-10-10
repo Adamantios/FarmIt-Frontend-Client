@@ -14,13 +14,13 @@
         AddressService.createAddress($street, $number, $area, $zip, $tel).then(function () {
           $scope.isSpinning = false;
           $state.go('home.menu-content');
-        }, function ($error) {
+        }, function () {
           $scope.isSpinning = false;
 
           // Alert dialog
           $ionicPopup.alert({
             title: 'Error!',
-            template: $error.data.message
+            template: 'Something went wrong while trying to create your first address! Please try again!'
           });
         });
       };

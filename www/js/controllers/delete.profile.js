@@ -22,12 +22,12 @@
                 $scope.isSpinning = false;
                 $state.go('farmit');
               },
-              function ($error) {
+              function () {
                 $scope.isSpinning = false;
                 // Alert dialog
                 $ionicPopup.alert({
                   title: 'Error!',
-                  template: $error.data.message
+                  template: 'Something went wrong while trying to delete your profile! Please try again!'
                 });
               });
           }
