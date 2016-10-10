@@ -16,6 +16,7 @@
 
           if ($email == $window.localStorage.getItem('email')) {
             DeleteProfileService.deleteProfile($email, $password).then(function () {
+                $state.go('home.menu-content');
                 $window.localStorage.setItem('remember_me', false);
                 $window.localStorage.setItem('token', null);
                 $window.localStorage.setItem('email', null);

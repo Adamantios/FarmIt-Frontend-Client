@@ -14,15 +14,15 @@
           template: 'Are you sure you want to log out?'
         });
 
-        confirmPopup.then(function (result) {
-          if (result) {
+        confirmPopup.then(function ($ok) {
+          if ($ok) {
+            $state.go('home.menu-content');
             $window.localStorage.setItem('remember_me', false);
             $window.localStorage.setItem('token', null);
             $window.localStorage.setItem('email', null);
             $state.go('farmit');
           }
         });
-
       };
     })
 })();
