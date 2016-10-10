@@ -10,7 +10,7 @@
       $scope.login = {'isChecked': false};
 
       $scope.farmIn = function ($email, $password) {
-        if (!NetworkHelperService.isConnected()) {
+        if (NetworkHelperService.isConnected()) {
           $scope.isSpinning = true;
 
           LogInService.logIn($email, $password).then(function ($success) {
