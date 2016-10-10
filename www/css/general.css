@@ -56,6 +56,19 @@ p {
   top:1px;
 }
 
+.card {
+  font-weight: lighter;
+  font-variant: small-caps;
+  text-align: center;
+  box-shadow: 3px 2px 5px #178025;
+}
+
+#farm_text {
+  font-weight: bold;
+  color: #178025;
+  text-shadow: 1px 1px 3px #178025;
+}
+
 #progress-ring {
   margin-top: 10px;
   margin-left: auto;
