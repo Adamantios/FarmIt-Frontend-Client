@@ -7,22 +7,7 @@
 
     <br>
 
-    <h1 id="farm_text">Providers</h1>
-
-    <div ng-repeat="providerchunk in providers">
-      <div class="card" ng-repeat="provider in providerchunk">
-        <div class="item item-text-wrap" ui-sref="provider">
-          <h2>
-            {{provider.name}}
-          </h2>
-          <div>
-            <i class="icon ion-iphone"></i> {{provider.tel_num}}
-            <br>
-            <i class="icon ion-ios-email"></i> {{provider.email}}
-          </div>
-        </div>
-      </div>
-    </div>
+    <providers-card></providers-card>
 
     <ion-infinite-scroll
       ng-if="moreDataCanBeLoaded"
