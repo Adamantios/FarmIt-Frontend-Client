@@ -19,9 +19,26 @@
             .error(function ($returnedData) {
               return $returnedData;
             });
+        },
+
+        getResults: function ($match, $start) {
+          var $url = $rootScope.server + 'api/products/search_products';
+
+          var $parameters =
+          {
+            'start': $start,
+            'match': $match
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
         }
       };
-
     })
 
 })();

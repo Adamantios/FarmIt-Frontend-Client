@@ -1,0 +1,23 @@
+<h1 id="farm_text">Results</h1>
+
+<div class="card" ng-repeat="product in resultsProducts[0]">
+  <div class="item item-text-wrap" ui-sref="provider">
+    <h2>
+      {{resultsProviders[0][$index].name}}
+    </h2>
+    Product: {{product.name}}
+    <br>
+    Origin: {{product.origin}}
+    <br>
+    Description: {{product.descr}}
+  </div>
+</div>
+
+<h3 id="error" ng-show="!resultsProducts.length && !isSpinning && !stillSearching">No Results found!</h3>
+
+<ion-infinite-scroll
+  ng-if="moreResultsCanBeLoaded"
+  icon="android"
+  on-infinite="loadMoreResults()"
+  distance="1%">
+</ion-infinite-scroll>

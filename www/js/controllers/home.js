@@ -13,9 +13,22 @@
     })
 
     .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, GetProvidersService) {
+      $scope.isSpinning = false;
       $scope.start = 0;
+      $scope.searchStart = 0;
       $scope.providers = [];
+      $scope.resultsProviders = [];
+      $scope.resultsProducts = [];
       $scope.moreDataCanBeLoaded = true;
+      $scope.moreResultsCanBeLoaded = false;
+      $scope.home = {};
+      $scope.home.searchField = null;
+      $scope.stillSearching = false;
+
+      $scope.pokeProgressRing = function () {
+        $scope.isSpinning = !($scope.resultsProviders && $scope.resultsProducts
+        && !$scope.home.searchField && $scope.moreResultsCanBeLoaded);
+      };
 
       $scope.loadMoreData = function () {
         $scope.moreDataCanBeLoaded = false;
@@ -37,8 +50,47 @@
         $scope.$broadcast('scroll.infiniteScrollComplete');
       };
 
+      $scope.userHasScrolledABit = function () {
+        return $ionicScrollDelegate.$getByHandle('mainScroll').getScrollPosition().top;
+      };
+
+      $scope.search = function () {
+        $scope.stillSearching = true;
+        $scope.resultsProviders = [];
+        $scope.resultsProducts = [];
+        $scope.searchStart = 0;
+        $scope.moreResultsCanBeLoaded = true;
+        $scope.loadMoreResults();
+      };
+
+      $scope.loadMoreResults = function () {
+        $scope.pokeProgressRing();
+        $scope.moreResultsCanBeLoaded = false;
+        GetProvidersService.getResults($scope.home.searchField, $scope.searchStart)
+          .then(function ($success) {
+              $scope.stillSearching = false;
+              $scope.searchStart += $success.data.data.products.length;
+              $scope.resultsProviders.push($success.data.data.producers);
+              $scope.resultsProducts.push($success.data.data.products);
+              $scope.moreResultsCanBeLoaded = true;
+            },
+            function () {
+              $scope.stillSearching = false;
+              $scope.moreResultsCanBeLoaded = false;
+              $scope.isSpinning = false;
+
+              // Reset value after one minute.
+              $interval(function () {
+                $scope.moreResultsCanBeLoaded = true;
+              }, 1000 * 60);
+            });
+
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      };
+
       $scope.$on('$stateChangeSuccess', function () {
         $scope.loadMoreData();
+        $scope.loadMoreResults();
       });
 
       $scope.scrollToTop = function () {

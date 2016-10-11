@@ -14,3 +14,10 @@
     </div>
   </div>
 </div>
+
+<ion-infinite-scroll
+  ng-if="moreDataCanBeLoaded"
+  icon="android"
+  on-infinite="loadMoreData()"
+  distance="1%">
+</ion-infinite-scroll>

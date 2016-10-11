@@ -1,25 +1,23 @@
 <ion-view title="Home">
   <ion-content padding="true" delegate-handle="mainScroll">
     <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input placeholder="Search" type="search">
+      <i class="icon ion-search placeholder-icon" ng-click="search()"></i>
+      <input placeholder="Search" type="search" ng-model="home.searchField" ng-change="search()">
     </label>
 
     <br>
 
-    <providers-card></providers-card>
+    <providers-search-card ng-show="home.searchField"></providers-search-card>
+    <providers-card ng-hide="home.searchField"></providers-card>
 
-    <ion-infinite-scroll
-      ng-if="moreDataCanBeLoaded"
-      icon="android"
-      on-infinite="loadMoreData()"
-      distance="1%">
-    </ion-infinite-scroll>
+    <div id="progress-ring">
+      <ion-spinner ng-show="isSpinning" ng-hide="!home.searchField" icon="android"></ion-spinner>
+    </div>
   </ion-content>
 
   <!--suppress HtmlUnknownAttribute -->
   <nav mfb-menu position="bl" effect="zoomin" resting-icon="ion-android-arrow-up" active-icon="ion-android-arrow-up"
-       toggling-method="click" menu-state="status" on-tap="scrollToTop()">
+       toggling-method="click" menu-state="status" on-tap="scrollToTop()" ng-show="userHasScrolledABit()">
   </nav>
 
   <!--suppress HtmlUnknownAttribute -->

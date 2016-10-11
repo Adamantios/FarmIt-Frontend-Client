@@ -12,4 +12,11 @@
       };
     })
 
+    .directive('providersSearchCard', function(){
+      return{
+        restrict:'E',
+        templateUrl:'templates/providers-search-card.html'
+      };
+    })
+
 })();
