@@ -1,5 +1,5 @@
 <ion-view title="Home">
-  <ion-content padding="true" delegate-handle="small">
+  <ion-content padding="true" delegate-handle="mainScroll">
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
       <input placeholder="Search" type="search">
@@ -26,7 +26,7 @@
 
     <ion-infinite-scroll
       ng-if="moreDataCanBeLoaded"
-      icon="ion-loading-c"
+      icon="android"
       on-infinite="loadMoreData()"
       distance="1%">
     </ion-infinite-scroll>

@@ -42,7 +42,7 @@
       });
 
       $scope.scrollToTop = function () {
-        $ionicScrollDelegate.$getByHandle('small').scrollTop();
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop(true);
       };
 
       $scope.createAnnouncement = function () {
