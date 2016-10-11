@@ -18,6 +18,7 @@
       $scope.searchStart = 0;
       $scope.providers = [];
       $scope.resultsProviders = [];
+      $scope.resultsProvidersMatched = [];
       $scope.resultsProducts = [];
       $scope.moreDataCanBeLoaded = true;
       $scope.moreResultsCanBeLoaded = false;
@@ -26,7 +27,7 @@
       $scope.stillSearching = false;
 
       $scope.pokeProgressRing = function () {
-        $scope.isSpinning = !($scope.resultsProviders && $scope.resultsProducts
+        $scope.isSpinning = !($scope.resultsProviders && $scope.resultsProducts && $scope.resultsProvidersMatched
         && !$scope.home.searchField && $scope.moreResultsCanBeLoaded);
       };
 
@@ -58,6 +59,7 @@
         $scope.stillSearching = true;
         $scope.resultsProviders = [];
         $scope.resultsProducts = [];
+        $scope.resultsProvidersMatched = [];
         $scope.searchStart = 0;
         $scope.moreResultsCanBeLoaded = true;
         $scope.loadMoreResults();
@@ -71,6 +73,7 @@
               $scope.stillSearching = false;
               $scope.searchStart += $success.data.data.products.length;
               $scope.resultsProviders.push($success.data.data.producers);
+              $scope.resultsProvidersMatched.push($success.data.data.producers_matched);
               $scope.resultsProducts.push($success.data.data.products);
               $scope.moreResultsCanBeLoaded = true;
             },

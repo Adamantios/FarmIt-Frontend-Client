@@ -22,7 +22,7 @@
         },
 
         getResults: function ($match, $start) {
-          var $url = $rootScope.server + 'api/products/search_products';
+          var $url = $rootScope.server + 'api/products/search_products_producers';
 
           var $parameters =
           {

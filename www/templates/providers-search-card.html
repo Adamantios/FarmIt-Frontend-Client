@@ -5,11 +5,29 @@
     <h2>
       {{resultsProviders[0][$index].name}}
     </h2>
+    <div>
+      <i class="icon ion-iphone"></i> {{resultsProviders[0][$index].tel_num}}
+      <br>
+      <i class="icon ion-ios-email"></i> {{resultsProviders[0][$index].email}}
+    </div>
     Product: {{product.name}}
     <br>
     Origin: {{product.origin}}
     <br>
     Description: {{product.descr}}
+  </div>
+</div>
+
+<div class="card" ng-repeat="provider in resultsProvidersMatched[0]">
+  <div class="item item-text-wrap" ui-sref="provider">
+    <h2>
+      {{provider.name}}
+    </h2>
+    <div>
+      <i class="icon ion-iphone"></i> {{provider.tel_num}}
+      <br>
+      <i class="icon ion-ios-email"></i> {{provider.email}}
+    </div>
   </div>
 </div>
 
