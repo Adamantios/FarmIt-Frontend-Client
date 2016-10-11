@@ -31,6 +31,7 @@
   </div>
 </div>
 
+<br ng-show="!resultsProducts.length && !isSpinning && !stillSearching">
 <h3 id="error" ng-show="!resultsProducts.length && !isSpinning && !stillSearching">No Results found!</h3>
 
 <ion-infinite-scroll
