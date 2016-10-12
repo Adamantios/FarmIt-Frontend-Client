@@ -103,6 +103,7 @@
         if ($scope.cartProducts.length == 0)
           $scope.modal.hide();
 
+        $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
       };
 
       $scope.buy = function () {
