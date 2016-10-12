@@ -34,14 +34,6 @@ ion-item {
   font-weight: 500;
 }
 
-#success {
-  color: green;
-}
-
-#error {
-  color: red;
-}
-
 .deleteButton {
   -moz-box-shadow:inset 0 34px 2px 5px #e67a73;
   -webkit-box-shadow:inset 0 34px 2px 5px #e67a73;
@@ -75,6 +67,14 @@ ion-item {
   box-shadow: 3px 2px 5px #178025;
 }
 
+#success {
+  color: green;
+}
+
+#error {
+  color: red;
+}
+
 #farm_text {
   font-weight: bold;
   color: #178025;
@@ -87,4 +87,8 @@ ion-item {
   margin-right: auto;
   width: 45px;
   height: 45px;
+}
+
+#basic ion-item {
+  text-align: left;
 }
