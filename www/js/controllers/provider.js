@@ -12,6 +12,7 @@
       $scope.products = [];
       $scope.fromSearch = $stateParams.fromSearch;
       $scope.quantity = 0.5;
+      $scope.productToAdd = null;
       $scope.cartProducts = [];
       $scope.stillSearching = false;
       $scope.isSpinning = false;
@@ -66,8 +67,16 @@
                   // Don't allow the user to close unless he enters quantity.
                   e.preventDefault();
                 }
-                else
+                else {
+                  $scope.productToAdd =
+                  {
+                    'id': $id,
+                    'name': $name,
+                    'quantity': $scope.quantity,
+                    'price': $scope.price
+                  };
                   return $scope.quantity;
+                }
               }
             }
           ]
@@ -75,14 +84,7 @@
 
         popup.then(function (ok) {
           if (ok) {
-            var $product =
-            {
-              'id': $id,
-              'quantity': $scope.quantity,
-              'price': $scope.price
-            };
-
-            $scope.cartProducts.push($product);
+            $scope.cartProducts.push($scope.productToAdd);
             $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
           }
         });
@@ -94,6 +96,18 @@
       }).then(function (modal) {
         $scope.modal = modal;
       });
+
+      $scope.deleteProduct = function ($index) {
+        $scope.cartProducts.splice($index, 1);
+
+        if ($scope.cartProducts.length == 0)
+          $scope.modal.hide();
+
+      };
+
+      $scope.buy = function () {
+
+      };
 
       $scope.initializeView();
     })

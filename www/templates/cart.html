@@ -4,9 +4,36 @@
     <button class="button button-clear button-primary" ng-click="modal.hide()">Add More</button>
   </ion-header-bar>
 
-  <ion-content padding="true">
-    <a class="button button-positive  button-block button-clear" id="purchase" ui-sref="chat">
-      I want them all!
-    </a>
+  <ion-content class="padding">
+    <form name="cart" class="list">
+      <div class="list" ng-repeat="product in cartProducts track by $index">
+        <label class="item item-input">
+          <span class="input-label">Product</span>
+          {{product.name}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Quantity (kg)</span>
+          {{product.quantity}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Price (&euro;)</span>
+          {{product.price}}
+        </label>
+
+        <br>
+
+        <a class="deleteButton" ng-click="deleteProduct($index)">
+          Remove Product
+        </a>
+      </div>
+
+      <button class="button button-positive button-block button-clear"
+              ng-click="buy()" ng-hide="isSpinning">Purchase Products
+      </button>
+
+      <div id="progress-ring">
+        <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+      </div>
+    </form>
   </ion-content>
 </ion-modal-view>
