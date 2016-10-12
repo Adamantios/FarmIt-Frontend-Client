@@ -1,7 +1,7 @@
 <h1 id="farm_text">Results</h1>
 
 <div class="card" ng-repeat="product in resultsProducts[0]">
-  <div class="item item-text-wrap" ui-sref="provider" ng-click="searchRedirect()">
+  <div class="item item-text-wrap" ui-sref="provider" ng-click="searchRedirect(resultsProviders[0][$index], product)">
     <h2>
       {{resultsProviders[0][$index].name}}
     </h2>
@@ -15,6 +15,8 @@
     Origin: {{product.origin}}
     <br>
     Description: {{product.descr}}
+    <br>
+    Price: {{product.unit_price}}&euro;/kg
   </div>
 </div>
 

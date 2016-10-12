@@ -104,17 +104,23 @@
         $state.go('announcement');
       };
 
-      $scope.redirect = function () {
-        var $parameters = [];
-        $parameters.push($scope.providers, {'fromSearch': false});
+      $scope.redirect = function ($provider) {
+        var $parameters =
+        {
+          'provider': $provider,
+          'fromSearch': false
+        };
 
         $state.go('provider', $parameters);
       };
 
-      $scope.searchRedirect = function () {
-        var $parameters = [];
-        $parameters.push($scope.resultsProviders, $scope.resultsProvidersMatched, $scope.resultsProducts,
-          {'fromSearch': true});
+      $scope.searchRedirect = function ($provider, $product) {
+        var $parameters =
+        {
+          'provider': $provider,
+          'product': $product,
+          'fromSearch': true
+        };
 
         $state.go('provider', $parameters);
       };

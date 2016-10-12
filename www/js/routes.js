@@ -52,8 +52,8 @@
         })
 
         .state('provider', {
-          url: '/provider',
           templateUrl: 'templates/provider.html',
+          params: {'provider': null, 'product': null, 'fromSearch': false},
           controller: 'ProviderCtrl'
         })
 

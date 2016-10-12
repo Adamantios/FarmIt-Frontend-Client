@@ -1,0 +1,30 @@
+<ion-content padding="true" ng-show="fromSearch">
+  <ion-item>
+    <h1>{{provider.name}}</h1>
+    <div>
+      <i class="icon ion-iphone"></i> {{provider.tel_num}}
+      <br>
+      <i class="icon ion-ios-email"></i> {{provider.email}}
+    </div>
+  </ion-item>
+
+  <div class="card">
+    <div class="item item-text-wrap" ng-click="">
+      <h2>
+        {{product.name}}
+      </h2>
+      <div>
+        <br>
+        Origin: {{product.origin}}
+        <br>
+        Description: {{product.descr}}
+        <br>
+        Price: {{product.unit_price}}&euro;/kg
+      </div>
+    </div>
+  </div>
+
+  <button class="button button-positive  button-block button-clear" ng-click="getAllProducts()">
+    All the producer's products.
+  </button>
+</ion-content>

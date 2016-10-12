@@ -16,6 +16,11 @@ p {
   text-align: center;
 }
 
+ion-item {
+  font-weight: lighter;
+  text-align: center;
+}
+
 .ng-invalid {
   color: red;
 }

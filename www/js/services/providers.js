@@ -37,6 +37,19 @@
             .error(function ($returnedData) {
               return $returnedData;
             });
+        },
+
+        getProducts: function ($email) {
+          var $url = $rootScope.server + 'api/products/get_products_by_producer_email';
+          var $parameter = {'email': $email};
+
+          return $http.post($url, $parameter)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
         }
       };
     })

@@ -2,7 +2,7 @@
 
 <div ng-repeat="providerchunk in providers">
   <div class="card" ng-repeat="provider in providerchunk">
-    <div class="item item-text-wrap" ng-click="redirect()">
+    <div class="item item-text-wrap" ng-click="redirect(provider)">
       <h2>
         {{provider.name}}
       </h2>

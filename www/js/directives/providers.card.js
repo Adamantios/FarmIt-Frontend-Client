@@ -19,4 +19,18 @@
       };
     })
 
+    .directive('providerInfoCard', function(){
+      return{
+        restrict:'E',
+        templateUrl:'templates/provider-info-card.html'
+      };
+    })
+
+    .directive('providerInfoAfterSearchCard', function(){
+      return{
+        restrict:'E',
+        templateUrl:'templates/provider-info-after-search-card.html'
+      };
+    })
+
 })();
