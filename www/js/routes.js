@@ -99,9 +99,9 @@
           controller: 'ChatCtrl'
         })
 
-        .state('purchase', {
-          url: '/purchase',
-          templateUrl: 'templates/purchase.html',
+        .state('cart', {
+          url: '/cart',
+          templateUrl: 'templates/cart.html',
           controller: 'PurchaseCtrl'
         })
 

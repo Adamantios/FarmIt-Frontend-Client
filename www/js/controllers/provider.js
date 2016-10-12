@@ -5,7 +5,8 @@
 
   angular.module('app.controllers.provider', [])
 
-    .controller('ProviderCtrl', function ($scope, $stateParams, $window, $ionicPopup, GetProvidersService) {
+    .controller('ProviderCtrl', function ($scope, $stateParams, $window, $ionicPopup, $ionicModal,
+                                          GetProvidersService) {
       $scope.provider = null;
       $scope.product = null;
       $scope.products = [];
@@ -38,14 +39,14 @@
         $scope.stillSearching = true;
         $scope.isSpinning = true;
         GetProvidersService.getProducts($scope.provider.email).then(function ($success) {
-          $scope.stillSearching = false;
-          $scope.products.push($success.data.data);
-          $scope.isSpinning = false;
-        },
-        function () {
-          $scope.stillSearching = false;
-          $scope.isSpinning = false;
-        })
+            $scope.stillSearching = false;
+            $scope.products.push($success.data.data);
+            $scope.isSpinning = false;
+          },
+          function () {
+            $scope.stillSearching = false;
+            $scope.isSpinning = false;
+          })
       };
 
       $scope.addToCart = function ($id, $name, $price) {
@@ -86,6 +87,13 @@
           }
         });
       };
+
+      $ionicModal.fromTemplateUrl('templates/cart.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
 
       $scope.initializeView();
     })
