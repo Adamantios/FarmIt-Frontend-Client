@@ -14,6 +14,7 @@
       $scope.quantity = 0.5;
       $scope.productToAdd = null;
       $scope.cartProducts = [];
+      $scope.totalPrice = 0;
       $scope.stillSearching = false;
       $scope.isSpinning = false;
 
@@ -97,7 +98,15 @@
         $scope.modal = modal;
       });
 
+      $scope.openCart = function () {
+        $scope.modal.show();
+        angular.forEach($scope.cartProducts, function(product) {
+          $scope.totalPrice += parseFloat(product.price);
+        });
+      };
+
       $scope.deleteProduct = function ($index) {
+        $scope.totalPrice -= parseFloat($scope.cartProducts[$index].price);
         $scope.cartProducts.splice($index, 1);
 
         if ($scope.cartProducts.length == 0)
