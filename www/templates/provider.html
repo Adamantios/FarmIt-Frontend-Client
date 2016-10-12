@@ -2,6 +2,11 @@
   <ion-nav-buttons side="left">
     <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button-icon icon ion-android-cart badge badge-stable" ui-sref="purchase">
+      {{cartProducts.length}}
+    </button>
+  </ion-nav-buttons>
 
   <provider-info-card></provider-info-card>
   <provider-info-after-search-card></provider-info-after-search-card>
