@@ -56,7 +56,7 @@
         }, 2000);
       };
 
-      $ionicModal.fromTemplateUrl('templates/modal.html', {
+      $ionicModal.fromTemplateUrl('templates/announcement-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function (modal) {
