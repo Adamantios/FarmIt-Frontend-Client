@@ -105,12 +105,17 @@
       };
 
       $scope.redirect = function () {
-        $state.go('provider', $scope.providers);
+        var $parameters = [];
+        $parameters.push($scope.providers, {'fromSearch': false});
+
+        $state.go('provider', $parameters);
       };
 
       $scope.searchRedirect = function () {
         var $parameters = [];
-        $parameters.push($scope.resultsProviders, $scope.resultsProvidersMatched, $scope.resultsProducts);
+        $parameters.push($scope.resultsProviders, $scope.resultsProvidersMatched, $scope.resultsProducts,
+          {'fromSearch': true});
+
         $state.go('provider', $parameters);
       };
     })
