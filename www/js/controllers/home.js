@@ -103,6 +103,16 @@
       $scope.createAnnouncement = function () {
         $state.go('announcement');
       };
+
+      $scope.redirect = function () {
+        $state.go('provider', $scope.providers);
+      };
+
+      $scope.searchRedirect = function () {
+        var $parameters = [];
+        $parameters.push($scope.resultsProviders, $scope.resultsProvidersMatched, $scope.resultsProducts);
+        $state.go('provider', $parameters);
+      };
     })
 
 })();
