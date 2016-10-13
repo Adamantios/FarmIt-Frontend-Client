@@ -8,6 +8,10 @@
     <form name="cart" class="list">
       <div class="list" ng-repeat="product in cartProducts track by $index">
         <label class="item item-input">
+          <span class="input-label">Provider</span>
+          {{product.providerName}}
+        </label>
+        <label class="item item-input">
           <span class="input-label">Product</span>
           {{product.name}}
         </label>
@@ -16,8 +20,8 @@
           {{product.quantity}}
         </label>
         <label class="item item-input">
-          <span class="input-label">Price (&euro;)</span>
-          {{product.price}}
+          <span class="input-label">Price </span>
+          {{product.price}}&euro;
         </label>
 
         <br>
@@ -27,6 +31,14 @@
         </a>
       </div>
 
+      <label ng-hide="!cartProducts.length" class="item item-input">
+        <span class="input-label">Shipping </span>
+        {{shipping}}&euro;
+      </label>
+      <label ng-hide="!cartProducts.length" class="item item-input">
+        <span class="input-label">Additional Fees </span>
+        {{additional}}&euro;
+      </label>
       <label ng-hide="!cartProducts.length" class="item item-input">
         <span class="input-label">Total Price </span>
         {{totalPrice}}&euro;

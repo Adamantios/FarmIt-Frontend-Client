@@ -9,7 +9,8 @@
   </ion-item>
 
   <div class="card" ng-repeat="product in products[0]">
-    <div class="item item-text-wrap" ng-click="addToCart(product.id, product.name, product.unit_price)">
+    <div class="item item-text-wrap" ng-click="addToCart(product.id, product.name, product.unit_price,
+    product.base_shipping_cost, product.additional_shipping, provider.name)">
       <h2>
         {{product.name}}
       </h2>

@@ -24,14 +24,45 @@
         $scope.initializeCart();
         $scope.modal.show();
         $scope.totalPrice = 0;
+        $scope.shipping = 0;
+        $scope.additional = 0;
+        var $distinctProductInCart = [];
+
         angular.forEach($scope.cartProducts, function (product) {
           $scope.totalPrice += parseFloat(product.price);
+
+          if ($distinctProductInCart.indexOf(product.id) == -1) {
+            $distinctProductInCart.push(product.id);
+            var $extraShipping = parseFloat(product.shipping);
+            var $extraAdditional = parseFloat(product.additional);
+            $scope.shipping += $extraShipping;
+            $scope.additional += $extraAdditional;
+            $scope.totalPrice += $extraShipping + $extraAdditional;
+          }
         });
       };
 
       $scope.deleteProduct = function ($index) {
+        var $distinctProductInCart = [];
+        var $productToRemove = $scope.cartProducts[$index].id;
+        var $shipping = $scope.cartProducts[$index].shipping;
+        var $additional = $scope.cartProducts[$index].additional;
+
         $scope.totalPrice -= parseFloat($scope.cartProducts[$index].price);
         $scope.cartProducts.splice($index, 1);
+
+        angular.forEach($scope.cartProducts, function (product) {
+          if ($distinctProductInCart.indexOf(product.id) == -1)
+            $distinctProductInCart.push(product.id);
+        });
+
+        if ($distinctProductInCart.indexOf($productToRemove) == -1) {
+          var $removingShipping = parseFloat($shipping);
+          var $removingAdditional = parseFloat($additional);
+          $scope.shipping -= $removingShipping;
+          $scope.additional -= $removingAdditional;
+          $scope.totalPrice -= $removingShipping + $removingAdditional;
+        }
 
         if ($scope.cartProducts.length == 0)
           $scope.modal.hide();
@@ -50,9 +81,9 @@
               $scope.isSpinning = false;
               $ionicPopup.alert({
                 title: 'Excellent choice!',
-                template: 'Your request has been sent to our partner provider ' +
+                template: 'Your request has been sent to our partner provider(s) ' +
                 'and he is going to contact you soon for more details! ' +
-                'In the mean time...\nFarmit some more!'
+                'In the mean time...Farmit some more!'
               });
               $scope.modal.hide();
               $state.go('home.menu-content');

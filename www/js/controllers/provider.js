@@ -13,6 +13,8 @@
       $scope.fromSearch = $stateParams.fromSearch;
       $scope.productToAdd = null;
       $scope.cartProducts = [];
+      $scope.shipping = 0;
+      $scope.additional = 0;
       $scope.totalPrice = 0;
       $scope.stillSearching = false;
       $scope.isSpinning = false;
@@ -59,7 +61,7 @@
         }
       };
 
-      $scope.addToCart = function ($id, $name, $unitPrice) {
+      $scope.addToCart = function ($id, $name, $unitPrice, $shippingCost, $additionalShipping, $providerName) {
         $scope.popup = {};
         $scope.popup.quantity = 0.5;
         $scope.popup.price = $unitPrice;
@@ -84,7 +86,10 @@
                     'id': $id,
                     'name': $name,
                     'quantity': $scope.popup.quantity,
-                    'price': $scope.popup.price * $scope.popup.quantity
+                    'price': $scope.popup.price * $scope.popup.quantity,
+                    'shipping': $shippingCost,
+                    'additional': $additionalShipping,
+                    'providerName': $providerName
                   };
 
                   return true;
@@ -112,14 +117,45 @@
       $scope.openCart = function () {
         $scope.modal.show();
         $scope.totalPrice = 0;
+        $scope.shipping = 0;
+        $scope.additional = 0;
+        var $distinctProductInCart = [];
+
         angular.forEach($scope.cartProducts, function (product) {
           $scope.totalPrice += parseFloat(product.price);
+
+          if ($distinctProductInCart.indexOf(product.id) == -1) {
+            $distinctProductInCart.push(product.id);
+            var $extraShipping = parseFloat(product.shipping);
+            var $extraAdditional = parseFloat(product.additional);
+            $scope.shipping += $extraShipping;
+            $scope.additional += $extraAdditional;
+            $scope.totalPrice += $extraShipping + $extraAdditional;
+          }
         });
       };
 
       $scope.deleteProduct = function ($index) {
+        var $distinctProductInCart = [];
+        var $productToRemove = $scope.cartProducts[$index].id;
+        var $shipping = $scope.cartProducts[$index].shipping;
+        var $additional = $scope.cartProducts[$index].additional;
+
         $scope.totalPrice -= parseFloat($scope.cartProducts[$index].price);
         $scope.cartProducts.splice($index, 1);
+
+        angular.forEach($scope.cartProducts, function (product) {
+          if ($distinctProductInCart.indexOf(product.id) == -1)
+            $distinctProductInCart.push(product.id);
+        });
+
+        if ($distinctProductInCart.indexOf($productToRemove) == -1) {
+          var $removingShipping = parseFloat($shipping);
+          var $removingAdditional = parseFloat($additional);
+          $scope.shipping -= $removingShipping;
+          $scope.additional -= $removingAdditional;
+          $scope.totalPrice -= $removingShipping + $removingAdditional;
+        }
 
         if ($scope.cartProducts.length == 0)
           $scope.modal.hide();
@@ -132,15 +168,17 @@
           $scope.isSpinning = true;
 
           PurchasesService.upload($scope.cartProducts, $scope.totalPrice).then(function () {
+              $scope.shipping = 0;
+              $scope.additional = 0;
               $scope.totalPrice = 0;
               $scope.cartProducts = [];
               $window.localStorage.setItem('cart', $scope.cartProducts);
               $scope.isSpinning = false;
               $ionicPopup.alert({
                 title: 'Excellent choice!',
-                template: 'Your request has been sent to our partner provider ' +
+                template: 'Your request has been sent to our partner provider(s) ' +
                 'and he is going to contact you soon for more details! ' +
-                'In the mean time...\nFarmit some more!'
+                'In the mean time...Farmit some more!'
               });
               $scope.modal.hide();
               $state.go('home.menu-content');
