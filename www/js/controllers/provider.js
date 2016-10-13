@@ -5,13 +5,12 @@
 
   angular.module('app.controllers.provider', [])
 
-    .controller('ProviderCtrl', function ($scope, $stateParams, $window, $ionicPopup, $ionicModal,
-                                          GetProvidersService) {
+    .controller('ProviderCtrl', function ($scope, $state, $stateParams, $window, $ionicPopup, $ionicModal,
+                                          GetProvidersService, NetworkHelperService, PurchasesService) {
       $scope.provider = null;
       $scope.product = null;
       $scope.products = [];
       $scope.fromSearch = $stateParams.fromSearch;
-      $scope.quantity = 0.5;
       $scope.productToAdd = null;
       $scope.cartProducts = [];
       $scope.totalPrice = 0;
@@ -19,7 +18,7 @@
       $scope.isSpinning = false;
 
       $scope.initializeView = function () {
-        if (JSON.parse($window.localStorage.getItem('cart')))
+        if ($window.localStorage.getItem('cart'))
           $scope.cartProducts = JSON.parse($window.localStorage.getItem('cart'));
 
         if ($scope.fromSearch) {
@@ -38,21 +37,32 @@
       };
 
       $scope.getProducts = function () {
-        $scope.stillSearching = true;
-        $scope.isSpinning = true;
-        GetProvidersService.getProducts($scope.provider.email).then(function ($success) {
-            $scope.stillSearching = false;
-            $scope.products.push($success.data.data);
-            $scope.isSpinning = false;
-          },
-          function () {
-            $scope.stillSearching = false;
-            $scope.isSpinning = false;
-          })
+        if (!NetworkHelperService.isConnected()) {
+          $scope.stillSearching = true;
+          $scope.isSpinning = true;
+          GetProvidersService.getProducts($scope.provider.email).then(function ($success) {
+              $scope.stillSearching = false;
+              $scope.products.push($success.data.data);
+              $scope.isSpinning = false;
+            },
+            function () {
+              $scope.stillSearching = false;
+              $scope.isSpinning = false;
+            })
+        }
+        else {
+          // Alert dialog
+          $ionicPopup.alert({
+            title: 'No internet connection!',
+            template: 'Internet connection is required for this action!'
+          });
+        }
       };
 
-      $scope.addToCart = function ($id, $name, $price) {
-        $scope.price = $price;
+      $scope.addToCart = function ($id, $name, $unitPrice) {
+        $scope.popup = {};
+        $scope.popup.quantity = 0.5;
+        $scope.popup.price = $unitPrice;
         var popup = $ionicPopup.show({
           templateUrl: 'templates/add-to-cart.html',
           title: $name,
@@ -64,7 +74,7 @@
               text: '<b>Add To Cart</b>',
               type: 'button-positive',
               onTap: function (e) {
-                if (!$scope.quantity) {
+                if (!$scope.popup.quantity) {
                   // Don't allow the user to close unless he enters quantity.
                   e.preventDefault();
                 }
@@ -73,10 +83,11 @@
                   {
                     'id': $id,
                     'name': $name,
-                    'quantity': $scope.quantity,
-                    'price': $scope.price
+                    'quantity': $scope.popup.quantity,
+                    'price': $scope.popup.price * $scope.popup.quantity
                   };
-                  return $scope.quantity;
+
+                  return true;
                 }
               }
             }
@@ -100,7 +111,8 @@
 
       $scope.openCart = function () {
         $scope.modal.show();
-        angular.forEach($scope.cartProducts, function(product) {
+        $scope.totalPrice = 0;
+        angular.forEach($scope.cartProducts, function (product) {
           $scope.totalPrice += parseFloat(product.price);
         });
       };
@@ -116,7 +128,40 @@
       };
 
       $scope.buy = function () {
+        if (!NetworkHelperService.isConnected()) {
+          $scope.isSpinning = true;
 
+          PurchasesService.upload($scope.cartProducts, $scope.totalPrice).then(function () {
+              $scope.totalPrice = 0;
+              $scope.cartProducts = [];
+              $window.localStorage.setItem('cart', $scope.cartProducts);
+              $scope.isSpinning = false;
+              $ionicPopup.alert({
+                title: 'Excellent choice!',
+                template: 'Your request has been sent to our partner provider ' +
+                'and he is going to contact you soon for more details! ' +
+                'In the mean time...\nFarmit some more!'
+              });
+              $scope.modal.hide();
+              $state.go('home.menu-content');
+            },
+            function () {
+              $scope.isSpinning = false;
+              // Alert dialog
+              $ionicPopup.alert({
+                title: 'Error!',
+                template: 'Something went wrong while trying to complete your purchase! Please try again!'
+              });
+            });
+        }
+
+        else {
+          // Alert dialog
+          $ionicPopup.alert({
+            title: 'No internet connection!',
+            template: 'Internet connection is required for this action!'
+          });
+        }
       };
 
       $scope.initializeView();
