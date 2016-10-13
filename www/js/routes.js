@@ -99,12 +99,6 @@
           controller: 'ChatCtrl'
         })
 
-        .state('cart', {
-          url: '/cart',
-          templateUrl: 'templates/cart.html',
-          controller: 'PurchaseCtrl'
-        })
-
         .state('delete-profile', {
           url: '/delete-profile',
           templateUrl: 'templates/delete-profile.html',
