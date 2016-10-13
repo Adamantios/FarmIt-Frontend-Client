@@ -1,6 +1,7 @@
 <ion-content>
   <ion-list id="basic">
     <ion-item ui-sref="profile">Profile</ion-item>
+    <ion-item ng-controller="CartCtrl" on-touch="openCart()">Cart</ion-item>
     <ion-item ui-sref="offers">Offers</ion-item>
     <ion-item ui-sref="statistics">Statistics</ion-item>
     <ion-item ng-controller="LogOutCtrl" on-touch="logOut()">Log out</ion-item>
