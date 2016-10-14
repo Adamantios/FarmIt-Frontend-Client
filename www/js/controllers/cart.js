@@ -79,14 +79,14 @@
               $scope.cartProducts = [];
               $window.localStorage.setItem('cart', $scope.cartProducts);
               $scope.isSpinning = false;
+              $scope.modal.hide();
+              $state.go('home.menu-content');
               $ionicPopup.alert({
                 title: 'Excellent choice!',
                 template: 'Your request has been sent to our partner provider(s) ' +
                 'and he is going to contact you soon for more details! ' +
-                'In the mean time...Farmit some more!'
+                'In the mean time... Farmit some more!'
               });
-              $scope.modal.hide();
-              $state.go('home.menu-content');
             },
             function () {
               $scope.isSpinning = false;
