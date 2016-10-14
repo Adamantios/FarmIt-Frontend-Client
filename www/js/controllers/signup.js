@@ -5,7 +5,7 @@
 
   angular.module('app.controllers.signup', [])
 
-    .controller('SignUpCtrl', function ($scope, $window, $ionicPopup, $state, SignUpService, NetworkHelperService) {
+    .controller('SignUpCtrl', function ($scope, $window, $ionicPopup, $state, SignUpService) {
 
       $scope.isSpinning = false;
       $scope.login = {'isChecked': false};

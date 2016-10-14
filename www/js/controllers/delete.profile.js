@@ -5,8 +5,7 @@
 
   angular.module('app.controllers.delete.profile', [])
 
-    .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, DeleteProfileService,
-                                               NetworkHelperService) {
+    .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, DeleteProfileService) {
 
       $scope.isSpinning = false;
 

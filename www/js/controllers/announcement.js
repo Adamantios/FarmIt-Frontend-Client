@@ -6,7 +6,7 @@
   angular.module('app.controllers.announcement', [])
 
     .controller('AnnouncementCtrl', function ($scope, $ionicPopup, $state, $interval, $ionicModal, CategoriesService,
-                                              SubcategoriesService, NetworkHelperService, AnnouncementService) {
+                                              SubcategoriesService, AnnouncementService) {
       $scope.products = {};
       $scope.products.categorySelected = null;
       $scope.products.subcategorySelected = null;
