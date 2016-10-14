@@ -50,6 +50,24 @@
             .error(function ($returnedData) {
               return $returnedData;
             });
+        },
+
+        logInBackstage: function ($email, $token) {
+          var $url = $rootScope.server + 'api/users/backstage_login';
+
+          var $parameter =
+          {
+            "email": $email,
+            'token': $token
+          };
+
+          return $http.post($url, $parameter)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
         }
       };
 

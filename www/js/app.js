@@ -12,6 +12,17 @@
     .run(function ($ionicPlatform, $rootScope, NetworkHelperService) {
       $rootScope.server = "http://localhost:8080/farmit/";
 
+      var checkRememberMeOption = function () {
+        // If user has selected the remember me option
+        if ($window.localStorage.getItem('remember_me') === true) {
+          LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
+            .then(function ($success) {
+              $window.localStorage.setItem('token', $success.data.token);
+              $state.go('home.menu-content');
+            });
+        }
+      };
+
       $ionicPlatform.ready(function () {
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -28,6 +39,10 @@
 
         // If the user isn't connected to the internet, a popup will be shown.
         NetworkHelperService.addListener();
+
+        // If the user has selected the remember me option, then login for him, in order to take a token,
+        // and redirect him at the home view.
+        checkRememberMeOption();
       });
     });
 })();
