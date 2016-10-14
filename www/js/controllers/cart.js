@@ -2,16 +2,12 @@
 
   angular.module('app.controllers.cart', [])
 
-    .controller('CartCtrl', function ($scope, $state, $stateParams, $window, $ionicPopup, $ionicModal,
-                                      GetProvidersService, NetworkHelperService, PurchasesService) {
+    .controller('CartCtrl', function ($scope, $stateParams, $ionicModal, CartHelperService) {
       $scope.cartProducts = [];
       $scope.totalPrice = 0;
       $scope.isSpinning = false;
 
-      $scope.initializeCart = function () {
-        if ($window.localStorage.getItem('cart'))
-          $scope.cartProducts = JSON.parse($window.localStorage.getItem('cart'));
-      };
+      $scope.cartProducts = CartHelperService.initializeCart();
 
       $ionicModal.fromTemplateUrl('templates/cart.html', {
         scope: $scope,
@@ -20,81 +16,34 @@
         $scope.modal = modal;
       });
 
+
       $scope.openCart = function () {
-        $scope.initializeCart();
-        $scope.modal.show();
-        $scope.totalPrice = 0;
-        $scope.shipping = 0;
-        $scope.additional = 0;
-        var $distinctProductInCart = [];
+        $scope.cartProducts = CartHelperService.initializeCart();
 
-        angular.forEach($scope.cartProducts, function (product) {
-          $scope.totalPrice += parseFloat(product.price);
+        var $results = CartHelperService.openCart($scope.modal, $scope.cartProducts);
 
-          if ($distinctProductInCart.indexOf(product.id) == -1) {
-            $distinctProductInCart.push(product.id);
-            var $extraShipping = parseFloat(product.shipping);
-            var $extraAdditional = parseFloat(product.additional);
-            $scope.shipping += $extraShipping;
-            $scope.additional += $extraAdditional;
-            $scope.totalPrice += $extraShipping + $extraAdditional;
-          }
-        });
+        $scope.shipping = $results.shipping;
+        $scope.additional = $results.additional;
+        $scope.totalPrice = $results.totalPrice;
       };
 
       $scope.deleteProduct = function ($index) {
-        var $distinctProductInCart = [];
-        var $productToRemove = $scope.cartProducts[$index].id;
-        var $shipping = $scope.cartProducts[$index].shipping;
-        var $additional = $scope.cartProducts[$index].additional;
+        var $results = CartHelperService.deleteProduct($index, $scope.modal, $scope.cartProducts, $scope.totalPrice);
 
-        $scope.totalPrice -= parseFloat($scope.cartProducts[$index].price);
-        $scope.cartProducts.splice($index, 1);
-
-        angular.forEach($scope.cartProducts, function (product) {
-          if ($distinctProductInCart.indexOf(product.id) == -1)
-            $distinctProductInCart.push(product.id);
-        });
-
-        if ($distinctProductInCart.indexOf($productToRemove) == -1) {
-          var $removingShipping = parseFloat($shipping);
-          var $removingAdditional = parseFloat($additional);
-          $scope.shipping -= $removingShipping;
-          $scope.additional -= $removingAdditional;
-          $scope.totalPrice -= $removingShipping + $removingAdditional;
-        }
-
-        if ($scope.cartProducts.length == 0)
-          $scope.modal.hide();
-
-        $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+        $scope.cartProducts = $results.cartProducts;
+        $scope.shipping = $results.shipping;
+        $scope.additional = $results.additional;
+        $scope.totalPrice = $results.totalPrice;
       };
 
       $scope.buy = function () {
         $scope.isSpinning = true;
 
-        PurchasesService.upload($scope.cartProducts, $scope.totalPrice).then(function () {
-            $scope.totalPrice = 0;
-            $scope.cartProducts = [];
-            $window.localStorage.setItem('cart', $scope.cartProducts);
-            $scope.isSpinning = false;
-            $scope.modal.hide();
-            $state.go('home.menu-content');
-            $ionicPopup.alert({
-              title: 'Excellent choice!',
-              template: 'Your request has been sent to our partner provider(s) ' +
-              'and he is going to contact you soon for more details! ' +
-              'In the mean time... Farmit some more!'
-            });
-          },
-          function () {
-            $scope.isSpinning = false;
-            // Alert dialog
-            $ionicPopup.alert({
-              title: 'Error!',
-              template: 'Something went wrong while trying to complete your purchase! Please try again!'
-            });
-          });
+        var $results = CartHelperService.buy($scope.modal, $scope.cartProducts, $scope.totalPrice);
+
+        $scope.cartProducts = $results.cartProducts;
+        $scope.totalPrice = $results.totalPrice;
+        $scope.isSpinning = false;
       };
     })
 })();

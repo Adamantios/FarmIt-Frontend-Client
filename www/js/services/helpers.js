@@ -37,4 +37,107 @@
         }
       }
     })
+
+    .factory('CartHelperService', function ($state, $window, $ionicPopup, PurchasesService) {
+      return {
+        initializeCart: function () {
+          if ($window.localStorage.getItem('cart'))
+            return JSON.parse($window.localStorage.getItem('cart'));
+        },
+
+        openCart: function (modal, cartProducts) {
+          modal.show();
+          var $totalPrice = 0;
+          var $shipping = 0;
+          var $additional = 0;
+          var $distinctProductInCart = [];
+
+          angular.forEach(cartProducts, function (product) {
+            $totalPrice += parseFloat(product.price);
+
+            if ($distinctProductInCart.indexOf(product.id) == -1) {
+              $distinctProductInCart.push(product.id);
+              var $extraShipping = parseFloat(product.shipping);
+              var $extraAdditional = parseFloat(product.additional);
+              $shipping += $extraShipping;
+              $additional += $extraAdditional;
+              $totalPrice += $extraShipping + $extraAdditional;
+            }
+          });
+
+          return {
+            'shipping': $shipping,
+            'additional': $additional,
+            'totalPrice': $totalPrice
+          }
+        },
+
+        deleteProduct: function ($index, modal, cartProducts, totalPrice) {
+          var $distinctProductInCart = [];
+          var $productToRemove = cartProducts[$index].id;
+          var $shipping = cartProducts[$index].shipping;
+          var $additional = cartProducts[$index].additional;
+
+          totalPrice -= parseFloat(cartProducts[$index].price);
+          cartProducts.splice($index, 1);
+
+          angular.forEach(cartProducts, function (product) {
+            if ($distinctProductInCart.indexOf(product.id) == -1)
+              $distinctProductInCart.push(product.id);
+          });
+
+          if ($distinctProductInCart.indexOf($productToRemove) == -1) {
+            var $removingShipping = parseFloat($shipping);
+            var $removingAdditional = parseFloat($additional);
+            $shipping -= $removingShipping;
+            $additional -= $removingAdditional;
+            totalPrice -= $removingShipping + $removingAdditional;
+          }
+
+          if (cartProducts.length == 0)
+            modal.hide();
+
+          $window.localStorage.setItem('cart', JSON.stringify(cartProducts));
+
+          return {
+            'cartProducts': cartProducts,
+            'shipping': $shipping,
+            'additional': $additional,
+            'totalPrice': totalPrice
+          }
+        },
+
+        buy: function (modal, cartProducts, totalPrice) {
+          var $failed = false;
+          PurchasesService.upload(cartProducts, totalPrice).then(function () {
+              totalPrice = 0;
+              cartProducts = [];
+              $window.localStorage.setItem('cart', cartProducts);
+              modal.hide();
+              $state.go('home.menu-content');
+              $ionicPopup.alert({
+                title: 'Excellent choice!',
+                template: 'Your request has been sent to our partner provider(s) ' +
+                'and he is going to contact you soon for more details! ' +
+                'In the mean time... Farmit some more!'
+              });
+            },
+            function () {
+              $failed = true;
+
+              // Alert dialog
+              $ionicPopup.alert({
+                title: 'Error!',
+                template: 'Something went wrong while trying to complete your purchase! Please try again!'
+              });
+            });
+
+          return {
+            'cartProducts': cartProducts,
+            'totalPrice': totalPrice,
+            'failed': $failed
+          }
+        }
+      }
+    })
 })();
