@@ -15,7 +15,7 @@
         <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-        <button class="button-icon icon ion-android-notifications"></button>
+        <button ng-click="openNotifications($event)" class="button-icon icon ion-android-notifications"></button>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="homeContent"></ion-nav-view>

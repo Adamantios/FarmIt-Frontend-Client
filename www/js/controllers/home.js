@@ -12,7 +12,8 @@
       };
     })
 
-    .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, GetProvidersService) {
+    .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, $ionicPopover,
+                                          GetProvidersService) {
       $scope.isSpinning = false;
       $scope.start = 0;
       $scope.searchStart = 0;
@@ -25,6 +26,36 @@
       $scope.home = {};
       $scope.home.searchField = null;
       $scope.stillSearching = false;
+
+      // .fromTemplateUrl() method
+      $ionicPopover.fromTemplateUrl('templates/notifications-popover.html', {
+        scope: $scope
+      }).then(function (popover) {
+        $scope.popover = popover;
+      });
+
+      $scope.openNotifications = function ($event) {
+        $scope.popover.show($event);
+      };
+
+      $scope.closeNotifications = function () {
+        $scope.popover.hide();
+      };
+
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function () {
+        $scope.popover.remove();
+      });
+
+      // Execute action on hide popover
+      $scope.$on('popover.hidden', function () {
+        // Execute action
+      });
+
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function () {
+        // Execute action
+      });
 
       $scope.pokeProgressRing = function () {
         $scope.isSpinning = !($scope.resultsProviders && $scope.resultsProducts && $scope.resultsProvidersMatched
