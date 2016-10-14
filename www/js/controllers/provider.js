@@ -39,26 +39,17 @@
       };
 
       $scope.getProducts = function () {
-        if (!NetworkHelperService.isConnected()) {
-          $scope.stillSearching = true;
-          $scope.isSpinning = true;
-          GetProvidersService.getProducts($scope.provider.email).then(function ($success) {
-              $scope.stillSearching = false;
-              $scope.products.push($success.data.data);
-              $scope.isSpinning = false;
-            },
-            function () {
-              $scope.stillSearching = false;
-              $scope.isSpinning = false;
-            })
-        }
-        else {
-          // Alert dialog
-          $ionicPopup.alert({
-            title: 'No internet connection!',
-            template: 'Internet connection is required for this action!'
-          });
-        }
+        $scope.stillSearching = true;
+        $scope.isSpinning = true;
+        GetProvidersService.getProducts($scope.provider.email).then(function ($success) {
+            $scope.stillSearching = false;
+            $scope.products.push($success.data.data);
+            $scope.isSpinning = false;
+          },
+          function () {
+            $scope.stillSearching = false;
+            $scope.isSpinning = false;
+          })
       };
 
       $scope.addToCart = function ($id, $name, $unitPrice, $shippingCost, $additionalShipping, $providerName) {
@@ -164,42 +155,32 @@
       };
 
       $scope.buy = function () {
-        if (!NetworkHelperService.isConnected()) {
-          $scope.isSpinning = true;
+        $scope.isSpinning = true;
 
-          PurchasesService.upload($scope.cartProducts, $scope.totalPrice).then(function () {
-              $scope.shipping = 0;
-              $scope.additional = 0;
-              $scope.totalPrice = 0;
-              $scope.cartProducts = [];
-              $window.localStorage.setItem('cart', $scope.cartProducts);
-              $scope.isSpinning = false;
-              $scope.modal.hide();
-              $state.go('home.menu-content');
-              $ionicPopup.alert({
-                title: 'Excellent choice!',
-                template: 'Your request has been sent to our partner provider(s) ' +
-                'and he is going to contact you soon for more details! ' +
-                'In the mean time... Farmit some more!'
-              });
-            },
-            function () {
-              $scope.isSpinning = false;
-              // Alert dialog
-              $ionicPopup.alert({
-                title: 'Error!',
-                template: 'Something went wrong while trying to complete your purchase! Please try again!'
-              });
+        PurchasesService.upload($scope.cartProducts, $scope.totalPrice).then(function () {
+            $scope.shipping = 0;
+            $scope.additional = 0;
+            $scope.totalPrice = 0;
+            $scope.cartProducts = [];
+            $window.localStorage.setItem('cart', $scope.cartProducts);
+            $scope.isSpinning = false;
+            $scope.modal.hide();
+            $state.go('home.menu-content');
+            $ionicPopup.alert({
+              title: 'Excellent choice!',
+              template: 'Your request has been sent to our partner provider(s) ' +
+              'and he is going to contact you soon for more details! ' +
+              'In the mean time... Farmit some more!'
             });
-        }
-
-        else {
-          // Alert dialog
-          $ionicPopup.alert({
-            title: 'No internet connection!',
-            template: 'Internet connection is required for this action!'
+          },
+          function () {
+            $scope.isSpinning = false;
+            // Alert dialog
+            $ionicPopup.alert({
+              title: 'Error!',
+              template: 'Something went wrong while trying to complete your purchase! Please try again!'
+            });
           });
-        }
       };
 
       $scope.initializeView();

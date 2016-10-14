@@ -9,7 +9,7 @@
 
   angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
-    .run(function ($ionicPlatform, $rootScope) {
+    .run(function ($ionicPlatform, $rootScope, NetworkHelperService) {
       $rootScope.server = "http://localhost:8080/farmit/";
 
       $ionicPlatform.ready(function () {
@@ -27,17 +27,7 @@
         }
 
         // If the user isn't connected to the internet, a popup will be shown.
-        document.addEventListener("offline", function () {
-          $ionicPopup.confirm({
-            title: 'No Internet Connection',
-            content: 'Sorry, no internet connectivity detected. Please connect and try again.'
-          })
-            .then(function (result) {
-
-              if (!result)
-                ionic.Platform.exitApp();
-            });
-        }, false);
+        NetworkHelperService.addListener();
       });
     });
 })();

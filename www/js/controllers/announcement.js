@@ -76,35 +76,25 @@
       };
 
       $scope.createAnnouncement = function () {
-        if (NetworkHelperService.isConnected()) {
-          $scope.isSpinning = true;
+        $scope.isSpinning = true;
 
-          AnnouncementService.upload($scope.announcement, $scope.products.price, $scope.products.duration)
-            .then(function () {
-              $scope.announcement = [];
-              $scope.products.price = null;
-              $scope.products.duration = 1;
-              $scope.isSpinning = false;
-              $scope.modal.hide();
-              $state.go('home.menu-content');
-            }, function () {
-              $scope.isSpinning = false;
+        AnnouncementService.upload($scope.announcement, $scope.products.price, $scope.products.duration)
+          .then(function () {
+            $scope.announcement = [];
+            $scope.products.price = null;
+            $scope.products.duration = 1;
+            $scope.isSpinning = false;
+            $scope.modal.hide();
+            $state.go('home.menu-content');
+          }, function () {
+            $scope.isSpinning = false;
 
-              // Alert dialog
-              $ionicPopup.alert({
-                title: 'Error!',
-                template: 'Something went wrong while trying to upload your announcement! Please try again!'
-              });
+            // Alert dialog
+            $ionicPopup.alert({
+              title: 'Error!',
+              template: 'Something went wrong while trying to upload your announcement! Please try again!'
             });
-        }
-
-        else {
-          // Alert dialog
-          $ionicPopup.alert({
-            title: 'No internet connection!',
-            template: 'Internet connection is required for this action!'
           });
-        }
       };
     })
 })();
