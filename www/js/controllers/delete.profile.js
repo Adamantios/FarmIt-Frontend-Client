@@ -5,7 +5,8 @@
 
   angular.module('app.controllers.delete.profile', [])
 
-    .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, DeleteProfileService) {
+    .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, $ionicSideMenuDelegate,
+                                               DeleteProfileService) {
 
       $scope.isSpinning = false;
 
@@ -14,7 +15,7 @@
 
         if ($email == $window.localStorage.getItem('email')) {
           DeleteProfileService.deleteProfile($email, $password).then(function () {
-              $state.go('home.menu-content');
+              $ionicSideMenuDelegate.toggleLeft();
               $window.localStorage.setItem('remember_me', false);
               $window.localStorage.setItem('token', null);
               $window.localStorage.setItem('email', null);

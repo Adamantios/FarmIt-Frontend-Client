@@ -21,10 +21,17 @@
         }, function () {
           $scope.isSpinning = false;
 
+          var $message;
+
+          if ($error.status == 403)
+            $message = 'There is no account with that email!';
+          else
+            $message = 'Something went wrong while trying to login! Please try again!';
+
           // Alert dialog
           $ionicPopup.alert({
             title: 'Error!',
-            template: 'Something went wrong while trying to login! Please try again!'
+            template: $message
           });
         });
       }
