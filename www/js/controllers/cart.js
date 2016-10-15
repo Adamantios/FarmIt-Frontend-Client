@@ -3,11 +3,9 @@
   angular.module('app.controllers.cart', [])
 
     .controller('CartCtrl', function ($scope, $stateParams, $ionicModal, CartHelperService) {
-      $scope.cartProducts = [];
+      $scope.cartProducts = CartHelperService.initializeCart();
       $scope.totalPrice = 0;
       $scope.isSpinning = false;
-
-      $scope.cartProducts = CartHelperService.initializeCart();
 
       $ionicModal.fromTemplateUrl('templates/cart.html', {
         scope: $scope,

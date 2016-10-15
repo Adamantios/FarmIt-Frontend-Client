@@ -43,6 +43,8 @@
         initializeCart: function () {
           if ($window.localStorage.getItem('cart'))
             return JSON.parse($window.localStorage.getItem('cart'));
+          else
+            return [];
         },
 
         openCart: function (modal, cartProducts) {
