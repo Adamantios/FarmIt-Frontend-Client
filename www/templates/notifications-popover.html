@@ -3,7 +3,9 @@
     <h1 class="title">Notifications</h1>
   </ion-header-bar>
   <ion-content>
-    <div ng-show="!offersNotifications.length && !messagesNotifications.length">
+    <div ng-show="!offersNotifications.length
+    && !messagesNotifications.length
+    && !evaluationsPendingNotifications.length">
       <br>
       <p id="error">No notifications!</p>
     </div>

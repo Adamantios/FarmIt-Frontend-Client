@@ -29,6 +29,7 @@
 
       $scope.offersNotifications = [];
       $scope.messagesNotifications = [];
+      $scope.evaluationsPendingNotifications = [];
 
       $ionicPopover.fromTemplateUrl('templates/notifications-popover.html', {
         scope: $scope
