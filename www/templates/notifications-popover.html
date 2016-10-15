@@ -3,6 +3,9 @@
     <h1 class="title">Notifications</h1>
   </ion-header-bar>
   <ion-content>
-    Hello!
+    <div ng-show="!offersNotifications.length && !messagesNotifications.length">
+      <br>
+      <p id="error">No notifications!</p>
+    </div>
   </ion-content>
 </ion-popover-view>

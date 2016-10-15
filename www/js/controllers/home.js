@@ -27,6 +27,9 @@
       $scope.home.searchField = null;
       $scope.stillSearching = false;
 
+      $scope.offersNotifications = [];
+      $scope.messagesNotifications = [];
+
       $ionicPopover.fromTemplateUrl('templates/notifications-popover.html', {
         scope: $scope
       }).then(function (popover) {
