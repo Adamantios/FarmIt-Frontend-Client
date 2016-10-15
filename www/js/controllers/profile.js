@@ -23,12 +23,12 @@
           $window.localStorage.setItem('email', $success.data.session.email);
           $scope.isSpinning = false;
           $state.go('first-address');
-        }, function (error) {
+        }, function ($error) {
           $scope.isSpinning = false;
 
           var $message;
 
-          if (error.status == 409)
+          if ($error.status == 409)
             $message = 'An account with that email already exists!';
           else
             $message = 'Something went wrong while trying to signup! Please try again!';
@@ -55,7 +55,7 @@
           $window.localStorage.setItem('email', $success.data.session.email);
           $scope.isSpinning = false;
           $state.go('home.menu-content');
-        }, function () {
+        }, function ($error) {
           $scope.isSpinning = false;
 
           var $message;
