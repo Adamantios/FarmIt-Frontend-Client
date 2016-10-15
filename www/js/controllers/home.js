@@ -5,10 +5,17 @@
 
   angular.module('app.controllers.home', ['ng-mfb'])
 
-    .controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate) {
+    .controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, $ionicPopup) {
 
       $scope.toggleLeft = function () {
         $ionicSideMenuDelegate.toggleLeft();
+      };
+
+      $scope.about = function () {
+        $ionicPopup.alert({
+          title: 'About',
+          templateUrl: 'templates/about.html'
+        });
       };
     })
 
