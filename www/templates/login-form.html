@@ -18,8 +18,6 @@
     <p ng-show="logInForm.mail.$error.required">* Email is required!</p>
     <p ng-show="logInForm.password.$error.required">* Password is required!</p>
     <p ng-show="logInForm.mail.$invalid && !logInForm.mail.$pristine">* Invalid Email!</p>
-    <p ng-show="logInForm.password.$error.minlength">* Password must be at least 5 characters!</p>
-    <p ng-show="logInForm.mail.$error.maxlength">* Email can't be more than 50 characters!</p>
   </div>
 
   <button class="button button-positive  button-block button-clear"
