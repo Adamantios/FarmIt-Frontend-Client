@@ -67,6 +67,10 @@ ion-item {
   box-shadow: 3px 2px 5px #178025;
 }
 
+.about {
+  text-align: center;
+}
+
 #success {
   color: green;
 }
