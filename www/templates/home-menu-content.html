@@ -1,5 +1,10 @@
 <ion-view title="Home">
   <ion-content padding="true" delegate-handle="mainScroll">
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon" ng-click="search()"></i>
       <input placeholder="Search" type="search" ng-model="home.searchField" ng-change="search()">

@@ -21,22 +21,31 @@
 
     .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, $ionicPopover,
                                           GetProvidersService) {
-      $scope.isSpinning = false;
-      $scope.start = 0;
-      $scope.searchStart = 0;
-      $scope.providers = [];
-      $scope.resultsProviders = [];
-      $scope.resultsProvidersMatched = [];
-      $scope.resultsProducts = [];
-      $scope.moreDataCanBeLoaded = true;
-      $scope.moreResultsCanBeLoaded = false;
-      $scope.home = {};
-      $scope.home.searchField = null;
-      $scope.stillSearching = false;
+      $scope.initializeVariables = function () {
+        $scope.isSpinning = false;
+        $scope.start = 0;
+        $scope.searchStart = 0;
+        $scope.providers = [];
+        $scope.resultsProviders = [];
+        $scope.resultsProvidersMatched = [];
+        $scope.resultsProducts = [];
+        $scope.moreDataCanBeLoaded = true;
+        $scope.moreResultsCanBeLoaded = false;
+        $scope.home = {};
+        $scope.home.searchField = null;
+        $scope.stillSearching = false;
 
-      $scope.offersNotifications = [];
-      $scope.messagesNotifications = [];
-      $scope.evaluationsPendingNotifications = [];
+        $scope.offersNotifications = [];
+        $scope.messagesNotifications = [];
+        $scope.evaluationsPendingNotifications = [];
+      };
+
+      $scope.doRefresh = function() {
+        $scope.initializeVariables();
+        $scope.loadMoreResults();
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+      };
 
       $ionicPopover.fromTemplateUrl('templates/notifications-popover.html', {
         scope: $scope
@@ -146,6 +155,8 @@
 
         $state.go('provider', $parameters);
       };
+
+      $scope.initializeVariables();
     })
 
 })();
