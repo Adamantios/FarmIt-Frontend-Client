@@ -61,7 +61,7 @@
           var $message;
 
           if ($error.status == 403)
-            $message = 'There is no account with that email!';
+            $message = 'The email or the password that you have provided is wrong!';
           else
             $message = 'Something went wrong while trying to login! Please try again!';
 
