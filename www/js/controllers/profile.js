@@ -78,8 +78,8 @@
       $scope.logOut = function () {
         // Confirm dialog
         $ionicPopup.show({
-          title: 'Purchase products',
-          template: 'Are you sure that you want to make this purchase?',
+          title: 'Log Out',
+          template: 'Are you sure that you want to log out?',
           buttons: [
             {
               text: "No"
@@ -117,8 +117,8 @@
       $scope.goodbye = function ($email, $password) {
         // Confirm dialog
         $ionicPopup.show({
-          title: 'Purchase products',
-          template: 'Are you sure that you want to make this purchase?',
+          title: 'Delete Profile',
+          template: 'Are you sure that you want to delete your profile?',
           buttons: [
             {
               text: "No"
