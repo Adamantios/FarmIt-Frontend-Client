@@ -2,7 +2,7 @@
 
   angular.module('app.controllers.cart', [])
 
-    .controller('CartCtrl', function ($scope, $stateParams, $ionicModal, CartHelperService) {
+    .controller('CartCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, CartHelperService) {
       $scope.cartProducts = CartHelperService.initializeCart();
       $scope.totalPrice = 0;
       $scope.isSpinning = false;
@@ -35,13 +35,30 @@
       };
 
       $scope.buy = function () {
-        $scope.isSpinning = true;
+        // Confirm dialog
+        $ionicPopup.show({
+          title: 'Purchase products',
+          template: 'Are you sure that you want to make this purchase?',
+          buttons: [
+            {
+              text: "No"
+            },
+            {
+              text: "Yes",
+              type: 'button-positive',
+              onTap: function () {
+                alert('ok');
+                $scope.isSpinning = true;
 
-        var $results = CartHelperService.buy($scope.modal, $scope.cartProducts, $scope.totalPrice);
+                var $results = CartHelperService.purchase($scope.modal, $scope.cartProducts, $scope.totalPrice);
 
-        $scope.cartProducts = $results.cartProducts;
-        $scope.totalPrice = $results.totalPrice;
-        $scope.isSpinning = false;
+                $scope.cartProducts = $results.cartProducts;
+                $scope.totalPrice = $results.totalPrice;
+                $scope.isSpinning = false;
+              }
+            }
+          ]
+        });
       };
     })
 })();

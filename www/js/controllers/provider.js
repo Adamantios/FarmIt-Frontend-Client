@@ -124,19 +124,35 @@
       };
 
       $scope.buy = function () {
-        $scope.isSpinning = true;
+        // Confirm dialog
+        $ionicPopup.show({
+          title: 'Purchase products',
+          template: 'Are you sure that you want to make this purchase?',
+          buttons: [
+            {
+              text: "No"
+            },
+            {
+              text: "Yes",
+              type: 'button-positive',
+              onTap: function () {
+                $scope.isSpinning = true;
 
-        var $results = CartHelperService.buy($scope.modal, $scope.cartProducts, $scope.totalPrice);
+                var $results = CartHelperService.purchase($scope.modal, $scope.cartProducts, $scope.totalPrice);
 
-        $scope.cartProducts = $results.cartProducts;
-        $scope.totalPrice = $results.totalPrice;
+                $scope.cartProducts = $results.cartProducts;
+                $scope.totalPrice = $results.totalPrice;
 
-        if (!$results.failed) {
-          $scope.shipping = 0;
-          $scope.additional = 0;
-        }
+                if (!$results.failed) {
+                  $scope.shipping = 0;
+                  $scope.additional = 0;
+                }
 
-        $scope.isSpinning = false;
+                $scope.isSpinning = false;
+              }
+            }
+          ]
+        });
       };
 
       $scope.initializeView();
