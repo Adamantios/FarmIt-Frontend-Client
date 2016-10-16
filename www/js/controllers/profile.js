@@ -42,12 +42,12 @@
       };
     })
 
-    .controller('LogInCtrl', function ($scope, $window, $ionicPopup, $state, LogInService) {
+    .controller('LogInCtrl', function ($scope, $window, $ionicPopup, $state, LogInService, EmailHelperService) {
       $scope.isSpinning = false;
       $scope.login = {'isChecked': false};
 
       $scope.forgotYourPassword = function () {
-
+        EmailHelperService.forgotMyPasswordEmail();
       };
 
       $scope.farmIn = function ($email, $password) {
@@ -114,12 +114,12 @@
     })
 
     .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, $ionicSideMenuDelegate,
-                                               DeleteProfileService) {
+                                               DeleteProfileService, EmailHelperService) {
 
       $scope.isSpinning = false;
 
       $scope.forgotYourPassword = function () {
-
+        EmailHelperService.forgotMyPasswordEmail();
       };
 
       $scope.goodbye = function ($email, $password) {

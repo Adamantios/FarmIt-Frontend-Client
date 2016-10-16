@@ -142,10 +142,33 @@
       }
     })
 
-    .factory('EmailHelperService', function () {
+    .factory('EmailHelperService', function ($ionicPopup) {
       return {
         forgotMyPasswordEmail: function () {
+          // Confirm dialog
+          $ionicPopup.show({
+            title: 'Forgot Your Password',
+            template: 'Would you like to restore your password?',
+            buttons: [
+              {
+                text: "No"
+              },
+              {
+                text: "Yes",
+                type: 'button-positive',
+                onTap: function () {
+                  // Send email. If success below, otherwise another alert.
 
+                  // Alert dialog
+                  $ionicPopup.alert({
+                    title: 'Check you emails',
+                    template: 'An email has been sent to your account. ' +
+                    'Follow the directions in order to create a new password.'
+                  });
+                }
+              }
+            ]
+          });
         },
 
         purchaseEmail: function () {
