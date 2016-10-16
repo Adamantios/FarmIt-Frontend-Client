@@ -79,6 +79,10 @@ ion-item {
   border-bottom: 1px dotted;
 }
 
+.saveIcon {
+  width: 32px;
+}
+
 #success {
   color: green;
 }
