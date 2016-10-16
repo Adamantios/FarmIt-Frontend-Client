@@ -119,9 +119,8 @@
               $state.go('home.menu-content');
               $ionicPopup.alert({
                 title: 'Excellent choice!',
-                template: 'Your request has been sent to our partner provider(s) ' +
-                'and he is going to contact you soon for more details! ' +
-                'In the mean time... Farmit some more!'
+                template: 'An email with your purchase details have been sent to your email account.' +
+                ' In the mean time... Farmit some more!'
               });
             },
             function () {
