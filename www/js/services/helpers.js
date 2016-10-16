@@ -141,4 +141,16 @@
         }
       }
     })
+
+    .factory('EmailHelperService', function () {
+      return {
+        forgotMyPasswordEmail: function () {
+
+        },
+
+        purchaseEmail: function () {
+
+        }
+      }
+    });
 })();

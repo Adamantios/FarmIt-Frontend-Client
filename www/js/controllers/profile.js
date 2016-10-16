@@ -46,6 +46,10 @@
       $scope.isSpinning = false;
       $scope.login = {'isChecked': false};
 
+      $scope.forgotYourPassword = function () {
+
+      };
+
       $scope.farmIn = function ($email, $password) {
         $scope.isSpinning = true;
 
@@ -113,6 +117,10 @@
                                                DeleteProfileService) {
 
       $scope.isSpinning = false;
+
+      $scope.forgotYourPassword = function () {
+
+      };
 
       $scope.goodbye = function ($email, $password) {
         // Confirm dialog

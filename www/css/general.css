@@ -71,6 +71,12 @@ ion-item {
   text-align: center;
 }
 
+.forgotMyPassword {
+  color: #39add1;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
 #success {
   color: green;
 }

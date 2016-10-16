@@ -11,8 +11,10 @@
   </label>
 
   <br>
-
   <ion-checkbox class="checkbox-positive" ng-model="login.isChecked">Remember me</ion-checkbox>
+
+  <br>
+  <a class="forgotMyPassword" ng-click="forgotYourPassword()">Forgot your password?</a>
 
   <div id="error">
     <p ng-show="logInForm.mail.$error.required">* Email is required!</p>
