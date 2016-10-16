@@ -109,7 +109,7 @@
           }
         },
 
-        buy: function (modal, cartProducts, totalPrice) {
+        purchase: function (modal, cartProducts, totalPrice) {
           var $failed = false;
           PurchasesService.upload(cartProducts, totalPrice).then(function () {
               totalPrice = 0;
