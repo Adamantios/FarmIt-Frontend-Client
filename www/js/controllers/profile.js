@@ -5,8 +5,27 @@
 
   angular.module('app.controllers.profile', [])
 
-    .controller('ProfileCtrl', function ($scope) {
+    .controller('ProfileCtrl', function ($scope, $ionicPopup) {
 
+      $scope.saveChanges = function () {
+        // Confirm dialog
+        $ionicPopup.show({
+          title: 'Save changes',
+          template: 'Do you want to save the changes on your profile?',
+          buttons: [
+            {
+              text: "No"
+            },
+            {
+              text: "Yes",
+              type: 'button-positive',
+              onTap: function () {
+
+              }
+            }
+          ]
+        });
+      }
     })
 
     .controller('SignUpCtrl', function ($scope, $window, $ionicPopup, $state, SignUpService) {
