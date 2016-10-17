@@ -5,8 +5,9 @@
 
   angular.module('app.controllers.profile', [])
 
-    .controller('ProfileCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, GetProfileService, AddressService) {
+    .controller('ProfileCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, ProfileService, AddressService) {
       $scope.addresses = [];
+      $scope.id = null;
       $scope.name = null;
       $scope.surname = null;
       $scope.email = null;
@@ -38,7 +39,8 @@
       $scope.initializeView = function () {
         $scope.showLoader();
 
-        GetProfileService.getProfile().then(function ($success) {
+        ProfileService.getProfile().then(function ($success) {
+            $scope.id = $success.data.data.id;
             $scope.name = $success.data.data.name;
             $scope.surname = $success.data.data.surname;
             $scope.email = $success.data.data.email;
@@ -51,6 +53,7 @@
             });
           },
           function () {
+            $scope.hideLoader();
             $scope.redirect_with_alert();
           });
       };
@@ -72,7 +75,26 @@
               text: "Yes",
               type: 'button-positive',
               onTap: function () {
+                ProfileService.updateProfile($scope.id, $scope.name, $scope.surname, $scope.email, $scope.tel)
+                  .then(function () {
+                      $ionicPopup.alert({
+                        title: 'Profile updated',
+                        template: 'Your profile has been successfully updated.'
+                      });
+                    },
+                    function ($error) {
+                      var $message = 'Something went wrong while trying to update your profile.';
 
+                      if ($error.status == 409)
+                        $message = 'An account with that email already exists.';
+                      else if ($error.status == 406)
+                        $message = 'You have not provided a valid email.';
+
+                      $ionicPopup.alert({
+                        title: 'Profile has not been updated',
+                        template: $message
+                      });
+                    })
               }
             }
           ]

@@ -116,7 +116,7 @@
 
     })
 
-    .factory('GetProfileService', function ($http, $window, $rootScope) {
+    .factory('ProfileService', function ($http, $window, $rootScope) {
       return {
         getProfile: function () {
           var $url = $rootScope.server + 'api/users/get_user';
@@ -124,6 +124,34 @@
           var $parameters =
           {
             "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
+        },
+
+        updateProfile: function ($id, $name, $surname, $email, $tel) {
+          var $url = $rootScope.server + 'api/users/update_user';
+
+          var $data =
+          {
+            "id": $id,
+            "name": $name,
+            "surname": $surname,
+            "email": $email,
+            "tel_num": $tel
+
+          };
+
+          var $parameters =
+          {
+            "data": $data,
             "token": $window.localStorage.getItem('token')
           };
 

@@ -9,35 +9,6 @@
   </ion-nav-buttons>
 
   <ion-content padding="true">
-    <h3>Basic Information</h3>
-    <form class="list">
-      <h5>Name</h5>
-      <label class="item item-input">
-        <input placeholder="name" type="text" ng-model="name" ng-change="changed()">
-      </label>
-      <h5>Surname</h5>
-      <label class="item item-input">
-        <input placeholder="surname" type="text" ng-model="surname" ng-change="changed()">
-      </label>
-      <h5>Email</h5>
-      <label class="item item-input">
-        <input placeholder="Email" type="email" ng-model="email" ng-change="changed()">
-      </label>
-      <h5>Telephone Number</h5>
-      <label class="item item-input">
-        <input placeholder="telephone number" type="tel" ng-model="tel" ng-change="changed()">
-      </label>
-    </form>
-
-    <div class="centerText" ng-show="somethingChanged">
-      <br>
-      <img class="saveIcon" ng-src="img/save.svg" ng-click="saveChanges()"/>
-      <br>
-      <p class="saveText" ng-click="saveChanges()">Save Changes</p>
-    </div>
-
-    <button class="button button-positive button-block button-clear" ng-click="changePassword()">
-      Change your password
-    </button>
+    <profile-form></profile-form>
   </ion-content>
 </ion-view>

@@ -1,0 +1,57 @@
+<h3>Basic Information</h3>
+<form class="list" name="profileForm">
+  <h5>Name</h5>
+  <label class="item item-input">
+    <input placeholder="name" type="text" name="name" ng-model="name" ng-change="changed()" ng-maxlength="50" required>
+  </label>
+  <h5>Surname</h5>
+  <label class="item item-input">
+    <input placeholder="surname" type="text" name="surname" ng-model="surname"
+           ng-change="changed()" ng-maxlength="50" required>
+  </label>
+  <h5>Email</h5>
+  <label class="item item-input">
+    <input placeholder="Email" type="email" name="email" ng-model="email"
+           ng-change="changed()" ng-maxlength="50" required>
+  </label>
+  <h5>Telephone Number</h5>
+  <label class="item item-input">
+    <input placeholder="telephone number" type="tel" name="tel" ng-model="tel" ng-change="changed()"
+           ng-minlength="10" ng-maxlength="15" required>
+  </label>
+</form>
+
+<div id="error">
+  <p ng-show="profileForm.name.$error.required">* Name is required!</p>
+  <p ng-show="profileForm.surname.$error.required">* Surname is required!</p>
+  <p ng-show="profileForm.email.$error.required">* Email is required!</p>
+  <p ng-show="profileForm.tel.$error.required">* Telephone Number is required!</p>
+  <p ng-show="profileForm.email.$invalid && !profileForm.email.$pristine">* Invalid Email!</p>
+  <p ng-show="profileForm.tel.$invalid && !profileForm.tel.$pristine">* Invalid Telephone Number!</p>
+  <p ng-show="profileForm.tel.$error.minlength">* Telephone Number must be at least 10 digits!</p>
+  <p ng-show="profileForm.name.$error.maxlength">* Name can't be more than 50 characters!</p>
+  <p ng-show="profileForm.surname.$error.maxlength">* Surname can't be more than 50 characters!</p>
+  <p ng-show="profileForm.email.$error.maxlength">* Email can't be more than 50 characters!</p>
+  <p ng-show="profileForm.tel.$error.maxlength">* Telephone Number can't be more than 15 digits!</p>
+</div>
+
+<div class="centerText" ng-show="somethingChanged" ng-hide="profileForm.name.$error.required ||
+                                                                profileForm.surname.$error.required ||
+                                                                profileForm.email.$error.required ||
+                                                                profileForm.tel.$error.required ||
+                                                                (profileForm.email.$invalid && !profileForm.email.$pristine) ||
+                                                                (profileForm.tel.$invalid && !profileForm.tel.$pristine) ||
+                                                                profileForm.tel.$error.minlength ||
+                                                                profileForm.name.$error.maxlength ||
+                                                                profileForm.surname.$error.maxlength ||
+                                                                profileForm.email.$error.maxlength ||
+                                                                profileForm.tel.$error.maxlength">
+  <br>
+  <img class="saveIcon" ng-src="img/save.svg" ng-click="saveChanges()"/>
+  <br>
+  <p class="saveText" ng-click="saveChanges()">Save Changes</p>
+</div>
+
+<button class="button button-positive button-block button-clear" ng-click="changePassword()">
+  Change your password
+</button>
