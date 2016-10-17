@@ -87,6 +87,11 @@
                   $scope.profile.email, $scope.profile.tel)
                   .then(function () {
                       $window.localStorage.setItem('email', $scope.profile.email);
+                      $scope.profile.somethingChanged = false;
+                      $scope.profileBackup.name = $scope.profile.name;
+                      $scope.profileBackup.surname = $scope.profile.surname;
+                      $scope.profileBackup.email = $scope.profile.email;
+                      $scope.profileBackup.tel_num = $scope.profile.tel;
 
                       $ionicPopup.alert({
                         title: 'Profile updated',
@@ -100,6 +105,8 @@
                         $message = 'An account with that email already exists.';
                       else if ($error.status == 406)
                         $message = 'You have not provided a valid email.';
+                      else if ($error.status == 100000)
+                        $message = 'You have not provided a valid telephone number.';
 
                       $ionicPopup.alert({
                         title: 'Profile has not been updated',
