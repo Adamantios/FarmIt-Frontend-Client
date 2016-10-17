@@ -104,9 +104,10 @@
                       if ($error.status == 409)
                         $message = 'An account with that email already exists.';
                       else if ($error.status == 406)
-                        $message = 'You have not provided a valid email.';
-                      else if ($error.status == 100000)
-                        $message = 'You have not provided a valid telephone number.';
+                        if ($error.data.code == 1)
+                          $message = 'You have not provided a valid email.';
+                        else
+                          $message = 'You have not provided a valid telephone number.';
 
                       $ionicPopup.alert({
                         title: 'Profile has not been updated',
@@ -120,7 +121,31 @@
       };
 
       $scope.changePassword = function () {
-
+        $scope.popup = {};
+        $scope.popup.old = null;
+        $scope.popup.new = null;
+        $scope.popup.again = null;
+        var popup = $ionicPopup.show({
+          templateUrl: 'templates/change-password.html',
+          title: 'Change Your Password',
+          scope: $scope,
+          buttons: [
+            {text: 'Cancel'},
+            {
+              text: 'Change',
+              type: 'button-positive',
+              onTap: function (e) {
+                if (!$scope.popup.old && !$scope.popup.new && !$scope.popup.again) {
+                  // Don't allow the user to close unless he enters all fields.
+                  e.preventDefault();
+                }
+                else {
+                  // ProfileService.changePassword();
+                }
+              }
+            }
+          ]
+        });
       };
 
       $scope.initializeView();
