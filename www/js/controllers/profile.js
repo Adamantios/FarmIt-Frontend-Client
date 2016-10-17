@@ -5,14 +5,17 @@
 
   angular.module('app.controllers.profile', [])
 
-    .controller('ProfileCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, ProfileService, AddressService) {
+    .controller('ProfileCtrl', function ($scope, $state, $window, $ionicLoading, $ionicPopup, ProfileService,
+                                         AddressService) {
       $scope.addresses = [];
-      $scope.id = null;
-      $scope.name = null;
-      $scope.surname = null;
-      $scope.email = null;
-      $scope.tel = null;
-      $scope.somethingChanged = false;
+      $scope.profile = {};
+      $scope.profile.id = null;
+      $scope.profile.name = null;
+      $scope.profile.surname = null;
+      $scope.profile.email = null;
+      $scope.profile.tel = null;
+      $scope.profileBackup = {};
+      $scope.profile.somethingChanged = false;
 
       $scope.showLoader = function () {
         $ionicLoading.show({
@@ -40,11 +43,13 @@
         $scope.showLoader();
 
         ProfileService.getProfile().then(function ($success) {
-            $scope.id = $success.data.data.id;
-            $scope.name = $success.data.data.name;
-            $scope.surname = $success.data.data.surname;
-            $scope.email = $success.data.data.email;
-            $scope.tel = $success.data.data.tel_num;
+            $scope.profileBackup = $success.data.data;
+            $scope.profile.id = $success.data.data.id;
+            $scope.profile.name = $success.data.data.name;
+            $scope.profile.surname = $success.data.data.surname;
+            $scope.profile.email = $success.data.data.email;
+            $scope.profile.tel = $success.data.data.tel_num;
+            $scope.profile.somethingChanged = false;
 
             AddressService.getAddresses().then(function ($success) {
               $scope.addresses = $success.data.data;
@@ -59,7 +64,10 @@
       };
 
       $scope.changed = function () {
-        $scope.somethingChanged = true;
+        $scope.profile.somethingChanged = !!($scope.profileBackup.name != $scope.profile.name ||
+        $scope.profileBackup.surname != $scope.profile.surname ||
+        $scope.profileBackup.email != $scope.profile.email ||
+        $scope.profileBackup.tel_num != $scope.profile.tel);
       };
 
       $scope.saveChanges = function () {
@@ -75,8 +83,11 @@
               text: "Yes",
               type: 'button-positive',
               onTap: function () {
-                ProfileService.updateProfile($scope.id, $scope.name, $scope.surname, $scope.email, $scope.tel)
+                ProfileService.updateProfile($scope.profile.id, $scope.profile.name, $scope.profile.surname,
+                  $scope.profile.email, $scope.profile.tel)
                   .then(function () {
+                      $window.localStorage.setItem('email', $scope.profile.email);
+
                       $ionicPopup.alert({
                         title: 'Profile updated',
                         template: 'Your profile has been successfully updated.'

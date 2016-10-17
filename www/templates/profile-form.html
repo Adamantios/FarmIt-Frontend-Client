@@ -2,21 +2,22 @@
 <form class="list" name="profileForm">
   <h5>Name</h5>
   <label class="item item-input">
-    <input placeholder="name" type="text" name="name" ng-model="name" ng-change="changed()" ng-maxlength="50" required>
+    <input placeholder="name" type="text" name="name" ng-model="profile.name" ng-change="changed()"
+           ng-maxlength="50" required>
   </label>
   <h5>Surname</h5>
   <label class="item item-input">
-    <input placeholder="surname" type="text" name="surname" ng-model="surname"
+    <input placeholder="surname" type="text" name="surname" ng-model="profile.surname"
            ng-change="changed()" ng-maxlength="50" required>
   </label>
   <h5>Email</h5>
   <label class="item item-input">
-    <input placeholder="Email" type="email" name="email" ng-model="email"
+    <input placeholder="Email" type="email" name="email" ng-model="profile.email"
            ng-change="changed()" ng-maxlength="50" required>
   </label>
   <h5>Telephone Number</h5>
   <label class="item item-input">
-    <input placeholder="telephone number" type="tel" name="tel" ng-model="tel" ng-change="changed()"
+    <input placeholder="telephone number" type="tel" name="tel" ng-model="profile.tel" ng-change="changed()"
            ng-minlength="10" ng-maxlength="15" required>
   </label>
 </form>
@@ -35,17 +36,18 @@
   <p ng-show="profileForm.tel.$error.maxlength">* Telephone Number can't be more than 15 digits!</p>
 </div>
 
-<div class="centerText" ng-show="somethingChanged" ng-hide="profileForm.name.$error.required ||
-                                                                profileForm.surname.$error.required ||
-                                                                profileForm.email.$error.required ||
-                                                                profileForm.tel.$error.required ||
-                                                                (profileForm.email.$invalid && !profileForm.email.$pristine) ||
-                                                                (profileForm.tel.$invalid && !profileForm.tel.$pristine) ||
-                                                                profileForm.tel.$error.minlength ||
-                                                                profileForm.name.$error.maxlength ||
-                                                                profileForm.surname.$error.maxlength ||
-                                                                profileForm.email.$error.maxlength ||
-                                                                profileForm.tel.$error.maxlength">
+<div class="centerText" ng-hide="profileForm.name.$error.required ||
+                                 profileForm.surname.$error.required ||
+                                 profileForm.email.$error.required ||
+                                 profileForm.tel.$error.required ||
+                                 (profileForm.email.$invalid && !profileForm.email.$pristine) ||
+                                 (profileForm.tel.$invalid && !profileForm.tel.$pristine) ||
+                                 profileForm.tel.$error.minlength ||
+                                 profileForm.name.$error.maxlength ||
+                                 profileForm.surname.$error.maxlength ||
+                                 profileForm.email.$error.maxlength ||
+                                 profileForm.tel.$error.maxlength ||
+                                 !profile.somethingChanged">
   <br>
   <img class="saveIcon" ng-src="img/save.svg" ng-click="saveChanges()"/>
   <br>
