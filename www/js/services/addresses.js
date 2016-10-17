@@ -28,6 +28,24 @@
             .error(function ($returnedData) {
               return $returnedData;
             });
+        },
+
+        getAddresses: function () {
+          var $url = $rootScope.server + 'api/addresses/get_addresses';
+
+          var $parameters =
+          {
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
         }
       };
     })

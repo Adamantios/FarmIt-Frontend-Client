@@ -1,6 +1,11 @@
-<ion-view title="Profile">
+<ion-view title="Profile" cache-view="false">
   <ion-nav-buttons side="left">
     <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button-icon icon ion-android-home badge badge-stable" ui-sref="home.menu-content">
+      {{addresses.length}}
+    </button>
   </ion-nav-buttons>
 
   <ion-content padding="true">
@@ -8,33 +13,31 @@
     <form class="list">
       <h5>Name</h5>
       <label class="item item-input">
-        <input placeholder="name" type="text">
+        <input placeholder="name" type="text" ng-model="name" ng-change="changed()">
       </label>
       <h5>Surname</h5>
       <label class="item item-input">
-        <input placeholder="surname" type="text">
+        <input placeholder="surname" type="text" ng-model="surname" ng-change="changed()">
       </label>
       <h5>Email</h5>
       <label class="item item-input">
-        <input placeholder="Email" type="email">
+        <input placeholder="Email" type="email" ng-model="email" ng-change="changed()">
       </label>
       <h5>Telephone Number</h5>
       <label class="item item-input">
-        <input placeholder="telephone number" type="tel">
+        <input placeholder="telephone number" type="tel" ng-model="tel" ng-change="changed()">
       </label>
     </form>
-    <h5>Click here if you want to change your password :</h5>
-    <button class="button button-positive button-block button-clear" id="change-password">Change your password</button>
-    <h3>Addresses</h3>
-    <ion-list>
-      <ion-item>Address1</ion-item>
-    </ion-list>
 
-    <div class="centerText">
+    <div class="centerText" ng-show="somethingChanged">
       <br>
       <img class="saveIcon" ng-src="img/save.svg" ng-click="saveChanges()"/>
       <br>
       <p class="saveText" ng-click="saveChanges()">Save Changes</p>
     </div>
+
+    <button class="button button-positive button-block button-clear" ng-click="changePassword()">
+      Change your password
+    </button>
   </ion-content>
 </ion-view>

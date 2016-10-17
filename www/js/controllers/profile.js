@@ -5,7 +5,59 @@
 
   angular.module('app.controllers.profile', [])
 
-    .controller('ProfileCtrl', function ($scope, $ionicPopup) {
+    .controller('ProfileCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, GetProfileService, AddressService) {
+      $scope.addresses = [];
+      $scope.name = null;
+      $scope.surname = null;
+      $scope.email = null;
+      $scope.tel = null;
+      $scope.somethingChanged = false;
+
+      $scope.showLoader = function () {
+        $ionicLoading.show({
+          templateUrl: 'templates/loader.html',
+          animation: 'fade-in'
+        });
+      };
+
+      $scope.hideLoader = function () {
+        $ionicLoading.hide();
+      };
+
+      $scope.redirect_with_alert = function () {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Error loading data!',
+          template: 'Something went wrong while trying to load your profile data. Please try again!'
+        });
+
+        alertPopup.then(function () {
+          $state.go('home.menu-content');
+        });
+      };
+
+      $scope.initializeView = function () {
+        $scope.showLoader();
+
+        GetProfileService.getProfile().then(function ($success) {
+            $scope.name = $success.data.data.name;
+            $scope.surname = $success.data.data.surname;
+            $scope.email = $success.data.data.email;
+            $scope.tel = $success.data.data.tel_num;
+
+            AddressService.getAddresses().then(function ($success) {
+              $scope.addresses = $success.data.data;
+
+              $scope.hideLoader();
+            });
+          },
+          function () {
+            $scope.redirect_with_alert();
+          });
+      };
+
+      $scope.changed = function () {
+        $scope.somethingChanged = true;
+      };
 
       $scope.saveChanges = function () {
         // Confirm dialog
@@ -25,7 +77,13 @@
             }
           ]
         });
-      }
+      };
+
+      $scope.changePassword = function () {
+
+      };
+
+      $scope.initializeView();
     })
 
     .controller('SignUpCtrl', function ($scope, $window, $ionicPopup, $state, SignUpService) {
