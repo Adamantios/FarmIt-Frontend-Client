@@ -162,6 +162,27 @@
             .error(function ($returnedData) {
               return $returnedData;
             });
+        },
+
+        changePassword: function ($old, $new, $again) {
+          var $url = $rootScope.server + 'api/users/change_password';
+
+          var $parameters =
+          {
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token'),
+            "old": $old,
+            "new": $new,
+            "again": $again
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
         }
       };
 
