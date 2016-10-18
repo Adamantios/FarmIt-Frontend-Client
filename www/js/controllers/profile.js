@@ -239,7 +239,7 @@
       $scope.changeAddress = function () {
         $ionicPopup.show({
           title: 'Save changes',
-          template: 'Do you want to save the changes on your profile?',
+          template: 'Do you want to save the changes on your address?',
           buttons: [
             {
               text: "No"
@@ -248,6 +248,9 @@
               text: "Yes",
               type: 'button-positive',
               onTap: function () {
+                if ($scope.moreInfo.alias == null)
+                  $scope.moreInfo.alias = $scope.moreInfo.street;
+
                 AddressService.editAddress($scope.moreInfo.id, $scope.moreInfo.alias, $scope.moreInfo.street,
                   $scope.moreInfo.number, $scope.moreInfo.area, $scope.moreInfo.zip, $scope.moreInfo.tel).then(function () {
                     $scope.newAddressPopup.close();
