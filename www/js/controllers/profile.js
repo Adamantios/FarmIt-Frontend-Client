@@ -204,39 +204,31 @@
       };
 
       $scope.deleteAddress = function ($index) {
-        if ($scope.moreInfo.addresses.length > 1)
-          $scope.moreInfo.addresses.splice($index, 1);
+        if ($scope.moreInfo.addresses.length > 1) {
+          AddressService.deleteAddress($scope.moreInfo.addresses[$index].id).then(function () {
+              $scope.moreInfo.addresses.splice($index, 1);
+            },
+            function () {
+              $ionicPopup.alert({
+                title: "Address could not be deleted!",
+                template: "Something went wrong while trying to delete your address! Please try again!"
+              })
+            });
+        }
+        else
+          $ionicPopup.alert({
+            title: "Warning!",
+            template: "You can't delete your only address."
+          })
       };
 
       $scope.addAddress = function () {
-        var $newAddressPopup = $ionicPopup.show({
+        $scope.newAddressPopup = $ionicPopup.show({
           templateUrl: 'templates/new-address-form.html',
           cssClass: 'address-popup',
           title: 'Add New Address',
           scope: $scope,
-          buttons: [
-            {
-              text: 'Close',
-              onTap: function (e) {
-                e.preventDefault();
-
-                $ionicPopup.show({
-                  title: 'Are you sure?',
-                  template: "Are you sure that you don't want to add another address?",
-                  buttons: [
-                    {
-                      text: 'Yes',
-                      type: 'button-positive',
-                      onTap: function () {
-                        $newAddressPopup.close();
-                      }
-                    },
-                    {text: 'No'}
-                  ]
-                });
-              }
-            }
-          ]
+          buttons: [{text: 'Close'}]
         });
       };
 
@@ -248,11 +240,14 @@
 
         AddressService.createAddress($alias, $street, $number, $area, $zip, $tel).then(function () {
           $scope.isSpinning = false;
+          $scope.newAddressPopup.close();
 
           $ionicPopup.alert({
             title: 'Address created!',
             template: 'Your address has been successfully created.'
           });
+
+          $scope.initializeView();
 
         }, function () {
           $scope.isSpinning = false;
