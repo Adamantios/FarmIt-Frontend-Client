@@ -17,6 +17,14 @@
       $scope.profile.somethingChanged = false;
       $scope.moreInfo = {};
       $scope.moreInfo.addresses = [];
+      $scope.moreInfo.id = null;
+      $scope.moreInfo.alias = null;
+      $scope.moreInfo.street = null;
+      $scope.moreInfo.number = null;
+      $scope.moreInfo.area = null;
+      $scope.moreInfo.zip = null;
+      $scope.moreInfo.tel = null;
+      $scope.moreInfo.addressChanged = false;
       $scope.moreInfo.isSpinning = false;
 
       $scope.showLoader = function () {
@@ -70,6 +78,15 @@
         $scope.profileBackup.surname != $scope.profile.surname ||
         $scope.profileBackup.email != $scope.profile.email ||
         $scope.profileBackup.tel_num != $scope.profile.tel);
+      };
+
+      $scope.addressChanged = function () {
+        $scope.moreInfo.addressChanged = !!($scope.addressToEdit.alias != $scope.moreInfo.alias ||
+        $scope.addressToEdit.street != $scope.moreInfo.street ||
+        $scope.addressToEdit.number != $scope.moreInfo.number ||
+        $scope.addressToEdit.area != $scope.moreInfo.area ||
+        $scope.addressToEdit.zip_code != $scope.moreInfo.zip ||
+        $scope.addressToEdit.tel_num != $scope.moreInfo.tel);
       };
 
       $scope.saveChanges = function () {
@@ -200,7 +217,66 @@
       };
 
       $scope.editAddress = function ($index) {
+        $scope.index = $index;
+        $scope.addressToEdit = $scope.moreInfo.addresses[$index];
+        $scope.moreInfo.id = $scope.addressToEdit.id;
+        $scope.moreInfo.alias = $scope.addressToEdit.alias;
+        $scope.moreInfo.street = $scope.addressToEdit.street;
+        $scope.moreInfo.number = $scope.addressToEdit.number;
+        $scope.moreInfo.area = $scope.addressToEdit.area;
+        $scope.moreInfo.zip = parseInt($scope.addressToEdit.zip_code);
+        $scope.moreInfo.tel = parseInt($scope.addressToEdit.tel_num);
 
+        $scope.newAddressPopup = $ionicPopup.show({
+          templateUrl: 'templates/edit-address-form.html',
+          cssClass: 'address-popup',
+          title: 'Edit Your Address',
+          scope: $scope,
+          buttons: [{text: 'Close'}]
+        });
+      };
+
+      $scope.changeAddress = function () {
+        $ionicPopup.show({
+          title: 'Save changes',
+          template: 'Do you want to save the changes on your profile?',
+          buttons: [
+            {
+              text: "No"
+            },
+            {
+              text: "Yes",
+              type: 'button-positive',
+              onTap: function () {
+                AddressService.editAddress($scope.moreInfo.id, $scope.moreInfo.alias, $scope.moreInfo.street,
+                  $scope.moreInfo.number, $scope.moreInfo.area, $scope.moreInfo.zip, $scope.moreInfo.tel).then(function () {
+                    $scope.newAddressPopup.close();
+                    $scope.moreInfo.addressChanged = false;
+                    var $editedAddress = {};
+                    $editedAddress.alias = $scope.moreInfo.alias;
+                    $editedAddress.street = $scope.moreInfo.street;
+                    $editedAddress.number = $scope.moreInfo.number;
+                    $editedAddress.area = $scope.moreInfo.area;
+                    $editedAddress.zip_code = $scope.moreInfo.zip;
+                    $editedAddress.tel_num = $scope.moreInfo.tel;
+
+                    $scope.moreInfo.addresses[$scope.index] = $editedAddress;
+
+                    $ionicPopup.alert({
+                      title: 'Address updated',
+                      template: 'Your address has been successfully updated.'
+                    });
+                  },
+                  function () {
+                    $ionicPopup.alert({
+                      title: 'Address was not changed!',
+                      template: "Something went wrong while trying to change your address! Please try again!"
+                    });
+                  })
+              }
+            }
+          ]
+        });
       };
 
       $scope.deleteAddress = function ($index) {

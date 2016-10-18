@@ -49,6 +49,36 @@
             });
         },
 
+        editAddress: function ($id, $alias, $street, $number, $area, $zip, $tel) {
+          var $url = $rootScope.server + 'api/addresses/edit_address';
+
+          var $data =
+          {
+            "id": $id,
+            "alias": $alias,
+            "street": $street,
+            "number": $number,
+            "area": $area,
+            "zip_code": $zip,
+            "tel_num": $tel
+          };
+
+          var $parameters =
+          {
+            "data": $data,
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
+        },
+
         deleteAddress: function ($id) {
           var $url = $rootScope.server + 'api/addresses/delete_address';
 
