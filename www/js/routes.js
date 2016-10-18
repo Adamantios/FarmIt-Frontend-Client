@@ -19,7 +19,7 @@
         .state('first-address', {
           url: '/basic-profile',
           templateUrl: 'templates/first-address.html',
-          controller: 'FirstAddressCtrl'
+          controller: 'AddressCtrl'
         })
 
         .state('login', {
@@ -67,12 +67,6 @@
           url: '/profile',
           templateUrl: 'templates/profile.html',
           controller: 'ProfileCtrl'
-        })
-
-        .state('address', {
-          url: '/address',
-          templateUrl: 'templates/address.html',
-          controller: 'AddressCtrl'
         })
 
         .state('offers', {

@@ -5,9 +5,8 @@
 
   angular.module('app.controllers.profile', [])
 
-    .controller('ProfileCtrl', function ($scope, $state, $window, $ionicLoading, $ionicPopup, ProfileService,
-                                         AddressService) {
-      $scope.addresses = [];
+    .controller('ProfileCtrl', function ($scope, $state, $window, $ionicLoading, $ionicPopup, $ionicModal,
+                                         ProfileService, AddressService) {
       $scope.profile = {};
       $scope.profile.id = null;
       $scope.profile.name = null;
@@ -16,6 +15,9 @@
       $scope.profile.tel = null;
       $scope.profileBackup = {};
       $scope.profile.somethingChanged = false;
+      $scope.moreInfo = {};
+      $scope.moreInfo.addresses = [];
+      $scope.moreInfo.isSpinning = false;
 
       $scope.showLoader = function () {
         $ionicLoading.show({
@@ -52,7 +54,7 @@
             $scope.profile.somethingChanged = false;
 
             AddressService.getAddresses().then(function ($success) {
-              $scope.addresses = $success.data.data;
+              $scope.moreInfo.addresses = $success.data.data;
 
               $scope.hideLoader();
             });
@@ -183,6 +185,82 @@
               }
             }
           ]
+        });
+      };
+
+      $ionicModal.fromTemplateUrl('templates/addresses.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
+
+      $scope.openAddresses = function () {
+        $scope.modal.show();
+      };
+
+      $scope.editAddress = function ($index) {
+
+      };
+
+      $scope.deleteAddress = function ($index) {
+        if ($scope.moreInfo.addresses.length > 1)
+          $scope.moreInfo.addresses.splice($index, 1);
+      };
+
+      $scope.addAddress = function () {
+        var $newAddressPopup = $ionicPopup.show({
+          templateUrl: 'templates/new-address-form.html',
+          cssClass: 'address-popup',
+          title: 'Add New Address',
+          scope: $scope,
+          buttons: [
+            {
+              text: 'Close',
+              onTap: function (e) {
+                e.preventDefault();
+
+                $ionicPopup.show({
+                  title: 'Are you sure?',
+                  template: "Are you sure that you don't want to add another address?",
+                  buttons: [
+                    {
+                      text: 'Yes',
+                      type: 'button-positive',
+                      onTap: function () {
+                        $newAddressPopup.close();
+                      }
+                    },
+                    {text: 'No'}
+                  ]
+                });
+              }
+            }
+          ]
+        });
+      };
+
+      $scope.newAddress = function ($alias, $street, $number, $area, $zip, $tel) {
+        $scope.isSpinning = true;
+
+        if ($alias == null)
+          $alias = $street;
+
+        AddressService.createAddress($alias, $street, $number, $area, $zip, $tel).then(function () {
+          $scope.isSpinning = false;
+
+          $ionicPopup.alert({
+            title: 'Address created!',
+            template: 'Your address has been successfully created.'
+          });
+
+        }, function () {
+          $scope.isSpinning = false;
+
+          $ionicPopup.alert({
+            title: 'Error!',
+            template: 'Something went wrong while trying to create your address! Please try again!'
+          });
         });
       };
 

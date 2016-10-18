@@ -3,8 +3,8 @@
     <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button class="button-icon icon ion-android-home badge badge-stable" ui-sref="home.menu-content">
-      {{addresses.length}}
+    <button class="button-icon icon ion-android-home badge badge-stable" ng-click="openAddresses()">
+      {{moreInfo.addresses.length}}
     </button>
   </ion-nav-buttons>
 

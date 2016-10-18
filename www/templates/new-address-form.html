@@ -1,5 +1,9 @@
 <form class="list" name="addressForm">
   <label class="item item-input item-floating-label">
+    <span class="input-label">Alias</span>
+    <input placeholder="Alias" name="alias" ng-model="alias" ng-maxlength="100" type="text">
+  </label>
+  <label class="item item-input item-floating-label">
     <span class="input-label">Street</span>
     <input placeholder="Street" name="street" ng-model="street" ng-maxlength="100" type="text" required>
   </label>
@@ -30,6 +34,7 @@
     <p ng-show="addressForm.zip.$invalid && !addressForm.zip.$pristine">* Invalid Zip Code!</p>
     <p ng-show="addressForm.tel.$invalid && !addressForm.tel.$pristine">* Invalid Telephone Number!</p>
     <p ng-show="addressForm.tel.$error.minlength">* Telephone Number must be at least 10 digits!</p>
+    <p ng-show="addressForm.alias.$error.maxlength">* Alias can't be more than 100 characters!</p>
     <p ng-show="addressForm.street.$error.maxlength">* Street can't be more than 100 characters!</p>
     <p ng-show="addressForm.number.$error.maxlength">* Number can't be more than 45 characters!</p>
     <p ng-show="addressForm.area.$error.maxlength">* Area can't be more than 45 characters!</p>
@@ -38,7 +43,8 @@
   </div>
 
   <button class="button button-positive button-block button-clear"
-          ng-hide="addressForm.$invalid || isSpinning" ng-click="newAddress(street, number, area, zip, tel)">Ready to go!
+          ng-hide="addressForm.$invalid || isSpinning" ng-click="newAddress(alias, street, number, area, zip, tel)">
+    Create Address
   </button>
 
   <div id="progress-ring">

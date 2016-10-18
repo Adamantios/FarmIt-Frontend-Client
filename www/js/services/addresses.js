@@ -7,12 +7,13 @@
 
     .factory('AddressService', function ($http, $window, $rootScope) {
       return {
-        createAddress: function ($street, $number, $area, $zip, $tel) {
+        createAddress: function ($alias, $street, $number, $area, $zip, $tel) {
           var $url = $rootScope.server + 'api/addresses/insert';
 
           var $parameters =
           {
             "email": $window.localStorage.getItem('email'),
+            "alias": $alias,
             "street": $street,
             "number": $number,
             "area": $area,

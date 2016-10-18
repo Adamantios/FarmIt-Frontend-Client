@@ -1,0 +1,63 @@
+<ion-modal-view title="Addresses">
+  <ion-header-bar class="bar bar-header bar-balanced">
+    <h1 class="title">Your Addresses</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">Back</button>
+  </ion-header-bar>
+
+  <ion-content class="padding">
+    <form name="addresses" class="list">
+      <div class="list" ng-repeat="address in moreInfo.addresses track by $index">
+        <label class="item item-input">
+          <span class="input-label">Alias</span>
+          {{address.alias}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Area</span>
+          {{address.area}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Street</span>
+          {{address.street}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Number</span>
+          {{address.number}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Zip Code</span>
+          {{address.zip_code}}
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Telephone Number</span>
+          {{address.tel_num}}
+        </label>
+
+        <br>
+
+        <p class="buttonsSiblings">
+          <a class="editButton" ng-click="editAddress($index)">
+            Edit Address
+          </a>
+
+          <a class="deleteButton" ng-click="deleteAddress($index)">
+            Delete Address
+          </a>
+        </p>
+      </div>
+
+      <br ng-show="!moreInfo.addresses.length && !moreInfo.isSpinning">
+      <h3 id="error" ng-show="!moreInfo.addresses.length && !moreInfo.isSpinning">Something went wrong
+        while trying to load your addresses!
+      </h3>
+
+      <button class="button button-positive button-block button-clear"
+              ng-click="addAddress()" ng-hide="!moreInfo.addresses.length || moreInfo.isSpinning">
+        Add New Address
+      </button>
+
+      <div id="progress-ring">
+        <ion-spinner ng-show="moreInfo.isSpinning" icon="android"></ion-spinner>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
