@@ -164,7 +164,7 @@
             });
         },
 
-        changePassword: function ($old, $new, $again) {
+        changePassword: function ($old, $new) {
           var $url = $rootScope.server + 'api/users/change_password';
 
           var $parameters =
@@ -172,8 +172,7 @@
             "email": $window.localStorage.getItem('email'),
             "token": $window.localStorage.getItem('token'),
             "old": $old,
-            "new": $new,
-            "again": $again
+            "new": $new
           };
 
           return $http.post($url, $parameters)

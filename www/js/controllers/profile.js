@@ -125,7 +125,8 @@
         $scope.popup.old = null;
         $scope.popup.new = null;
         $scope.popup.again = null;
-        var popup = $ionicPopup.show({
+
+        $ionicPopup.show({
           templateUrl: 'templates/change-password.html',
           title: 'Change Your Password',
           scope: $scope,
@@ -135,12 +136,49 @@
               text: 'Change',
               type: 'button-positive',
               onTap: function (e) {
-                if (!$scope.popup.old && !$scope.popup.new && !$scope.popup.again) {
+                if (!$scope.popup.old || !$scope.popup.new || !$scope.popup.again) {
                   // Don't allow the user to close unless he enters all fields.
                   e.preventDefault();
                 }
                 else {
-                  // ProfileService.changePassword();
+                  if ($scope.popup.new == $scope.popup.again) {
+
+                    if ($scope.popup.old == $scope.popup.again) {
+                      e.preventDefault();
+
+                      $ionicPopup.alert({
+                        title: 'No changes',
+                        template: "No changes have been detected."
+                      });
+                    }
+
+                    else
+                      ProfileService.changePassword($scope.popup.old, $scope.popup.again).then(function () {
+                          $ionicPopup.alert({
+                            title: 'Password changed!',
+                            template: "Your password has been changed."
+                          });
+                        },
+                        function ($error) {
+                          var $message = 'Something went wrong while trying to update your password.';
+
+                          if ($error.status == 406)
+                            $message = 'The old password that you have provided is wrong.';
+
+                          $ionicPopup.alert({
+                            title: 'Password has not been updated',
+                            template: $message
+                          });
+                        });
+                  }
+                  else {
+                    e.preventDefault();
+
+                    $ionicPopup.alert({
+                      title: 'Password has not changed!',
+                      template: "The new password's fields do not match."
+                    });
+                  }
                 }
               }
             }
