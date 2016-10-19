@@ -18,6 +18,8 @@
       $scope.totalPrice = 0;
       $scope.stillSearching = false;
       $scope.isSpinning = false;
+      $scope.edit = {};
+      $scope.edit.quantity = 0;
 
       $scope.initializeView = function () {
         $scope.cartProducts = CartHelperService.initializeCart();
@@ -76,6 +78,7 @@
                     'id': $id,
                     'name': $name,
                     'quantity': $scope.popup.quantity,
+                    'unitPrice': $scope.popup.price,
                     'price': $scope.popup.price * $scope.popup.quantity,
                     'shipping': $shippingCost,
                     'additional': $additionalShipping,
@@ -129,6 +132,32 @@
         $scope.shipping = $results.shipping;
         $scope.additional = $results.additional;
         $scope.totalPrice = $results.totalPrice;
+      };
+
+      $scope.editProductQuantity = function ($index) {
+        $scope.edit.quantity = $scope.cartProducts[$index].quantity;
+
+        $ionicPopup.show({
+          title: 'Edit Quantity',
+          subTitle: $scope.cartProducts[$index].name,
+          scope: $scope,
+          templateUrl: 'templates/edit-product-quantity.html',
+          buttons: [
+            {
+              text: 'Ok',
+              type: 'button-positive',
+              onTap: function () {
+                $scope.cartProducts[$index].price += ($scope.edit.quantity - $scope.cartProducts[$index].quantity)
+                  * $scope.cartProducts[$index].unitPrice;
+                $scope.cartProducts[$index].quantity = $scope.edit.quantity;
+                $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+              }
+            },
+            {
+              text: 'Cancel'
+            }
+          ]
+        });
       };
 
       $scope.deleteProduct = function ($index) {

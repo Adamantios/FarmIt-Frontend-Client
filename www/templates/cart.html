@@ -26,9 +26,15 @@
 
         <br>
 
-        <a class="deleteButton" ng-click="deleteProduct($index)">
-          Remove Product
-        </a>
+        <p class="buttonsSiblings">
+          <a class="editButton" ng-click="editProductQuantity($index)">
+            Edit Quantity
+          </a>
+
+          <a class="deleteButton" ng-click="deleteProduct($index)">
+            Remove Product
+          </a>
+        </p>
       </div>
 
       <label ng-hide="!cartProducts.length" class="item item-input">

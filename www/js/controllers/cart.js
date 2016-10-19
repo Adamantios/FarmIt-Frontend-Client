@@ -2,10 +2,11 @@
 
   angular.module('app.controllers.cart', [])
 
-    .controller('CartCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, CartHelperService) {
+    .controller('CartCtrl', function ($scope, $stateParams, $window, $ionicModal, $ionicPopup, CartHelperService) {
       $scope.cartProducts = CartHelperService.initializeCart();
       $scope.totalPrice = 0;
       $scope.isSpinning = false;
+      $scope.edit = {};
 
       $ionicModal.fromTemplateUrl('templates/cart.html', {
         scope: $scope,
@@ -23,6 +24,32 @@
         $scope.shipping = $results.shipping;
         $scope.additional = $results.additional;
         $scope.totalPrice = $results.totalPrice;
+      };
+
+      $scope.editProductQuantity = function ($index) {
+        $scope.edit.quantity = $scope.cartProducts[$index].quantity;
+
+        $ionicPopup.show({
+          title: 'Edit Quantity',
+          subTitle: $scope.cartProducts[$index].name,
+          scope: $scope,
+          templateUrl: 'templates/edit-product-quantity.html',
+          buttons: [
+            {
+              text: 'Ok',
+              type: 'button-positive',
+              onTap: function () {
+                $scope.cartProducts[$index].price += ($scope.edit.quantity - $scope.cartProducts[$index].quantity)
+                  * $scope.cartProducts[$index].unitPrice;
+                $scope.cartProducts[$index].quantity = $scope.edit.quantity;
+                $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+              }
+            },
+            {
+              text: 'Cancel'
+            }
+          ]
+        });
       };
 
       $scope.deleteProduct = function ($index) {
