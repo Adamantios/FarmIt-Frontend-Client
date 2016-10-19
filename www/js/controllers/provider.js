@@ -91,7 +91,24 @@
 
         popup.then(function (ok) {
           if (ok) {
-            $scope.cartProducts.push($scope.productToAdd);
+            var $index;
+            var $found = false;
+
+            for (var i = 0, len = $scope.cartProducts.length; i < len; i++)
+
+              if ($scope.cartProducts[i].id == $scope.productToAdd.id) {
+                $index = i;
+                $found = true;
+                break;
+              }
+
+            if ($found) {
+              $scope.cartProducts[$index].quantity += $scope.productToAdd.quantity;
+              $scope.cartProducts[$index].price += $scope.productToAdd.price;
+            }
+            else
+              $scope.cartProducts.push($scope.productToAdd);
+
             $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
           }
         });
