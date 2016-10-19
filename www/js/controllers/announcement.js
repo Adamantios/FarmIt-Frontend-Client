@@ -34,13 +34,30 @@
       };
 
       $scope.addProduct = function () {
-        $scope.product = {
-          category: $scope.products.categorySelected,
-          subcategory: $scope.products.subcategorySelected,
-          amount: $scope.products.amount
-        };
+        var $index;
+        var $found = false;
 
-        $scope.announcement.push($scope.product);
+        for (var i = 0, len = $scope.announcement.length; i < len; i++)
+
+          if ($scope.announcement[i].category.id == $scope.products.categorySelected.id &&
+            $scope.announcement[i].subcategory.id == $scope.products.subcategorySelected.id) {
+            $index = i;
+            $found = true;
+            break;
+          }
+
+        if ($found)
+          $scope.announcement[$index].amount += $scope.products.amount;
+
+        else {
+          $scope.product = {
+            category: $scope.products.categorySelected,
+            subcategory: $scope.products.subcategorySelected,
+            amount: $scope.products.amount
+          };
+
+          $scope.announcement.push($scope.product);
+        }
 
         $scope.products.categorySelected = null;
         $scope.products.subcategorySelected = null;
@@ -86,6 +103,10 @@
             $scope.isSpinning = false;
             $scope.modal.hide();
             $state.go('home.menu-content');
+            $ionicPopup.alert({
+              title: 'Announcement Created',
+              template: 'Your announcement has been successfully created!'
+            });
           }, function () {
             $scope.isSpinning = false;
 
