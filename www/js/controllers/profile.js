@@ -285,22 +285,15 @@
       };
 
       $scope.deleteAddress = function ($index) {
-        if ($scope.moreInfo.addresses.length > 1) {
-          AddressService.deleteAddress($scope.moreInfo.addresses[$index].id).then(function () {
-              $scope.moreInfo.addresses.splice($index, 1);
-            },
-            function () {
-              $ionicPopup.alert({
-                title: "Address could not be deleted!",
-                template: "Something went wrong while trying to delete your address! Please try again!"
-              })
-            });
-        }
-        else
-          $ionicPopup.alert({
-            title: "Warning!",
-            template: "You can't delete your only address."
-          })
+        AddressService.deleteAddress($scope.moreInfo.addresses[$index].id).then(function () {
+            $scope.moreInfo.addresses.splice($index, 1);
+          },
+          function () {
+            $ionicPopup.alert({
+              title: "Address could not be deleted!",
+              template: "Something went wrong while trying to delete your address! Please try again!"
+            })
+          });
       };
 
       $scope.addAddress = function () {
@@ -322,11 +315,6 @@
         AddressService.createAddress($alias, $street, $number, $area, $zip, $tel).then(function () {
           $scope.isSpinning = false;
           $scope.newAddressPopup.close();
-
-          $ionicPopup.alert({
-            title: 'Address created!',
-            template: 'Your address has been successfully created.'
-          });
 
           $scope.initializeView();
 
