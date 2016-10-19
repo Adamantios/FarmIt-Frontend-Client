@@ -15,15 +15,21 @@
           {{prod.subcategory.name}}
         </label>
         <label class="item item-input">
-          <span class="input-label">Amount (kg)</span>
+          <span class="input-label">Quantity (kg)</span>
           {{prod.amount}}
         </label>
 
         <br>
 
-        <a class="deleteButton" ng-click="DeleteProduct($index)">
-          Remove Product
-        </a>
+        <p class="buttonsSiblings">
+          <a class="editButton" ng-click="editProductQuantity($index)">
+            Edit Quantity
+          </a>
+
+          <a class="deleteButton" ng-click="DeleteProduct($index)">
+            Remove Product
+          </a>
+        </p>
       </div>
 
       <label class="item item-input item-floating-label">

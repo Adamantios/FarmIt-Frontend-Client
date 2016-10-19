@@ -18,6 +18,7 @@
       $scope.product = null;
       $scope.announcement = [];
       $scope.isSpinning = false;
+      $scope.edit = {};
 
       $scope.removePristine = function () {
         $scope.products.amountPristine = false;
@@ -81,6 +82,29 @@
         $scope.products.price = null;
         $scope.products.duration = 1;
       });
+
+      $scope.editProductQuantity = function ($index) {
+        $scope.edit.quantity = $scope.announcement[$index].amount;
+
+        $ionicPopup.show({
+          title: 'Edit Quantity',
+          subTitle: $scope.announcement[$index].category.name,
+          scope: $scope,
+          templateUrl: 'templates/edit-product-quantity.html',
+          buttons: [
+            {
+              text: 'Ok',
+              type: 'button-positive',
+              onTap: function () {
+                $scope.announcement[$index].amount = $scope.edit.quantity;
+              }
+            },
+            {
+              text: 'Cancel'
+            }
+          ]
+        });
+      };
 
       $scope.DeleteProduct = function ($index) {
         $scope.announcement.splice($index, 1);
