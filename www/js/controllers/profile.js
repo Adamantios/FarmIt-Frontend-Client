@@ -63,7 +63,9 @@
 
             AddressService.getAddresses().then(function ($success) {
               $scope.moreInfo.addresses = $success.data.data;
-
+              $scope.hideLoader();
+            },
+            function () {
               $scope.hideLoader();
             });
           },
@@ -380,7 +382,12 @@
           $window.localStorage.setItem('token', $success.data.token);
           $window.localStorage.setItem('email', $success.data.session.email);
           $scope.isSpinning = false;
-          $state.go('home.menu-content');
+
+          if (!$success.data.addresses)
+            $state.go('first-address');
+          else
+            $state.go('home.menu-content');
+
         }, function ($error) {
           $scope.isSpinning = false;
 

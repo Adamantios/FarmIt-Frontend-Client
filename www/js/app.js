@@ -18,7 +18,11 @@
           LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
             .then(function ($success) {
               $window.localStorage.setItem('token', $success.data.token);
-              $state.go('home.menu-content');
+
+              if (!$success.data.addresses)
+                $state.go('first-address');
+              else
+                $state.go('home.menu-content');
             });
         }
       };
