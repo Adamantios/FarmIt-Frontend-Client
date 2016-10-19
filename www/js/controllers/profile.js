@@ -248,14 +248,16 @@
               text: "Yes",
               type: 'button-positive',
               onTap: function () {
-                if ($scope.moreInfo.alias == null)
+                if ($scope.moreInfo.alias == '') {
                   $scope.moreInfo.alias = $scope.moreInfo.street;
+                }
 
                 AddressService.editAddress($scope.moreInfo.id, $scope.moreInfo.alias, $scope.moreInfo.street,
                   $scope.moreInfo.number, $scope.moreInfo.area, $scope.moreInfo.zip, $scope.moreInfo.tel).then(function () {
                     $scope.newAddressPopup.close();
                     $scope.moreInfo.addressChanged = false;
                     var $editedAddress = {};
+                    $editedAddress.id = $scope.moreInfo.id;
                     $editedAddress.alias = $scope.moreInfo.alias;
                     $editedAddress.street = $scope.moreInfo.street;
                     $editedAddress.number = $scope.moreInfo.number;
