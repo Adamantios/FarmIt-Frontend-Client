@@ -1,0 +1,8 @@
+<div ng-repeat="(request_id, request_offers) in userOffers.offers">
+  <ion-list ng-repeat="offer in request_offers">
+    <ion-item>{{offer.price}}</ion-item>
+    <ion-list ng-repeat="product in offer.products">
+      <ion-item>{{product.name}}</ion-item>
+    </ion-list>
+  </ion-list>
+</div>
