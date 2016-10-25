@@ -1,7 +1,7 @@
 <div ng-repeat="requests_offers in userOffers.offers">
   <div ng-repeat="(request_id, request_offers) in requests_offers">
     <div ng-repeat="offer in request_offers">
-      <div class="card" ng-show="offer.accepted == 0" ng-click="chooseOffer()">
+      <div class="card" ng-show="offer.accepted == 0" ng-click="chooseOffer(offer.id)">
         <ion-item>Offer: {{offer.price}}&euro;</ion-item>
         <ion-list ng-repeat="product in offer.products">
           <ion-item>{{product.name}} {{product.quantity}}kg</ion-item>
