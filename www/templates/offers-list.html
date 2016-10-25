@@ -1,8 +1,27 @@
-<div ng-repeat="(request_id, request_offers) in userOffers.offers">
-  <ion-list ng-repeat="offer in request_offers">
-    <ion-item>{{offer.price}}</ion-item>
-    <ion-list ng-repeat="product in offer.products">
-      <ion-item>{{product.name}}</ion-item>
-    </ion-list>
-  </ion-list>
+<div ng-repeat="requests_offers in userOffers.offers">
+  <div ng-repeat="(request_id, request_offers) in requests_offers">
+    <div ng-repeat="offer in request_offers">
+      <div class="card" ng-show="offer.accepted == 0" ng-click="chooseOffer()">
+        <ion-item>Offer: {{offer.price}}&euro;</ion-item>
+        <ion-list ng-repeat="product in offer.products">
+          <ion-item>{{product.name}} {{product.quantity}}kg</ion-item>
+        </ion-list>
+      </div>
+
+      <div class="card disabledCard" ng-show="offer.accepted == 1">
+        <ion-item>Offer: {{offer.price}}&euro;</ion-item>
+        <ion-list ng-repeat="product in offer.products">
+          <ion-item>{{product.name}} {{product.quantity}}kg</ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div id="progress-ring">
+  <ion-spinner ng-show="userOffers.isSpinning" icon="android"></ion-spinner>
+</div>
+
+<h3 class="error" ng-show="!userOffers.offers.length && !userOffers.isSpinning">
+  You have no offers yet!
+</h3>

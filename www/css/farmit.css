@@ -93,6 +93,12 @@ ion-item {
   box-shadow: 3px 2px 5px #178025;
 }
 
+.disabledCard {
+  font-weight: lighter;
+  text-align: center;
+  box-shadow: 3px 2px 5px #b1adad;
+}
+
 .centerText {
   text-align: center;
 }
@@ -119,6 +125,10 @@ ion-item {
     .popup-body
     .popup-buttons.row
     .popup-buttons .button*/
+}
+
+.error {
+  color: red;
 }
 
 #success {
