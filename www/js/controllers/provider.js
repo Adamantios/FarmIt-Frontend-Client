@@ -151,6 +151,7 @@
                   * $scope.cartProducts[$index].unitPrice;
                 $scope.cartProducts[$index].quantity = $scope.edit.quantity;
                 $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+                $scope.openCart();
               }
             },
             {
