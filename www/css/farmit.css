@@ -141,6 +141,11 @@ ion-item {
   background: url("../img/top.png") no-repeat center;
 }
 
+.tractor-image {
+  background: url("../img/tractor.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
 .background-image {
   background: url("../img/wood.jpg") no-repeat fixed center;
   background-size: cover;
@@ -148,6 +153,16 @@ ion-item {
 
 .vegetables-image {
   background: url("../img/vegetables.png") no-repeat fixed center;
+  background-size: cover;
+}
+
+.fruits-vegetables-image {
+  background: url("../img/fruits-vegetables.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.statistics-image {
+  background: url("../img/statistics.jpg") no-repeat fixed center;
   background-size: contain;
 }
 

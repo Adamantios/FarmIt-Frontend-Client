@@ -3,7 +3,7 @@
     <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
   </ion-nav-buttons>
 
-  <ion-content padding="true">
+  <ion-content padding="true" class="statistics-image">
     <ion-list ng-hide="isSpinning || fetchError">
       <ion-item>Announcements Created: {{announcementsCreated}}</ion-item>
       <ion-item>Offers Accepted: {{offersAccepted}}/{{offersReceived}}</ion-item>
