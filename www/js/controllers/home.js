@@ -12,9 +12,16 @@
       };
 
       $scope.about = function () {
-        $ionicPopup.alert({
+        $ionicPopup.show({
           title: 'About',
-          templateUrl: 'templates/about.html'
+          templateUrl: 'templates/about.html',
+          cssClass: 'about-popup',
+          buttons:
+          [
+            {
+              text:'Close'
+            }
+          ]
         });
       };
     })

@@ -127,8 +127,38 @@ ion-item {
     .popup-buttons .button*/
 }
 
-.error {
-  color: red;
+.about-popup .popup {
+  background: url("../img/wood.jpg") no-repeat fixed center;
+  background-size: contain;
+}
+
+.about-popup .popup-body {
+  background: url("../img/vegetables.png") no-repeat fixed center;
+  background-size: contain;
+}
+
+.about-popup .popup-buttons .button{
+  background: url("../img/top.png") no-repeat center;
+}
+
+.background-image {
+  background: url("../img/wood.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.vegetables-image {
+  background: url("../img/vegetables.png") no-repeat fixed center;
+  background-size: contain;
+}
+
+.top-image {
+  background: url("../img/top.png") no-repeat fixed center;
+  background-size: contain;
+}
+
+.white {
+  color: white;
+  font-weight: bolder;
 }
 
 #success {
