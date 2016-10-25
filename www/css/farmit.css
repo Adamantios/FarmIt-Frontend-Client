@@ -49,6 +49,15 @@ ion-item {
   margin-right: 1%;
 }
 
+.editButton:hover {
+  background-color: #439ceb;
+}
+
+.editButton:active {
+  position: relative;
+  top: 1px;
+}
+
 .deleteButton {
   -moz-box-shadow: inset 0 34px 2px 5px #e67a73;
   -webkit-box-shadow: inset 0 34px 2px 5px #e67a73;
@@ -65,10 +74,6 @@ ion-item {
   padding: 7px 15px;
 }
 
-.buttonsSiblings {
-  text-align: start;
-}
-
 .deleteButton:hover {
   background-color: #eb675e;
 }
@@ -76,6 +81,10 @@ ion-item {
 .deleteButton:active {
   position: relative;
   top: 1px;
+}
+
+.buttonsSiblings {
+  text-align: start;
 }
 
 .card {
