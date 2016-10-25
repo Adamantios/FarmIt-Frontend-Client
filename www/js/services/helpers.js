@@ -52,19 +52,14 @@
           var $totalPrice = 0;
           var $shipping = 0;
           var $additional = 0;
-          var $distinctProductInCart = [];
 
           angular.forEach(cartProducts, function (product) {
             $totalPrice += parseFloat(product.price);
-
-            if ($distinctProductInCart.indexOf(product.id) == -1) {
-              $distinctProductInCart.push(product.id);
-              var $extraShipping = parseFloat(product.shipping);
-              var $extraAdditional = parseFloat(product.additional);
-              $shipping += $extraShipping;
-              $additional += $extraAdditional;
-              $totalPrice += $extraShipping + $extraAdditional;
-            }
+            var $extraShipping = parseFloat(product.shipping);
+            var $extraAdditional = parseFloat(product.additional);
+            $shipping += $extraShipping;
+            $additional += $extraAdditional;
+            $totalPrice += $extraShipping + $extraAdditional;
           });
 
           return {
@@ -75,26 +70,11 @@
         },
 
         deleteProduct: function ($index, modal, cartProducts, totalPrice) {
-          var $distinctProductInCart = [];
-          var $productToRemove = cartProducts[$index].id;
-          var $shipping = cartProducts[$index].shipping;
-          var $additional = cartProducts[$index].additional;
-
+          var $shipping = parseFloat(cartProducts[$index].shipping);
+          var $additional = parseFloat(cartProducts[$index].additional);
+          totalPrice -= $shipping + $additional;
           totalPrice -= parseFloat(cartProducts[$index].price);
           cartProducts.splice($index, 1);
-
-          angular.forEach(cartProducts, function (product) {
-            if ($distinctProductInCart.indexOf(product.id) == -1)
-              $distinctProductInCart.push(product.id);
-          });
-
-          if ($distinctProductInCart.indexOf($productToRemove) == -1) {
-            var $removingShipping = parseFloat($shipping);
-            var $removingAdditional = parseFloat($additional);
-            $shipping -= $removingShipping;
-            $additional -= $removingAdditional;
-            totalPrice -= $removingShipping + $removingAdditional;
-          }
 
           if (cartProducts.length == 0)
             modal.hide();

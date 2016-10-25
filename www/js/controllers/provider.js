@@ -165,8 +165,8 @@
         var $results = CartHelperService.deleteProduct($index, $scope.modal, $scope.cartProducts, $scope.totalPrice);
 
         $scope.cartProducts = $results.cartProducts;
-        $scope.shipping = $results.shipping;
-        $scope.additional = $results.additional;
+        $scope.shipping -= $results.shipping;
+        $scope.additional -= $results.additional;
         $scope.totalPrice = $results.totalPrice;
       };
 
