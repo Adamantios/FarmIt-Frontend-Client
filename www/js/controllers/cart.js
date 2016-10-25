@@ -39,11 +39,12 @@
               text: 'Ok',
               type: 'button-positive',
               onTap: function () {
-                $scope.cartProducts[$index].price += ($scope.edit.quantity - $scope.cartProducts[$index].quantity)
+                var $priceDifference = ($scope.edit.quantity - $scope.cartProducts[$index].quantity)
                   * $scope.cartProducts[$index].unitPrice;
+                $scope.cartProducts[$index].price += $priceDifference;
+                $scope.totalPrice += $priceDifference;
                 $scope.cartProducts[$index].quantity = $scope.edit.quantity;
                 $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
-                $scope.openCart();
               }
             },
             {
