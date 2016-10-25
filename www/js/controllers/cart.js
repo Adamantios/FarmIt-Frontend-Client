@@ -76,7 +76,6 @@
               text: "Yes",
               type: 'button-positive',
               onTap: function () {
-                alert('ok');
                 $scope.isSpinning = true;
 
                 var $results = CartHelperService.purchase($scope.modal, $scope.cartProducts, $scope.totalPrice);
