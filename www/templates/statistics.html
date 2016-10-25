@@ -1,6 +1,21 @@
-<ion-view title="Statistics">
+<ion-view title="Statistics" cache-view="false">
   <ion-nav-buttons side="left">
     <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
   </ion-nav-buttons>
-  <ion-content padding="true"></ion-content>
+
+  <ion-content padding="true">
+    <ion-list ng-hide="isSpinning || fetchError">
+      <ion-item>Announcements Created: {{announcementsCreated}}</ion-item>
+      <ion-item>Offers Accepted: {{offersAccepted}}/{{offersReceived}}</ion-item>
+      <ion-item>Instant Purchases: {{instantPurchases}}</ion-item>
+    </ion-list>
+
+    <div id="progress-ring">
+      <ion-spinner ng-show="isSpinning" icon="android"></ion-spinner>
+    </div>
+
+    <div ng-show="fetchError && !isSpinning">
+      <h3 id="error">Your statistics could not be fetched!</h3>
+    </div>
+  </ion-content>
 </ion-view>

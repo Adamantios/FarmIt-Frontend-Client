@@ -187,4 +187,27 @@
 
     })
 
+    .factory('StatisticsService', function ($http, $rootScope, $window) {
+
+      return {
+        getStatistics: function () {
+          var $url = $rootScope.server + 'api/users/get_statistics';
+
+          var $parameters =
+          {
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
+        }
+      };
+
+    })
 })();
