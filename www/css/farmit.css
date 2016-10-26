@@ -1,5 +1,6 @@
 h1 {
   text-align: center;
+  color: #3e4cb1;
 }
 
 h2 {
@@ -176,6 +177,10 @@ ion-item {
   font-weight: bolder;
 }
 
+.farmit {
+  padding-top: 50%;
+}
+
 #success {
   color: green;
 }
@@ -200,4 +205,9 @@ ion-item {
 
 #basic ion-item {
   text-align: left;
+}
+
+#or {
+  color: #e9d806;
+  font-style: italic;
 }
