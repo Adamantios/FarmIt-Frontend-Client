@@ -181,6 +181,10 @@ ion-item {
   padding-top: 50%;
 }
 
+.transparent {
+  background: fixed;
+}
+
 #success {
   color: green;
 }
