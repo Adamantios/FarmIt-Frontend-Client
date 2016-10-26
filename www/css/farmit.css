@@ -149,8 +149,8 @@ ion-item {
   background: url("../img/top.png") no-repeat center;
 }
 
-.tractor-image {
-  background: url("../img/tractor.jpg") no-repeat fixed center;
+.farm-image {
+  background: url("../img/farm.jpg") no-repeat fixed center;
   background-size: cover;
 }
 
@@ -190,7 +190,7 @@ ion-item {
 }
 
 .farmit {
-  padding-top: 50%;
+  padding-top: 70%;
 }
 
 .transparent {
@@ -220,6 +220,6 @@ ion-item {
 }
 
 #or {
-  color: #e9d806;
-  font-style: italic;
+  color: #ffc900;
+  font-weight: 900;
 }
