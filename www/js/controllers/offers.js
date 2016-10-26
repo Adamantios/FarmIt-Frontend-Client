@@ -28,6 +28,9 @@
               onTap: function () {
                 $scope.acceptOffer($popup, $id);
               }
+            },
+            {
+              text: 'No'
             }
           ]
         })
