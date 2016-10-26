@@ -53,7 +53,9 @@
       <br ng-show="!cartProducts.length && !isSpinning">
       <h3 id="error" ng-show="!cartProducts.length && !isSpinning">Your cart is empty!</h3>
 
-      <button class="button button-positive button-block button-clear"
+      <br>
+
+      <button class="button button-calm button-block"
               ng-click="buy()" ng-hide="!cartProducts.length || isSpinning">Purchase Product(s)
       </button>
 

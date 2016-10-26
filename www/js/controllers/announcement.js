@@ -14,7 +14,6 @@
       $scope.products.amountPristine = true;
       $scope.categories = {};
       $scope.subcategories = {};
-      $scope.successFlag = false;
       $scope.product = null;
       $scope.announcement = [];
       $scope.isSpinning = false;
@@ -64,14 +63,6 @@
         $scope.products.subcategorySelected = null;
         $scope.products.amountPristine = true;
         $scope.products.amount = null;
-
-        // Success message
-        $scope.successFlag = true;
-
-        // Erase message after 2 second
-        $interval(function () {
-          $scope.successFlag = false;
-        }, 2000);
       };
 
       $ionicModal.fromTemplateUrl('templates/announcement-modal.html', {
@@ -82,6 +73,11 @@
         $scope.products.price = null;
         $scope.products.duration = 1;
       });
+
+      $scope.showAnnouncement = function () {
+        if ($scope.announcement.length > 0)
+          $scope.modal.show();
+      };
 
       $scope.editProductQuantity = function ($index) {
         $scope.edit.quantity = $scope.announcement[$index].amount;

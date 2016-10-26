@@ -3,7 +3,7 @@
     <h1 class="title">Your Announcement</h1>
     <button class="button button-clear button-primary" ng-click="modal.hide()">Add More</button>
   </ion-header-bar>
-  <ion-content class="padding background-image">
+  <ion-content class="padding fruits-vegetables-image">
     <form name="ProductsForm" class="list">
       <div class="list" ng-repeat="prod in announcement track by $index" ng-hide="">
         <label class="item item-input">
@@ -32,12 +32,12 @@
         </p>
       </div>
 
-      <label class="item item-input item-floating-label">
+      <label class="item item-input">
         <span class="input-label">Highest Price &euro; (optional)</span>
         <input placeholder="Highest Price (optional)" name="price" ng-model="products.price" type="number" min="1">
       </label>
 
-      <label class="item item-input item-floating-label">
+      <label class="item item-input">
         <span class="input-label">Duration (days)</span>
         <input placeholder="Announcement Duration (days)" name="duration" ng-model="products.duration"
                type="number" min=1 max=365 minlength="1" required>
@@ -50,7 +50,9 @@
         <p ng-show="ProductsForm.price.$invalid && !ProductsForm.price.$pristine">* Invalid Price!</p>
       </div>
 
-      <button class="button button-positive button-block button-clear"
+      <br>
+
+      <button class="button button-calm button-block "
               ng-click="createAnnouncement()" ng-hide="isSpinning">Upload Your Announcement
       </button>
 

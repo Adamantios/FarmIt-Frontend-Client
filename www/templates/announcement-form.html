@@ -20,14 +20,15 @@
       </select>
     </label>
 
-    <label class="item item-input item-floating-label">
+    <label class="item item-input">
       <input placeholder="Quantity (kg)" name="amount" ng-model="products.amount"
              type="number" min="0.5" max="10000" step="0.5" ng-change="removePristine()" required>
     </label>
   </div>
 
   <div>
-    <button type="button" class="button button-positive  button-block button-clear"
+    <br>
+    <button type="button" class="button button-calm  button-block"
             ng-show="!AnnouncementForm.$invalid
             && products.categorySelected && products.subcategorySelected && products.amount"
             ng-click="addProduct()">
@@ -35,21 +36,12 @@
     </button>
   </div>
 
-  <div id="success">
-    <p ng-show="successFlag">
-      Product has been added to your announcement form!
-    </p>
-  </div>
+  <div class="card note-card" ng-show="AnnouncementForm.amount.$error.required ||
+                             AnnouncementForm.amount.$invalid && !products.amountPristine">
 
-  <div>
     <p ng-show="AnnouncementForm.amount.$error.required">* Quantity is required!</p>
     <p ng-show="AnnouncementForm.amount.$invalid && !products.amountPristine">
-      * Invalid Amount!
+      * Invalid Quantity!
     </p>
   </div>
-
-  <button class="button button-positive  button-block button-clear"
-          ng-hide="!announcement.length" ng-click="modal.show()">
-    Show Your Announcement Form
-  </button>
 </form>

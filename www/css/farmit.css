@@ -91,13 +91,20 @@ ion-item {
 .card {
   font-weight: lighter;
   text-align: center;
-  box-shadow: 3px 2px 5px #178025;
+  box-shadow: 10px 8px 15px #178025;
+}
+
+.note-card {
+  font-weight: lighter;
+  text-align: center;
+  padding-left: 3%;
+  box-shadow: 0 0 0 white;
 }
 
 .disabledCard {
   font-weight: lighter;
   text-align: center;
-  box-shadow: 3px 2px 5px #b1adad;
+  box-shadow: 10px 8px 15px #b1adad;
 }
 
 .centerText {
@@ -162,6 +169,11 @@ ion-item {
   background-size: cover;
 }
 
+.spikes-image {
+  background: url("../img/spikes.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
 .statistics-image {
   background: url("../img/statistics.jpg") no-repeat fixed center;
   background-size: contain;
@@ -183,10 +195,6 @@ ion-item {
 
 .transparent {
   background: fixed;
-}
-
-#success {
-  color: green;
 }
 
 #error {
