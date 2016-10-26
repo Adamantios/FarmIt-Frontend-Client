@@ -62,12 +62,12 @@
             $scope.profile.somethingChanged = false;
 
             AddressService.getAddresses().then(function ($success) {
-              $scope.moreInfo.addresses = $success.data.data;
-              $scope.hideLoader();
-            },
-            function () {
-              $scope.hideLoader();
-            });
+                $scope.moreInfo.addresses = $success.data.data;
+                $scope.hideLoader();
+              },
+              function () {
+                $scope.hideLoader();
+              });
           },
           function () {
             $scope.hideLoader();
@@ -192,14 +192,8 @@
                           });
                         });
                   }
-                  else {
+                  else
                     e.preventDefault();
-
-                    $ionicPopup.alert({
-                      title: 'Password has not changed!',
-                      template: "The new password's fields do not match."
-                    });
-                  }
                 }
               }
             }
@@ -311,7 +305,7 @@
       $scope.newAddress = function ($alias, $street, $number, $area, $zip, $tel) {
         $scope.isSpinning = true;
 
-        if ($alias == null)
+        if ($alias == null || $alias == '')
           $alias = $street;
 
         AddressService.createAddress($alias, $street, $number, $area, $zip, $tel).then(function () {

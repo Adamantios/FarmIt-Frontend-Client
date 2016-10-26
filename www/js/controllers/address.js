@@ -11,7 +11,7 @@
       $scope.newAddress = function ($alias, $street, $number, $area, $zip, $tel) {
         $scope.isSpinning = true;
 
-        if ($alias == null)
+        if ($alias == '' || $alias == null)
           $alias = $street;
 
         AddressService.createAddress($alias, $street, $number, $area, $zip, $tel).then(function () {
