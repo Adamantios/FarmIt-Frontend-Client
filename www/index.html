@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://83.212.96.240 ws://localhost:35729
+     data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' localhost:35729
+     'unsafe-eval' 'unsafe-inline';">
+  <title></title>
 
-    <!-- Ionic CSS -->
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <!-- Ionic CSS -->
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/farmit.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/farmit.css" rel="stylesheet">
 
-    <!-- Material floating button CSS -->
-    <link href="lib/ng-material-floating-button/mfb/dist/mfb.css" rel="stylesheet">
+  <!-- Material floating button CSS -->
+  <link href="lib/ng-material-floating-button/mfb/dist/mfb.css" rel="stylesheet">
 
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- Cordova script (this will be a 404 during development) -->
-    <!--suppress HtmlUnknownTarget -->
-    <script src="cordova.js"></script>
+  <!-- Cordova script (this will be a 404 during development) -->
+  <!--suppress HtmlUnknownTarget -->
+  <script src="cordova.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="css/ionic.app.css" rel="stylesheet">
+  -->
 
-    <script src="js/app.js"></script>
-    <script src="js/controllers/controllers.js"></script>
-    <script src="js/controllers/statistics.js"></script>
-    <script src="js/controllers/profile.js"></script>
-    <script src="js/controllers/offers.js"></script>
-    <script src="js/controllers/home.js"></script>
-    <script src="js/controllers/address.js"></script>
-    <script src="js/controllers/farmit.js"></script>
-    <script src="js/controllers/evaluation.js"></script>
-    <script src="js/controllers/chat.js"></script>
-    <script src="js/controllers/announcement.js"></script>
-    <script src="js/controllers/provider.js"></script>
-    <script src="js/controllers/cart.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/services/services.js"></script>
-    <script src="js/services/profile.js"></script>
-    <script src="js/services/addresses.js"></script>
-    <script src="js/services/helpers.js"></script>
-    <script src="js/services/categories.js"></script>
-    <script src="js/services/announcements.js"></script>
-    <script src="js/services/providers.js"></script>
-    <script src="js/services/purchases.js"></script>
-    <script src="js/services/offers.js"></script>
-    <script src="js/directives/directives.js"></script>
-    <script src="js/directives/home.left.menu.js"></script>
-    <script src="js/directives/signup.form.js"></script>
-    <script src="js/directives/login.form.js"></script>
-    <script src="js/directives/delete.profile.form.js"></script>
-    <script src="js/directives/new.address.form.js"></script>
-    <script src="js/directives/announcement.form.js"></script>
-    <script src="js/directives/providers.card.js"></script>
-    <script src="js/directives/profile.form.js"></script>
-    <script src="js/directives/offers.list.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers/controllers.js"></script>
+  <script src="js/controllers/statistics.js"></script>
+  <script src="js/controllers/profile.js"></script>
+  <script src="js/controllers/offers.js"></script>
+  <script src="js/controllers/home.js"></script>
+  <script src="js/controllers/address.js"></script>
+  <script src="js/controllers/farmit.js"></script>
+  <script src="js/controllers/evaluation.js"></script>
+  <script src="js/controllers/chat.js"></script>
+  <script src="js/controllers/announcement.js"></script>
+  <script src="js/controllers/provider.js"></script>
+  <script src="js/controllers/cart.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/services/services.js"></script>
+  <script src="js/services/profile.js"></script>
+  <script src="js/services/addresses.js"></script>
+  <script src="js/services/helpers.js"></script>
+  <script src="js/services/categories.js"></script>
+  <script src="js/services/announcements.js"></script>
+  <script src="js/services/providers.js"></script>
+  <script src="js/services/purchases.js"></script>
+  <script src="js/services/offers.js"></script>
+  <script src="js/directives/directives.js"></script>
+  <script src="js/directives/home.left.menu.js"></script>
+  <script src="js/directives/signup.form.js"></script>
+  <script src="js/directives/login.form.js"></script>
+  <script src="js/directives/delete.profile.form.js"></script>
+  <script src="js/directives/new.address.form.js"></script>
+  <script src="js/directives/announcement.form.js"></script>
+  <script src="js/directives/providers.card.js"></script>
+  <script src="js/directives/profile.form.js"></script>
+  <script src="js/directives/offers.list.js"></script>
 
-    <!-- Material floating button directive -->
-    <script src="lib/ng-material-floating-button/src/mfb-directive.js"></script>
-    <!-- Only required for Tab projects w/ pages in multiple tabs
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
-  </head>
+  <!-- Material floating button directive -->
+  <script src="lib/ng-material-floating-button/src/mfb-directive.js"></script>
+  <!-- Only required for Tab projects w/ pages in multiple tabs
+  <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+  -->
+</head>
 
-  <!--suppress HtmlUnknownAttribute -->
-  <body ng-app="app" animation="slide-left-right-ios7">
-    <ion-nav-bar class="bar bar-header bar-balanced"></ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
-  </body>
+<!--suppress HtmlUnknownAttribute -->
+<body ng-app="app" animation="slide-left-right-ios7">
+<ion-nav-bar class="bar bar-header bar-balanced"></ion-nav-bar>
+<ion-nav-view></ion-nav-view>
+</body>
 </html>
