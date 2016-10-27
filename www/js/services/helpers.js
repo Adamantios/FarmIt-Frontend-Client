@@ -5,7 +5,7 @@
 
   angular.module('app.services.helpers', [])
 
-    .factory('NetworkHelperService', function ($ionicPopup) {
+    .factory('NetworkHelperService', function ($rootScope, $ionicPopup) {
       var noInternetPopup = function () {
         // Alert dialog
         $ionicPopup.alert({
@@ -33,7 +33,7 @@
         },
 
         addListener: function () {
-          document.addEventListener("offline", noInternetPopupAndExit(), false);
+          $rootScope.$on('$cordovaNetwork:offline', noInternetPopupAndExit());
         }
       }
     })
