@@ -27,7 +27,7 @@
       return {
         isConnected: function () {
           if (window.Connection)
-            return navigator.connection.type != Connection.NONE;
+            return navigator.connection.type !== Connection.NONE;
           else
             noInternetPopup();
         },
@@ -35,7 +35,7 @@
         addListener: function () {
           document.addEventListener("deviceready", function () {
             $rootScope.$on('$cordovaNetwork:offline', noInternetPopupAndExit());
-          });
+          }, false);
         }
       }
     })
