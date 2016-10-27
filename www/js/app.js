@@ -41,7 +41,8 @@
           StatusBar.styleDefault();
         }
 
-        // If the user isn't connected to the internet, a popup will be shown.
+        // If the user isn't connected to the internet,
+        // a popup will be shown and the app will exit when he presses the ok button.
         NetworkHelperService.addListener();
 
         // If the user has selected the remember me option, then login for him, in order to take a token,
