@@ -33,7 +33,9 @@
         },
 
         addListener: function () {
-          $rootScope.$on('$cordovaNetwork:offline', noInternetPopupAndExit());
+          document.addEventListener("deviceready", function () {
+            $rootScope.$on('$cordovaNetwork:offline', noInternetPopupAndExit());
+          });
         }
       }
     })
