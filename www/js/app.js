@@ -10,7 +10,7 @@
   angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
     .run(function ($ionicPlatform, $rootScope, $window, NetworkHelperService) {
-      $rootScope.server = "http://localhost:8080/farmit/";
+      $rootScope.server = "http://**************/farmit/";
 
       var checkRememberMeOption = function () {
         // If user has selected the remember me option

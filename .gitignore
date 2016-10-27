@@ -1,18 +1,5 @@
 # Ionic Folders to Ignore
-hooks/
 platforms/
-plugins/
-scss/
-www/lib
-ng-material-floating-button/
-
-# Ionic files to ignore
-/.bowerrc
-/.editorconfig
-/bower.json
-/gulpfile.js
-/ionic.project
-/package.json
 
 IDEA folder ignore
 .idea/
