@@ -19,5 +19,5 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <access origin="http://83.212.96.240:80/farmit" />
+  <access origin="http://83.212.96.240:80/farmit" subdomains="true"/>
 </widget>
