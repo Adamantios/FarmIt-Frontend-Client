@@ -17,6 +17,7 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="15"/>
   <preference name="BackupWebStorage" value="none"/>
+  <preference name="Orientation" value="portrait"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
