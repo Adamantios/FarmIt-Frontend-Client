@@ -33,7 +33,7 @@
         },
 
         addListener: function () {
-          document.addEventListener("deviceready", function () {
+          $ionicPlatform.ready(function () {
             $rootScope.$on('$cordovaNetwork:offline', noInternetPopupAndExit());
           }, false);
         }
