@@ -5,10 +5,10 @@
 
   angular.module('app.services.address', [])
 
-    .factory('AddressService', function ($http, $window, $rootScope) {
+    .factory('AddressService', function ($http, $window, SERVER) {
       return {
         createAddress: function ($alias, $street, $number, $area, $zip, $tel) {
-          var $url = $rootScope.server + 'api/addresses/insert';
+          var $url = SERVER.url + 'api/addresses/insert';
 
           var $parameters =
           {
@@ -32,7 +32,7 @@
         },
 
         getAddresses: function () {
-          var $url = $rootScope.server + 'api/addresses/get_addresses';
+          var $url = SERVER.url + 'api/addresses/get_addresses';
 
           var $parameters =
           {
@@ -50,7 +50,7 @@
         },
 
         editAddress: function ($id, $alias, $street, $number, $area, $zip, $tel) {
-          var $url = $rootScope.server + 'api/addresses/edit_address';
+          var $url = SERVER.url + 'api/addresses/edit_address';
 
           var $data =
           {
@@ -80,7 +80,7 @@
         },
 
         deleteAddress: function ($id) {
-          var $url = $rootScope.server + 'api/addresses/delete_address';
+          var $url = SERVER.url + 'api/addresses/delete_address';
 
           var $parameters =
           {

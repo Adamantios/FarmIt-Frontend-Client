@@ -2,10 +2,10 @@
 
   angular.module('app.services.categories', [])
 
-    .factory('CategoriesService', function ($http, $rootScope) {
+    .factory('CategoriesService', function ($http, SERVER) {
       return {
         get_categories: function () {
-          var $url = $rootScope.server + 'api/categories/get_categories';
+          var $url = SERVER.url + 'api/categories/get_categories';
 
           return $http.post($url, null)
             .success(function ($returnedData) {
@@ -18,10 +18,10 @@
       };
     })
 
-    .factory('SubcategoriesService', function ($http, $rootScope) {
+    .factory('SubcategoriesService', function ($http, SERVER) {
       return {
         get_subcategories: function ($category_id) {
-          var $url = $rootScope.server + 'api/categories/get_subcategories';
+          var $url = SERVER.url + 'api/categories/get_subcategories';
 
           var $parameters =
           {

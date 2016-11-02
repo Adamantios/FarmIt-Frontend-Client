@@ -5,10 +5,10 @@
 
   angular.module('app.services.providers', [])
 
-    .factory('GetProvidersService', function ($http, $rootScope) {
+    .factory('GetProvidersService', function ($http, SERVER) {
       return {
         getProviders: function ($start) {
-          var $url = $rootScope.server + 'api/users/get_producers';
+          var $url = SERVER.url + 'api/users/get_producers';
 
           var $parameter = {'start': $start};
 
@@ -22,7 +22,7 @@
         },
 
         getResults: function ($match, $start) {
-          var $url = $rootScope.server + 'api/products/search_products_producers';
+          var $url = SERVER.url + 'api/products/search_products_producers';
 
           var $parameters =
           {
@@ -40,7 +40,7 @@
         },
 
         getProducts: function ($email) {
-          var $url = $rootScope.server + 'api/products/get_products_by_producer_email';
+          var $url = SERVER.url + 'api/products/get_products_by_producer_email';
           var $parameter = {'email': $email};
 
           return $http.post($url, $parameter)

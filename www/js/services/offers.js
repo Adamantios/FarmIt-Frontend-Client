@@ -2,10 +2,10 @@
 
   angular.module('app.services.offers', [])
 
-    .factory('OffersService', function ($rootScope, $window, $http) {
+    .factory('OffersService', function ($window, $http, SERVER) {
       return {
         getOffers: function () {
-          var $url = $rootScope.server + 'api/offers/get_offers';
+          var $url = SERVER.url + 'api/offers/get_offers';
 
           var $parameters =
           {
@@ -23,7 +23,7 @@
         },
 
         acceptOffer: function ($offer_id) {
-          var $url = $rootScope.server + 'api/offers/accept_offer';
+          var $url = SERVER.url + 'api/offers/accept_offer';
 
           var $parameters =
           {

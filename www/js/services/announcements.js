@@ -2,11 +2,11 @@
 
   angular.module('app.services.announcements', [])
 
-    .factory('AnnouncementService', function ($http, $rootScope, $window) {
+    .factory('AnnouncementService', function ($http, $window, SERVER) {
 
       return {
         upload: function ($announcement, $final_price, $duration) {
-          var $url = $rootScope.server + 'api/announcements/upload';
+          var $url = SERVER.url + 'api/announcements/upload';
 
           var $parameters =
           {

@@ -7,10 +7,9 @@
 // 'starter.controllers' is found in controllers.js
 (function () {
 
-  angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+  angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.constants'])
 
-    .run(function ($ionicPlatform, $rootScope, $window, NetworkHelperService) {
-      $rootScope.server = "http://83.212.96.240:80/farmit/";
+    .run(function ($ionicPlatform, $window, NetworkHelperService) {
 
       var checkRememberMeOption = function () {
         // If user has selected the remember me option
@@ -43,7 +42,7 @@
 
         // If the user isn't connected to the internet,
         // a popup will be shown and the app will exit when he presses the ok button.
-        // NetworkHelperService.addListener();
+        NetworkHelperService.addListener();
 
         // If the user has selected the remember me option, then login for him, in order to take a token,
         // and redirect him at the home view.

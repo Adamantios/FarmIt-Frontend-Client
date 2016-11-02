@@ -5,10 +5,10 @@
 
   angular.module('app.services.profile', [])
 
-    .factory('SignUpService', function ($http, $rootScope) {
+    .factory('SignUpService', function ($http, SERVER) {
       return {
         signUp: function ($name, $surname, $email, $password, $tel) {
-          var $url = $rootScope.server + 'api/users/register';
+          var $url = SERVER.url + 'api/users/register';
 
           var $parameters =
           {
@@ -32,10 +32,10 @@
 
     })
 
-    .factory('LogInService', function ($http, $rootScope) {
+    .factory('LogInService', function ($http, $rootScope, SERVER) {
       return {
         logIn: function ($email, $password) {
-          var $url = $rootScope.server + 'api/users/login';
+          var $url = SERVER.url + 'api/users/login';
 
           var $parameters =
           {
@@ -53,7 +53,7 @@
         },
 
         logInBackstage: function ($email, $token) {
-          var $url = $rootScope.server + 'api/users/backstage_login';
+          var $url = SERVER.url + 'api/users/backstage_login';
 
           var $parameter =
           {
@@ -73,10 +73,10 @@
 
     })
 
-    .factory('LogOutService', function ($http, $rootScope) {
+    .factory('LogOutService', function ($http, SERVER) {
       return {
         logOut: function ($email) {
-          var $url = $rootScope.server + 'api/users/delete_token';
+          var $url = SERVER.url + 'api/users/delete_token';
 
           var $parameter = {"email": $email};
 
@@ -92,10 +92,10 @@
 
     })
 
-    .factory('DeleteProfileService', function ($http, $window, $rootScope) {
+    .factory('DeleteProfileService', function ($http, $window, SERVER) {
       return {
         deleteProfile: function ($email, $password) {
-          var $url = $rootScope.server + 'api/users/delete';
+          var $url = SERVER.url + 'api/users/delete';
 
           var $parameters =
           {
@@ -116,10 +116,10 @@
 
     })
 
-    .factory('ProfileService', function ($http, $window, $rootScope) {
+    .factory('ProfileService', function ($http, $window, SERVER) {
       return {
         getProfile: function () {
-          var $url = $rootScope.server + 'api/users/get_user';
+          var $url = SERVER.url + 'api/users/get_user';
 
           var $parameters =
           {
@@ -137,7 +137,7 @@
         },
 
         updateProfile: function ($id, $name, $surname, $email, $tel) {
-          var $url = $rootScope.server + 'api/users/update_user';
+          var $url = SERVER.url + 'api/users/update_user';
 
           var $data =
           {
@@ -165,7 +165,7 @@
         },
 
         changePassword: function ($old, $new) {
-          var $url = $rootScope.server + 'api/users/change_password';
+          var $url = SERVER.url + 'api/users/change_password';
 
           var $parameters =
           {
@@ -187,11 +187,11 @@
 
     })
 
-    .factory('StatisticsService', function ($http, $rootScope, $window) {
+    .factory('StatisticsService', function ($http, $window, SERVER) {
 
       return {
         getStatistics: function () {
-          var $url = $rootScope.server + 'api/users/get_statistics';
+          var $url = SERVER.url + 'api/users/get_statistics';
 
           var $parameters =
           {

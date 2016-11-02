@@ -10,7 +10,8 @@
     Adamantios Zaras
   </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  <access origin="http://83.212.96.240:80/farmit" subdomains="true"/>
+  <allow-navigation href="http://*/*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -19,6 +20,4 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <access origin="http://83.212.96.240:80/farmit" subdomains="true"/>
-  <allow-navigation href="http://*/*" />
 </widget>

@@ -2,12 +2,12 @@
 
   angular.module('app.services.purchases', [])
 
-    .factory('PurchasesService', function ($http, $rootScope, $window) {
+    .factory('PurchasesService', function ($http, $window, SERVER) {
 
       return {
         upload: function ($products, $total_price) {
           //noinspection SpellCheckingInspection
-          var $url = $rootScope.server + 'api/instantpurchases/create_instant_purchase';
+          var $url = SERVER.url + 'api/instantpurchases/create_instant_purchase';
 
           var $parameters =
           {

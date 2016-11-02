@@ -1,5 +1,8 @@
 # Ionic Folders to Ignore
 platforms/
 
-IDEA folder ignore
+# Api key ignore
+/.io-config.json
+
+# IDEA folder ignore
 .idea/
