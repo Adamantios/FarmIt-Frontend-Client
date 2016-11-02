@@ -101,7 +101,7 @@
               $state.go('home.menu-content');
               $ionicPopup.alert({
                 title: 'Excellent choice!',
-                template: 'An email with your purchase details have been sent to your account.' +
+                template: 'An email with your purchase details has been sent to your account.' +
                 ' In the mean time... Farmit some more!'
               });
             },
