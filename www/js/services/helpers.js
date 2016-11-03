@@ -5,6 +5,33 @@
 
   angular.module('app.services.helpers', [])
 
+    .factory('RememberMeService', function ($window, $state, $ionicLoading, LogInService) {
+      return {
+        checkRememberMeOptionAndNavigate: function () {
+          $ionicLoading.show({
+            templateUrl: 'templates/loader.html',
+            animation: 'fade-in'
+          });
+
+          // If user has selected the remember me option
+          if ($window.localStorage.getItem('remember_me') == true ||
+            $window.localStorage.getItem('remember_me') == 'true') {
+
+            LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
+              .then(function ($success) {
+                $window.localStorage.setItem('token', $success.data.token);
+                $ionicLoading.hide();
+
+                if (!$success.data.addresses)
+                  $state.go('first-address');
+                else
+                  $state.go('home.menu-content');
+              });
+          }
+        }
+      }
+    })
+
     .factory('NetworkHelperService', function ($rootScope, $ionicPopup) {
       var noInternetPopup = function () {
         // Alert dialog

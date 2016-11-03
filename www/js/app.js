@@ -11,21 +11,6 @@
 
     .run(function ($ionicPlatform, $window, NetworkHelperService) {
 
-      var checkRememberMeOption = function () {
-        // If user has selected the remember me option
-        if ($window.localStorage.getItem('remember_me') === true) {
-          LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
-            .then(function ($success) {
-              $window.localStorage.setItem('token', $success.data.token);
-
-              if (!$success.data.addresses)
-                $state.go('first-address');
-              else
-                $state.go('home.menu-content');
-            });
-        }
-      };
-
       $ionicPlatform.ready(function () {
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -43,10 +28,6 @@
         // If the user isn't connected to the internet,
         // a popup will be shown and the app will exit when he presses the ok button.
         NetworkHelperService.addListener();
-
-        // If the user has selected the remember me option, then login for him, in order to take a token,
-        // and redirect him at the home view.
-        checkRememberMeOption();
       });
     });
 })();
