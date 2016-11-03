@@ -5,7 +5,7 @@
 
   angular.module('app.services.helpers', [])
 
-    .factory('RememberMeService', function ($window, $state, $ionicLoading, LogInService) {
+    .factory('RememberMeService', function ($window, $state, $ionicLoading, $ionicPopup, LogInService) {
       return {
         checkRememberMeOptionAndNavigate: function () {
           // If user has selected the remember me option
@@ -26,6 +26,14 @@
                   $state.go('first-address');
                 else
                   $state.go('home.menu-content');
+              },
+              function () {
+                $ionicLoading.hide();
+                $ionicPopup.alert({
+                  title: 'You seem to have been logged in from another device!',
+                  template: 'You cannot be connected to farmit from multiple devices! If you sign in from another ' +
+                  'device, you are automatically signed out from the others, for safety reasons.'
+                });
               });
           }
         }
