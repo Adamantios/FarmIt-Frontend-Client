@@ -8,14 +8,14 @@
     .factory('RememberMeService', function ($window, $state, $ionicLoading, LogInService) {
       return {
         checkRememberMeOptionAndNavigate: function () {
-          $ionicLoading.show({
-            templateUrl: 'templates/loader.html',
-            animation: 'fade-in'
-          });
-
           // If user has selected the remember me option
           if ($window.localStorage.getItem('remember_me') == true ||
             $window.localStorage.getItem('remember_me') == 'true') {
+
+            $ionicLoading.show({
+              templateUrl: 'templates/loader.html',
+              animation: 'fade-in'
+            });
 
             LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
               .then(function ($success) {
