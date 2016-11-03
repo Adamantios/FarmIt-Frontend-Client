@@ -22,6 +22,13 @@
       $scope.edit.quantity = 0;
 
       $scope.initializeView = function () {
+        CartHelperService.getCart().then(function ($success) {
+            $window.localStorage.setItem('cart', $success.data.data);
+          },
+          function () {
+            $window.localStorage.setItem('cart', []);
+          });
+
         $scope.cartProducts = CartHelperService.initializeCart();
 
         if ($scope.fromSearch) {
@@ -113,6 +120,7 @@
               $scope.cartProducts.push($scope.productToAdd);
 
             $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+            CartHelperService.updateCart();
           }
         });
       };
@@ -153,6 +161,7 @@
                 $scope.totalPrice += $priceDifference;
                 $scope.cartProducts[$index].quantity = $scope.edit.quantity;
                 $window.localStorage.setItem('cart', JSON.stringify($scope.cartProducts));
+                CartHelperService.updateCart();
               }
             },
             {
@@ -169,6 +178,8 @@
         $scope.shipping -= $results.shipping;
         $scope.additional -= $results.additional;
         $scope.totalPrice = $results.totalPrice;
+
+        CartHelperService.updateCart();
       };
 
       $scope.buy = function () {
@@ -197,6 +208,8 @@
                 }
 
                 $scope.isSpinning = false;
+
+                CartHelperService.updateCart();
               }
             }
           ]

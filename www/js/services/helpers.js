@@ -67,8 +67,49 @@
       }
     })
 
-    .factory('CartHelperService', function ($state, $window, $ionicPopup, PurchasesService) {
+    .factory('CartHelperService', function ($state, $window, $http, $ionicPopup, PurchasesService, SERVER) {
       return {
+        getCart: function () {
+          var $url = SERVER.url + 'api/cart/get_cart';
+
+          var $parameters =
+          {
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
+        },
+
+        updateCart: function () {
+          var $url = SERVER.url + 'api/cart/change_cart';
+          var $cart = [].toString();
+
+          if ($window.localStorage.getItem('cart'))
+            $cart = $window.localStorage.getItem('cart').toString();
+
+          var $parameters =
+          {
+            "cart": $cart,
+            "email": $window.localStorage.getItem('email'),
+            "token": $window.localStorage.getItem('token')
+          };
+
+          return $http.post($url, $parameters)
+            .success(function ($returnedData) {
+              return $returnedData;
+            })
+            .error(function ($returnedData) {
+              return $returnedData;
+            });
+        },
+
         initializeCart: function () {
           if ($window.localStorage.getItem('cart'))
             return JSON.parse($window.localStorage.getItem('cart'));
