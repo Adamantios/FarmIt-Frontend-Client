@@ -32,7 +32,7 @@
                 $ionicPopup.alert({
                   title: 'You seem to have been logged in from another device!',
                   template: 'You cannot be connected to farmit from multiple devices! If you sign in from another ' +
-                  'device, you are automatically signed out from the others, for safety reasons.'
+                  'device, you are automatically being signed out from the others, for safety reasons.'
                 });
               });
           }
