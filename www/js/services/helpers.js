@@ -19,22 +19,22 @@
 
             LogInService.logInBackstage($window.localStorage.getItem('email'), $window.localStorage.getItem('token'))
               .then(function ($success) {
-                $window.localStorage.setItem('token', $success.data.token);
-                $ionicLoading.hide();
+                  $window.localStorage.setItem('token', $success.data.token);
+                  $ionicLoading.hide();
 
-                if (!$success.data.addresses)
-                  $state.go('first-address');
-                else
-                  $state.go('home.menu-content');
-              },
-              function () {
-                $ionicLoading.hide();
-                $ionicPopup.alert({
-                  title: 'You seem to have been logged in from another device!',
-                  template: 'You cannot be connected to farmit from multiple devices! If you sign in from another ' +
-                  'device, you are automatically being signed out from the others, for safety reasons.'
+                  if (!$success.data.addresses)
+                    $state.go('first-address');
+                  else
+                    $state.go('home.menu-content');
+                },
+                function () {
+                  $ionicLoading.hide();
+                  $ionicPopup.alert({
+                    title: 'You seem to have been logged in from another device!',
+                    template: 'You cannot be connected to farmit from multiple devices! If you sign in from another ' +
+                    'device, you are automatically being signed out from the others, for safety reasons.'
+                  });
                 });
-              });
           }
         }
       }
@@ -76,6 +76,24 @@
     })
 
     .factory('CartHelperService', function ($state, $window, $http, $ionicPopup, PurchasesService, SERVER) {
+      var emptyCart = function () {
+        var $url = SERVER.url + 'api/cart/empty_cart';
+
+        var $parameters =
+        {
+          "email": $window.localStorage.getItem('email'),
+          "token": $window.localStorage.getItem('token')
+        };
+
+        return $http.post($url, $parameters)
+          .success(function ($returnedData) {
+            return $returnedData;
+          })
+          .error(function ($returnedData) {
+            return $returnedData;
+          });
+      };
+
       return {
         getCart: function () {
           var $url = SERVER.url + 'api/cart/get_cart';
@@ -173,6 +191,7 @@
               totalPrice = 0;
               cartProducts = [];
               $window.localStorage.setItem('cart', cartProducts);
+              emptyCart();
               modal.hide();
               $state.go('home.menu-content');
               $ionicPopup.alert({

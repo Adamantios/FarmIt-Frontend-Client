@@ -208,8 +208,6 @@
                 }
 
                 $scope.isSpinning = false;
-
-                CartHelperService.updateCart();
               }
             }
           ]

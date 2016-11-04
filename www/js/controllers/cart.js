@@ -91,9 +91,13 @@
 
                 $scope.cartProducts = $results.cartProducts;
                 $scope.totalPrice = $results.totalPrice;
-                $scope.isSpinning = false;
 
-                CartHelperService.updateCart();
+                if (!$results.failed) {
+                  $scope.shipping = 0;
+                  $scope.additional = 0;
+                }
+
+                $scope.isSpinning = false;
               }
             }
           ]
