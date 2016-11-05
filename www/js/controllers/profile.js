@@ -469,13 +469,19 @@
                       $scope.isSpinning = false;
                       $state.go('farmit');
                     },
-                    function () {
+                    function ($error) {
                       $scope.isSpinning = false;
-                      // Alert dialog
-                      $ionicPopup.alert({
-                        title: 'Error!',
-                        template: 'Something went wrong while trying to delete your profile! Please try again!'
-                      });
+
+                      if ($error.status == 403)
+                        $ionicPopup.alert({
+                          title: 'Wrong password',
+                          template: 'The password that you have provided is wrong.'
+                        });
+                      else
+                        $ionicPopup.alert({
+                          title: 'Error!',
+                          template: 'Something went wrong while trying to delete your profile! Please try again!'
+                        });
                     });
                 }
 
