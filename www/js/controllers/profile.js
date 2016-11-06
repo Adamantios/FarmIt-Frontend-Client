@@ -328,14 +328,21 @@
     })
 
     .controller('SignUpCtrl', function ($scope, $window, $ionicPopup, $state, SignUpService) {
-
+      $scope.form = {};
+      $scope.form.name = null;
+      $scope.form.surname = null;
+      $scope.form.mail = null;
+      $scope.form.password = null;
+      $scope.form.tel = null;
       $scope.isSpinning = false;
       $scope.login = {'isChecked': false};
 
-      $scope.farmIn = function ($name, $surname, $email, $password, $tel) {
+      $scope.farmIn = function () {
         $scope.isSpinning = true;
 
-        SignUpService.signUp($name, $surname, $email, $password, $tel).then(function ($success) {
+        SignUpService.signUp($scope.form.name, $scope.form.surname, $scope.form.mail, $scope.form.password,
+          $scope.form.tel).then(function ($success) {
+
           $window.localStorage.setItem('remember_me', $scope.login['isChecked']);
           $window.localStorage.setItem('token', $success.data.token);
           $window.localStorage.setItem('email', $success.data.session.email);
@@ -361,6 +368,9 @@
     })
 
     .controller('LogInCtrl', function ($scope, $window, $ionicPopup, $state, LogInService, EmailHelperService) {
+      $scope.form = {};
+      $scope.form.mail = null;
+      $scope.form.password = null;
       $scope.isSpinning = false;
       $scope.login = {'isChecked': false};
 
@@ -368,10 +378,10 @@
         EmailHelperService.forgotMyPasswordEmail();
       };
 
-      $scope.farmIn = function ($email, $password) {
+      $scope.farmIn = function () {
         $scope.isSpinning = true;
 
-        LogInService.logIn($email, $password).then(function ($success) {
+        LogInService.logIn($scope.form.mail, $scope.form.password).then(function ($success) {
           $window.localStorage.setItem('remember_me', $scope.login['isChecked']);
           $window.localStorage.setItem('token', $success.data.token);
           $window.localStorage.setItem('email', $success.data.session.email);
@@ -439,13 +449,16 @@
     .controller('DeleteProfileCtrl', function ($scope, $state, $ionicPopup, $window, $ionicSideMenuDelegate,
                                                DeleteProfileService, EmailHelperService) {
 
+      $scope.form = {};
+      $scope.form.mail = null;
+      $scope.form.password = null;
       $scope.isSpinning = false;
 
       $scope.forgotYourPassword = function () {
         EmailHelperService.forgotMyPasswordEmail();
       };
 
-      $scope.goodbye = function ($email, $password) {
+      $scope.goodbye = function () {
         // Confirm dialog
         $ionicPopup.show({
           title: 'Delete Profile',
@@ -460,8 +473,8 @@
               onTap: function () {
                 $scope.isSpinning = true;
 
-                if ($email == $window.localStorage.getItem('email')) {
-                  DeleteProfileService.deleteProfile($email, $password).then(function () {
+                if ($scope.form.mail == $window.localStorage.getItem('email')) {
+                  DeleteProfileService.deleteProfile($scope.form.mail, $scope.form.password).then(function () {
                       $ionicSideMenuDelegate.toggleLeft();
                       $window.localStorage.setItem('remember_me', false);
                       $window.localStorage.setItem('token', null);

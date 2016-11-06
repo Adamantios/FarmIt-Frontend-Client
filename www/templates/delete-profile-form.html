@@ -3,11 +3,14 @@
   <br>
   <label class="item item-input item-floating-label">
     <span class="input-label">Email</span>
-    <input placeholder="Email" name="mail" ng-model="mail" type="email" required>
+    <input placeholder="Email" name="mail" ng-model="form.mail" type="email" required>
   </label>
-  <label class="item item-input item-floating-label">
+  <label class="item item-floating-label">
     <span class="input-label">Password</span>
-    <input placeholder="Password" name="password" ng-model="password" type="password" required>
+    <br>
+    <div class="item-input item-icon-right password">
+      <input placeholder="Password" name="password" ng-model="form.password" type="password" show-password required/>
+    </div>
   </label>
 
   <br>
@@ -22,5 +25,5 @@
   </div>
 
   <button class="button button-calm  button-block button-clear"
-          ng-hide="DeleteProfileForm.$invalid" ng-click="goodbye(mail, password)">Delete Profile!</button>
+          ng-hide="DeleteProfileForm.$invalid" ng-click="goodbye()">Delete Profile!</button>
 </form>

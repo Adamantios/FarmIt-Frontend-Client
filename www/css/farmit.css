@@ -20,6 +20,15 @@ ion-item {
   text-align: center;
 }
 
+.password {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  padding-top: 13%;
+}
+
 .ng-invalid {
   color: red;
 }
