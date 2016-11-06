@@ -1,4 +1,4 @@
-/* Work around issue with flickering while showing/hiding the nav bar */
+/* Work around issue with nav-bar hiding content in ios */
 .platform-ios.platform-cordova ion-nav-view {
   top: 2%;
 }
