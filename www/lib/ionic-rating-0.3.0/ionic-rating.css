@@ -1,0 +1,27 @@
+ul.rating li {
+  direction: ltr;
+  display: inline;
+  border: 0;
+  background: rgba(251, 255, 249, 0.7);
+  padding: 10px 10px 1px;
+}
+
+ul.rating li i {
+  font-size: 30px;
+  color: #ffb734;
+}
+
+.form-rating h4 {
+  font-family: Courier New, serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-rating h5 {
+  font-family: Courier New, serif;
+  font-weight: bold;
+}
+
+.form-rating .rating {
+  text-align: center;
+}

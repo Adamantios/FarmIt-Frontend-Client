@@ -16,10 +16,9 @@
           title: 'About',
           templateUrl: 'templates/about.html',
           cssClass: 'about-popup',
-          buttons:
-          [
+          buttons: [
             {
-              text:'Close'
+              text: 'Close'
             }
           ]
         });
@@ -27,7 +26,7 @@
     })
 
     .controller('HomeMenuCtrl', function ($scope, $state, $ionicScrollDelegate, $interval, $ionicPopover,
-                                          GetProvidersService) {
+                                          GetProvidersService, EvaluationService) {
       $scope.initializeVariables = function () {
         $scope.isSpinning = false;
         $scope.start = 0;
@@ -47,7 +46,7 @@
         $scope.evaluationsPendingNotifications = [];
       };
 
-      $scope.doRefresh = function() {
+      $scope.doRefresh = function () {
         $scope.initializeVariables();
         $scope.loadMoreResults();
         // Stop the ion-refresher from spinning
@@ -161,6 +160,20 @@
         };
 
         $state.go('provider', $parameters);
+      };
+
+      // TODO provider.canBeEvaluated = providerCanBeEvaluated(provider.id) when creating providers;
+      $scope.providerCanBeEvaluated = function ($id) {
+        EvaluationService.can_be_evaluated($id).then(function ($success) {
+            return $success.data.can_be_evaluated;
+          },
+          function () {
+            return false;
+          });
+      };
+
+      $scope.rateProvider = function ($provider) {
+        $state.go('evaluation', $provider);
       };
 
       $scope.initializeVariables();

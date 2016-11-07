@@ -7,7 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 (function () {
 
-  angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.constants'])
+  angular.module('app', ['ionic', 'ionic.rating', 'app.controllers', 'app.routes', 'app.services', 'app.directives',
+    'app.constants'])
 
     .run(function ($ionicPlatform, $window, NetworkHelperService) {
 

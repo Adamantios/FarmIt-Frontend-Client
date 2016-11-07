@@ -24,6 +24,10 @@
     <br>
     Additional shipping fees: {{product.additional_shipping}}&euro;
   </div>
+  <button class="button button-clear button-energized" ng-click="rateProvider(provider)"
+          ng-show="provider.canBeEvaluated">
+    Evaluate Provider
+  </button>
 </div>
 
 <div class="card" ng-repeat="provider in resultsProvidersMatched[0]">

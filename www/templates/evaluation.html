@@ -1,15 +1,32 @@
-<ion-view style="" title="Evaluation">
-    <ion-content padding="true">
-        <h5 style="color: rgb(0, 0, 0);">
-          How would you characterize this producer and the products that you received?
-        </h5>
-        <form style="" class="list">
-            <label style="" class="item item-input">
-                <span class="input-label"></span><textarea placeholder=""> </textarea>
-            </label>
-        </form>
-        <a class="button button-calm  button-block icon ion-android-star" id="evaluate" ui-sref="home">
-          Evaluate
-        </a>
-    </ion-content>
+<ion-view title="Evaluation">
+  <ion-nav-buttons side="left">
+    <button class="button-icon icon ion-ios-arrow-back" ui-sref="home.menu-content">Back</button>
+  </ion-nav-buttons>
+
+  <ion-content padding="true" class="evaluate-image">
+    <form class="form-rating">
+      <h2>
+        {{name}}
+      </h2>
+      <h4>
+        Rate:
+      </h4>
+      <!--suppress HtmlUnknownAttribute -->
+      <rating ng-model="rating.rate" max="rating.max"></rating>
+      <br>
+
+      <h5>
+        How would you characterize this producer and the products that you received from him?
+      </h5>
+      <div class="list">
+        <label class="item item-input">
+          <textarea placeholder="Comments" maxlength="1000"></textarea>
+        </label>
+      </div>
+
+      <a class="button button-energized button-block icon ion-android-star" id="evaluate" ng-click="evaluate()">
+        Submit
+      </a>
+    </form>
+  </ion-content>
 </ion-view>

@@ -12,6 +12,10 @@
         <i class="icon ion-ios-email"></i> {{provider.email}}
       </div>
     </div>
+    <button class="button button-clear button-energized" ng-click="rateProvider(provider)"
+            ng-show="provider.canBeEvaluated">
+      Evaluate Provider
+    </button>
   </div>
 </div>
 
