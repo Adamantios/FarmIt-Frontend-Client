@@ -3,5 +3,5 @@ Mobile app for farmers, made with ionic framework, in order to sell their produc
 
 ## Using
 Ionic Framework  
-ng material floating button
+ng material floating button  
 ionic rating directive
