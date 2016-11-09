@@ -228,7 +228,12 @@
           cssClass: 'address-popup',
           title: 'Edit Your Address',
           scope: $scope,
-          buttons: [{text: 'Close'}]
+          buttons: [{
+            text: 'Close',
+            onTap: function () {
+              $scope.moreInfo.addressChanged = false;
+            }
+          }]
         });
       };
 
