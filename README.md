@@ -4,6 +4,6 @@ Mobile app, made for farmers and consumers in order to sell and buy products dir
 See the [FarmIt Backend](https://github.com/Adamantios/FarmIt-Backend-Client) for the Clients.
 
 ## Using
-[Ionic Framework](https://ionicframework.com/)  
-[ng material floating button](https://github.com/nobitagit/ng-material-floating-button)  
-[ionic rating](https://github.com/fraserxu/ionic-rating)
+* [Ionic Framework](https://ionicframework.com/)  
+* [ng material floating button](https://github.com/nobitagit/ng-material-floating-button)  
+* [ionic rating](https://github.com/fraserxu/ionic-rating)
